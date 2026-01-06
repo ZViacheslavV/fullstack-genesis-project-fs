@@ -4,7 +4,7 @@ import { Lato, Comfortaa } from 'next/font/google';
 import { TanStackProvider } from '@/app/components';
 
 import './globals.css';
-import css from './layout.module.css';
+// import css from './layout.module.css';
 
 //===========================================================================
 
@@ -40,8 +40,8 @@ function RootLayout({
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <div className="container">
-            <main className={css.main}>
-              <div className={css.container}>
+            <main /* className={css.main} */>
+              <div /* className={css.container} */>
                 {children}
                 {modal}
               </div>
