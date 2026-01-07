@@ -1,4 +1,4 @@
-
+/* 
 .button {
 
   --btn-primary-bg: #feeccc;
@@ -101,7 +101,7 @@
 .button:focus-visible {
   outline: 2px solid var(--btn-primary-border);
   outline-offset: 2px;
-}
+} */
 
 
 
