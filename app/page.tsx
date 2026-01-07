@@ -1,3 +1,5 @@
+import { AddTaskForm, TasksReminderCard } from './components';
+
 const Home = () => (
   <>
     <div>
@@ -7,7 +9,8 @@ const Home = () => (
       <h1>MomTipCard</h1>
     </div>
     <div>
-      <h1>Tasks</h1>
+      <AddTaskForm />
+      <TasksReminderCard />
       <h1>FillingCheck</h1>
     </div>
   </>

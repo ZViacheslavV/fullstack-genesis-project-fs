@@ -1,11 +1,12 @@
 'use client';
 
+import TaskReminderCardClientPage from './TasksReminderCard.client';
 import css from './TasksReminderCard.module.css';
 
 //===============================================================
 
 function TasksReminderCard() {
-  return <div className={css.backdrop}></div>;
+  return <TaskReminderCardClientPage />;
 }
 
 export default TasksReminderCard;
