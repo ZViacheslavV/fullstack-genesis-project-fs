@@ -41,7 +41,7 @@ export const useAuthUserStore = create<AuthUserStore>()(
         })),
     }),
     {
-      name: 'user-draft',
+      name: 'user-state',
       partialize: (state) => ({
         user: state.user,
         isAuthenticated: state.isAuthenticated,
