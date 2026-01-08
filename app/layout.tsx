@@ -26,7 +26,42 @@ const comfortaa = Comfortaa({
 
 //===========================================================================
 
-export const metadata: Metadata = {};
+const SITE_URL = 'https://...';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+
+  title: 'Лелека | Додаток для майбутніх мам',
+  description:
+    'Лелека — додаток для майбутніх мам: відстеження тижнів вагітності, поради, важливі завдання та щоденник самопочуття.',
+
+  openGraph: {
+    title: 'Лелека | Додаток для майбутніх мам',
+    description:
+      'Відстежуйте тижні вагітності, отримуйте поради, керуйте завданнями та ведіть щоденник.',
+    url: SITE_URL,
+    siteName: 'Лелека',
+    images: [
+      {
+        url: '/public/leleka-og-meta.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Лелека — додаток для майбутніх мам',
+      },
+    ],
+
+    locale: 'uk_UA',
+    type: 'website',
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Лелека | Додаток для майбутніх мам',
+    description:
+      'Відстежуйте тижні вагітності, отримуйте поради, керуйте завданнями та ведіть щоденник.',
+    images: ['/public/leleka-og-meta.jpg'],
+  },
+};
 
 //===========================================================================
 
