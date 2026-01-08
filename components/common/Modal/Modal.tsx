@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import { createPortal } from "react-dom";
-import css from "./Modal.module.css";
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import css from './Modal.module.css';
 
 type ModalProps = {
   isOpen: boolean;
@@ -25,28 +25,28 @@ const Modal: React.FC<ModalProps> = ({
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (closeOnEsc && e.key === "Escape") {
+      if (closeOnEsc && e.key === 'Escape') {
         onClose();
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = originalOverflow;
     };
   }, [isOpen, closeOnEsc, onClose]);
 
   if (!isOpen) return null;
 
-  if (typeof document === "undefined") return null;
+  if (typeof document === 'undefined') return null;
 
   const handleBackdropClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     if (!closeOnBackdrop) return;
     if (event.target === event.currentTarget) onClose();
@@ -64,9 +64,16 @@ const Modal: React.FC<ModalProps> = ({
             type="button"
             className={css.closeButton}
             onClick={onClose}
-            aria-label="close modal"
+            aria-label="Закрити модалку"
           >
-            ×
+            <svg
+              className={css.closeIcon}
+              width="24"
+              height="24"
+              aria-hidden="true"
+            >
+              <use href="/icons.svg#icon-close" />
+            </svg>
           </button>
         )}
 
@@ -79,4 +86,3 @@ const Modal: React.FC<ModalProps> = ({
 };
 
 export default Modal;
-
