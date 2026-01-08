@@ -1,26 +1,65 @@
-import type { ButtonHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import clsx from 'clsx';
 import css from './Button.module.css';
 
 // ================================================================
 
-interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
-  variant?: 'normal' | 'cancel' | 'delete' | 'logout';
-  text: string;
-  type?: 'submit' | 'button';
+type ButtonVariant = 'normal' | 'cancel' | 'delete' | 'logout';
+type ButtonSize = 'sm' | 'md' | 'lg';
+
+// ================================================================
+
+interface ButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'type' | 'children'
+> {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  type?: 'submit' | 'button' | 'reset';
+  children?: ReactNode;
+  isLoading?: boolean;
+  rightIcon?: ReactNode;
 }
 
 // ================================================================
 
-function Button({ variant = 'normal', text, type = 'button', className, ...rest }: ButtonProps) {
+function Button({
+  variant = 'normal',
+  type = 'button',
+  size = 'md',
+  className,
+  children,
+  rightIcon,
+  isLoading = false,
+  disabled,
+  ...rest
+}: ButtonProps) {
+  const isDisabled = Boolean(disabled) || isLoading;
+
   return (
     <button
       type={type}
-      className={clsx(css.button, css[variant], 'anim-button', className)}
+      disabled={isDisabled}
+      className={clsx(
+        css.button,
+        css[variant],
+        css[size],
+        'anim-button',
+        isLoading && css.loading,
+        className
+      )}
       {...rest}
     >
-      {text}
+      {isLoading ? <span className={css.spinner} aria-hidden="true" /> : null}
+
+      <span className={css.label}>{children}</span>
+
+      {!isLoading && rightIcon ? (
+        <span className={css.rightIcon} aria-hidden="true">
+          {rightIcon}
+        </span>
+      ) : null}
     </button>
   );
 }
