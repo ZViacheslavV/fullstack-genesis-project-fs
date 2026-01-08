@@ -1,30 +1,59 @@
 'use client';
 import { FieldProps } from 'formik';
-// import { useState } from 'react';
 import DatePicker from 'react-datepicker';
-
+import { format } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const CalendarDatePicker: React.FC<FieldProps> = ({ form, field }) => {
-  // const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+interface CalendarDatePickerProps extends FieldProps {
+  onDateSelect?: (dateStr: string) => void;
+  placeholderText?: string;
+  className?: string;
+  disabled?: boolean; //кастомні пропси, щоб використовувати можливості react date picker, за потреби можна розширити
+}
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
+  form,
+  field,
+  onDateSelect,
+  ...props
+}) => {
+  const dateValue = field.value ? new Date(field.value) : null; //формуємо початкове значення
 
   const handleChange = (date: Date | null) => {
-    // setSelectedDate(date);
-    form.setFieldValue(field.name, date);
+    if (date) {
+      const dateString = format(date, 'yyyy-MM-dd'); //готуємо дату в форматі рядочка для валідації Formik+Yup
+      form.setFieldValue(field.name, dateString); //так ми зв'язуємо і передаємо дані react date picker в Formik
+      if (onDateSelect) {
+        onDateSelect(dateString); //не обов'язковий проп, я його використовую, щоб зберігти draft завдання юзера в zustand
+      }
+    } else {
+      form.setFieldValue(field.name, '');
+    }
   };
 
   return (
     <DatePicker
+      {...props}
       id={field.name}
       dateFormat="yyyy-MM-dd"
-      selected={field.value}
+      selected={dateValue}
       onChange={handleChange}
-      minDate={today}
+      minDate={new Date()}
     />
   );
 };
 
 export default CalendarDatePicker;
+
+//приклад використання з Formik:
+
+{
+  /* <Field
+      id={`${fieldId}-date`}
+      name="date"
+      component={CalendarDatePicker}
+      onDateChange={handleDateChange}
+      className="date-picker"
+      wrapperClassName="date-picker-wrapper"
+    /> */
+}

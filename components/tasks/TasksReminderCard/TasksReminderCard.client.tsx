@@ -2,8 +2,8 @@
 
 import { getTasks } from '@/lib/api/userApi';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { format } from 'date-fns';
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 export default function TaskReminderCardClientPage() {
   const { data, isError, isSuccess } = useQuery({
@@ -15,7 +15,7 @@ export default function TaskReminderCardClientPage() {
   useEffect(() => {
     if (isError) {
       console.log('smth went wrong in get tasks');
-      // toast('Sorry, something went wrong, please try again');
+      toast('Sorry, something went wrong, please try again');
     }
   }, [isError]);
   console.log(data);
@@ -26,7 +26,7 @@ export default function TaskReminderCardClientPage() {
           {data.map((task) => (
             <li key={task._id}>
               <p>{task.name}</p>
-              <p>{format(new Date(task.date).toLocaleString(), 'yyyy-MM-dd')}</p>
+              <p>{task.date}</p>
             </li>
           ))}
         </ul>

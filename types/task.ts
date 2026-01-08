@@ -7,5 +7,5 @@ export interface Task {
 
 export interface TaskFormData {
   name: string;
-  date: Date;
+  date: string;
 }

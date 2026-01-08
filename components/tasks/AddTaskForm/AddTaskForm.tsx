@@ -4,26 +4,24 @@ import * as Yup from 'yup';
 import { format } from 'date-fns';
 
 import css from './AddTaskForm.module.css';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { TaskFormData } from '@/types/task';
 import { createTask } from '@/lib/api/userApi';
+import toast from 'react-hot-toast';
+import { useTaskStore } from '@/lib/store/taskStore';
 
 //===========================================================================
 const today = new Date();
 today.setHours(0, 0, 0, 0);
+const todayString = format(today, 'yyyy-MM-dd');
 
 interface TaskFormValues {
   name: string;
-  date: Date;
+  date: string;
 }
-
-const initialValues: TaskFormValues = {
-  name: '',
-  date: today,
-};
 
 const TaskFormSchema = Yup.object().shape({
   name: Yup.string()
@@ -31,14 +29,24 @@ const TaskFormSchema = Yup.object().shape({
     .min(1, 'Завдання має містити хоча б 1 символ')
     .max(96, 'Завдання надто довге')
     .required('Введіть текст завдання'),
-  date: Yup.date().min(today, 'Дата не може бути в минулому'),
+  date: Yup.string()
+    .matches(/^\d{4}-\d{2}-\d{2}$/, 'Format must be YYYY-MM-DD')
+    .test('min-date', 'Дата не може бути в минулому', (value) => {
+      if (!value) return false;
+      return value >= todayString;
+    }),
 });
 
 function AddTaskForm() {
   const fieldId = useId();
 
   const queryClient = useQueryClient();
-
+  // const [draftTask, setDraftTask] = useState(initialValues);
+  const { draft, setDraft, clearDraft } = useTaskStore();
+  const initialValues: TaskFormValues = {
+    name: draft.name || '',
+    date: draft.date || todayString,
+  };
   // const router = useRouter();
 
   const { mutate, isPending } = useMutation({
@@ -47,44 +55,71 @@ function AddTaskForm() {
       queryClient.invalidateQueries({
         queryKey: ['task'],
       });
-      // toast('Successfully submitted!');
+      toast('Successfully submitted!');
       // setErrors({});
-      // clearDraft();
+      clearDraft();
       // router.push('/');
     },
-    onError: () => console.log('error mutation'),
-    // toast('Sorry, something went wrong, please try again'),
+    onError: () => toast('Sorry, something went wrong, please try again'),
   });
 
   const handleSubmit = (values: TaskFormValues, actions: FormikHelpers<TaskFormValues>) => {
-    const payload = {
-      name: values.name,
-      // date: format(values.date, 'yyyy-MM-dd'),
-      date: values.date,
-    };
-
-    console.log('Order data (Formatted):', payload);
-    console.log('Order data:', values);
-
-    mutate(payload);
-    actions.resetForm();
+    mutate(values, {
+      onSuccess: () => {
+        actions.resetForm({
+          values: { name: '', date: todayString },
+        });
+      },
+    });
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={TaskFormSchema}>
-      <Form>
-        <fieldset>
-          <legend>Нове завдання</legend>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={TaskFormSchema}
+      enableReinitialize
+    >
+      {({ values, handleChange }) => {
+        const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          handleChange(e);
+          setDraft({ ...values, name: e.target.value });
+        };
 
-          <label htmlFor={`${fieldId}-name`}>Назва завдання</label>
-          <Field type="text" name="name" id={`${fieldId}-name`} placeholder="Введіть назву..." />
-          <ErrorMessage name="name" component="span" />
+        const handleDateChange = (dateString: string) => {
+          setDraft({ ...values, date: dateString });
+        };
 
-          <label htmlFor={`${fieldId}-date`}>Дата</label>
-          <Field id={`${fieldId}-date`} name="date" component={CalendarDatePicker} />
-        </fieldset>
-        <button type="submit">Зберегти</button>
-      </Form>
+        return (
+          <Form>
+            <fieldset>
+              <legend>Нове завдання</legend>
+
+              <label htmlFor={`${fieldId}-name`}>Назва завдання</label>
+              <Field
+                type="text"
+                name="name"
+                id={`${fieldId}-name`}
+                placeholder="Введіть назву..."
+                onChange={handleNameChange}
+              />
+              <ErrorMessage name="name" component="span" />
+
+              <label htmlFor={`${fieldId}-date`}>Дата</label>
+              <Field
+                id={`${fieldId}-date`}
+                name="date"
+                component={CalendarDatePicker}
+                onDateSelect={handleDateChange}
+                className="date-picker"
+                wrapperClassName="date-picker-wrapper"
+              />
+              <ErrorMessage name="date" component="span" />
+            </fieldset>
+            <button type="submit">Зберегти</button>
+          </Form>
+        );
+      }}
     </Formik>
   );
 }

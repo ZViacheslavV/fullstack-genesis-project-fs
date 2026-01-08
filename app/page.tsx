@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { AddTaskForm, TasksReminderCard } from './components';
 
 const Home = () => (
@@ -11,6 +12,7 @@ const Home = () => (
     <div>
       <AddTaskForm />
       <TasksReminderCard />
+      <Toaster position="top-right" reverseOrder={false} />
       <h1>FillingCheck</h1>
     </div>
   </>
