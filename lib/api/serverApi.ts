@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 import { nextServer } from './api';
 
 import type { User } from '@/types/user';
@@ -6,7 +6,7 @@ import type { User } from '@/types/user';
 //===========================================================================
 
 const cookieHeaders = async () => {
-  const cookieStore = await cookies();
+  // const cookieStore = await cookies();
   return { Cookie: cookieStore.toString() };
 };
 
