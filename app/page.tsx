@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import css from './page.module.css';
 import { Toaster } from 'react-hot-toast';
-import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
+// import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
 
 //===========================================================================
 
