@@ -4,6 +4,7 @@ import { Lato, Comfortaa } from 'next/font/google';
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import Header from '@/components/layout/Header/Header';
+import Sidebar from '@/components/layout/Sidebar/Sidebar';
 
 import './globals.css';
 import css from './layout.module.css';
@@ -26,7 +27,7 @@ const comfortaa = Comfortaa({
 
 //===========================================================================
 
-const SITE_URL = 'https://...';
+const SITE_URL = 'https://fullstack-genesis-project.vercel.app/';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -74,22 +75,11 @@ function RootLayout({
 }>) {
   return (
     <html lang="uk">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function () {
-                const theme = localStorage.getItem('theme') || 'neutral';
-                document.documentElement.setAttribute('data-theme', theme);
-              })();
-            `,
-          }}
-        />
-      </head>
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
             <Header />
+            <Sidebar />
             <div className="container">
               <main className={css.main}>
                 <div className={css.container}>
