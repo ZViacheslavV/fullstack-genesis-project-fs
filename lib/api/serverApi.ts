@@ -20,7 +20,7 @@ export const checkSession = async () => {
 // ---------------- USER --------------------------------------------------
 export const getMe = async (): Promise<User> => {
   const headers = await cookieHeaders();
-  const { data } = await nextServer.get<User>('/users/me', { headers });
+  const { data } = await nextServer.get<User>('/users/current', { headers });
   return data;
 };
 
