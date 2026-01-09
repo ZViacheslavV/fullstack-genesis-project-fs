@@ -1,3 +1,5 @@
-export default function Page() {
+const DiaryPage = () => {
   return <div />;
-}
+};
+
+export default DiaryPage;

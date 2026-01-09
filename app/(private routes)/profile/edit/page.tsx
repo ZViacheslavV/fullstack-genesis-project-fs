@@ -1,3 +1,5 @@
-export default function Page() {
+const OnboardingPage = () => {
   return <div />;
-}
+};
+
+export default OnboardingPage;
