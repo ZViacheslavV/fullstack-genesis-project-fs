@@ -14,6 +14,60 @@ export const checkSession = async () => {
   return data.success;
 };
 
+// ============================  AUTH  =============================
+
+export interface RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterLoginUserResponse {
+  status: number;
+  message: string;
+  data: {
+    _id: string;
+    name: string;
+    email: string;
+    gender: string;
+    dueDate: string | null;
+    photo: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export async function registerUser(
+  params: RegisterRequest
+): Promise<RegisterLoginUserResponse> {
+  const { data } = await nextServer.post<RegisterLoginUserResponse>(
+    `${API_ENDPOINTS.REGISTER}`,
+    params
+  );
+  return data;
+}
+
+export interface loginRequest {
+  email: string;
+  password: string;
+}
+
+export async function loginUser(
+  params: loginRequest
+): Promise<RegisterLoginUserResponse> {
+  const { data } = await nextServer.post<RegisterLoginUserResponse>(
+    `${API_ENDPOINTS.LOGIN}`,
+    params
+  );
+  return data;
+}
+
+export const logout = async (): Promise<void> => {
+  await nextServer.post(`${API_ENDPOINTS.LOGOUT}`);
+};
+
+// ============================  WEEKS  =============================
+
 // ============================  USERS  =============================
 
 export const getMe = async () => {
@@ -31,6 +85,7 @@ interface UpdateProfile {
   photo?: string;
 }
 
+//TODO updateMe requires checking, alpha version
 export const updateMe = async (userData: UpdateProfile) => {
   const { data } = await nextServer.patch<User>(
     `${API_ENDPOINTS.USER_CURRENT_PATCH}`,
@@ -65,3 +120,5 @@ export async function updateTaskStatus({
   );
   return data;
 }
+
+// ============================  DIARIES  =============================
