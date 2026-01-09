@@ -13,14 +13,14 @@ const cookieHeaders = async () => {
 // ---------------- AUTH --------------------------------------------------
 export const checkSession = async () => {
   const headers = await cookieHeaders();
-  const res = await nextServer.get('/auth/session', { headers });
+  const res = await nextServer.get('/auth/refresh', { headers });
   return res;
 };
 
 // ---------------- USER --------------------------------------------------
 export const getMe = async (): Promise<User> => {
   const headers = await cookieHeaders();
-  const { data } = await nextServer.get<User>('/users/me', { headers });
+  const { data } = await nextServer.get<User>('/users/current', { headers });
   return data;
 };
 
