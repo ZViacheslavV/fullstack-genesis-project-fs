@@ -13,7 +13,7 @@ const cookieHeaders = async () => {
 // ---------------- AUTH --------------------------------------------------
 export const checkSession = async () => {
   const headers = await cookieHeaders();
-  const res = await nextServer.get('/auth/session', { headers });
+  const res = await nextServer.get('/auth/refresh', { headers });
   return res;
 };
 
