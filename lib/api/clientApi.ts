@@ -1,4 +1,4 @@
-import { User } from '@/types/user';
+import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
@@ -24,8 +24,11 @@ export const getMe = async () => {
 };
 
 interface UpdateProfile {
+  name?: string;
   email?: string;
-  username?: string;
+  gender?: childGender;
+  dueDate?: string;
+  photo?: string;
 }
 
 export const updateMe = async (userData: UpdateProfile) => {
