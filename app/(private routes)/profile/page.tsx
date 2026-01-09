@@ -1,3 +1,5 @@
-export default function Page() {
+const ProfilePage = () => {
   return <div />;
-}
+};
+
+export default ProfilePage;

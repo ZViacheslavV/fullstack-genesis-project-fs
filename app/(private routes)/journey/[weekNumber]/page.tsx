@@ -1,3 +1,5 @@
-export default function Page() {
+const JourneyPage = () => {
   return <div />;
-}
+};
+
+export default JourneyPage;
