@@ -9,3 +9,7 @@ export interface TaskFormData {
   name: string;
   date: string;
 }
+export interface UpdateTaskStatus {
+  id: string;
+  isDone: boolean;
+}

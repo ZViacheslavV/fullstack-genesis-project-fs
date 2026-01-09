@@ -9,9 +9,10 @@ import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarD
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { TaskFormData } from '@/types/task';
-import { createTask } from '@/lib/api/userApi';
+import { createTask } from '@/lib/api/clientApi';
 import toast from 'react-hot-toast';
 import { useTaskStore } from '@/lib/store/taskStore';
+import Button from '@/components/common/Button/Button';
 
 //===========================================================================
 const today = new Date();
@@ -37,7 +38,11 @@ const TaskFormSchema = Yup.object().shape({
     }),
 });
 
-function AddTaskForm() {
+interface AddTaskFormProps {
+  afterSubmit?: () => void;
+}
+
+export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
   const fieldId = useId();
 
   const queryClient = useQueryClient();
@@ -50,7 +55,8 @@ function AddTaskForm() {
   // const router = useRouter();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (TaskFormData: TaskFormData) => await createTask(TaskFormData),
+    mutationFn: async (TaskFormData: TaskFormData) =>
+      await createTask(TaskFormData),
     onSuccess() {
       queryClient.invalidateQueries({
         queryKey: ['task'],
@@ -58,12 +64,18 @@ function AddTaskForm() {
       toast('Successfully submitted!');
       // setErrors({});
       clearDraft();
+      if (afterSubmit) {
+        afterSubmit();
+      }
       // router.push('/');
     },
     onError: () => toast('Sorry, something went wrong, please try again'),
   });
 
-  const handleSubmit = (values: TaskFormValues, actions: FormikHelpers<TaskFormValues>) => {
+  const handleSubmit = (
+    values: TaskFormValues,
+    actions: FormikHelpers<TaskFormValues>
+  ) => {
     mutate(values, {
       onSuccess: () => {
         actions.resetForm({
@@ -91,37 +103,43 @@ function AddTaskForm() {
         };
 
         return (
-          <Form>
-            <fieldset>
-              <legend>Нове завдання</legend>
-
-              <label htmlFor={`${fieldId}-name`}>Назва завдання</label>
-              <Field
-                type="text"
-                name="name"
-                id={`${fieldId}-name`}
-                placeholder="Введіть назву..."
-                onChange={handleNameChange}
-              />
-              <ErrorMessage name="name" component="span" />
-
-              <label htmlFor={`${fieldId}-date`}>Дата</label>
-              <Field
-                id={`${fieldId}-date`}
-                name="date"
-                component={CalendarDatePicker}
-                onDateSelect={handleDateChange}
-                className="date-picker"
-                wrapperClassName="date-picker-wrapper"
-              />
-              <ErrorMessage name="date" component="span" />
+          <Form className={css.form}>
+            <fieldset className={css.fieldset}>
+              <legend className={css.legend}>Нове завдання</legend>
+              <div className={css.addTaskInputSet}>
+                <div className={css.addTaskInput}>
+                  <label htmlFor={`${fieldId}-name`}>Назва завдання</label>
+                  <Field
+                    type="text"
+                    name="name"
+                    id={`${fieldId}-name`}
+                    placeholder="Введіть назву..."
+                    onChange={handleNameChange}
+                    className={css.input}
+                  />
+                  <ErrorMessage name="name" component="span" />
+                </div>
+                <div className={css.addTaskInput}>
+                  <label htmlFor={`${fieldId}-date`}>Дата</label>
+                  <Field
+                    id={`${fieldId}-date`}
+                    name="date"
+                    component={CalendarDatePicker}
+                    onDateSelect={handleDateChange}
+                    // className="date-picker"
+                    className={css.input}
+                    wrapperClassName="date-picker-wrapper"
+                  />
+                  <ErrorMessage name="date" component="span" />
+                </div>
+              </div>
             </fieldset>
-            <button type="submit">Зберегти</button>
+            <Button className={css.saveBtn} type="submit">
+              Зберегти
+            </Button>
           </Form>
         );
       }}
     </Formik>
   );
 }
-
-export default AddTaskForm;
