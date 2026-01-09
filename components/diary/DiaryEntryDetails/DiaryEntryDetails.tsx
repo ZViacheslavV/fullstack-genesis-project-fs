@@ -1,34 +1,20 @@
-'use client';
-
-import css from './DiaryEntryDetails.module.css';
-
-type DiaryEntryDetailsProps = {
-  title?: string;
-  date?: string;
-  text?: string;
+type Props = {
+  entryId: string | null;
 };
 
-export default function DiaryEntryDetails({ title, date, text }: DiaryEntryDetailsProps) {
-  // Якщо запис не обраний
-  if (!title) {
-    return (
-      <section className={css.picker}>
-        <p className={css.placeholder}>Наразі записи у щоденнику відстні</p>
-      </section>
-    );
+export default function DiaryEntryDetails({ entryId }: Props) {
+  if (!entryId) {
+    return <p>Наразі записи у щоденнику відсутні</p>;
   }
 
   return (
-    <section className={css.picker}>
-      <h2 className={css.title}>{title}</h2>
-      <p className={css.date}>{date}</p>
+    <section>
+      <h2>Запис {entryId}</h2>
+      <p>01.01.2024</p>
+      <p>Тут буде повний текст запису щоденника.</p>
 
-      <p className={css.text}>{text}</p>
-
-      <div className={css.actions}>
-        <button type="button">Редагувати</button>
-        <button type="button">Видалити</button>
-      </div>
+      <button>Редагувати</button>
+      <button>Видалити</button>
     </section>
   );
 }

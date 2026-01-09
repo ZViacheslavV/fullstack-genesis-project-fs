@@ -1,0 +1,33 @@
+.page {
+    padding: 16px;
+}
+
+.content {
+    display: block;
+}
+
+/* 🖥 DESKTOP */
+@media (min-width: 1024px) {
+    .content {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 24px;
+    }
+
+    .left {
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+
+    .right {
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+}
+
+/* 📱 MOBILE */
+@media (max-width: 1023px) {
+    .right {
+        display: none;
+    }
+}
