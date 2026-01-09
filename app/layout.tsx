@@ -4,6 +4,7 @@ import { Lato, Comfortaa } from 'next/font/google';
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import Header from '@/components/layout/Header/Header';
+import Sidebar from '@/components/layout/Sidebar/Sidebar';
 
 import './globals.css';
 import css from './layout.module.css';
@@ -78,6 +79,7 @@ function RootLayout({
         <TanStackProvider>
           <AuthProvider>
             <Header />
+            <Sidebar />
             <div className="container">
               <main className={css.main}>
                 <div className={css.container}>
