@@ -68,7 +68,7 @@ function UserBar() {
         </svg>
       </button>
 
-     {isModalOpen && (
+      {/*      {isModalOpen && (
   <ConfirmationModal
     title="Ви впевнені, що хочете вийти?"
     confirmButtonText="Так"
@@ -76,7 +76,7 @@ function UserBar() {
     onConfirm={handleLogoutConfirm}
     onCancel={() => setIsModalOpen(false)}
   />
-)}
+)} */}
     </section>
   );
 }
