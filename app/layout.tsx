@@ -66,11 +66,11 @@ export const metadata: Metadata = {
 //===========================================================================
 
 function RootLayout({
-  children,
-  modal,
+  children /* ,
+  modal, */,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
+  /* modal: React.ReactNode; */
 }>) {
   return (
     <html lang="uk">
@@ -82,7 +82,7 @@ function RootLayout({
               <main className={css.main}>
                 <div className={css.container}>
                   {children}
-                  {modal}
+                  {/* {modal} */}
                 </div>
               </main>
             </div>
