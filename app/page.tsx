@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import css from './page.module.css';
+import { Toaster } from 'react-hot-toast';
+import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
 
 //===========================================================================
 
@@ -17,7 +19,8 @@ function Home() {
         {/*<MomTipCard />*/}
       </div>
       <div>
-        {/*<TasksReminderCard />*/}
+        <TasksReminderCard />
+        <Toaster position="top-right" />
         {/*<FeelingCheckCard/>*/}
       </div>
     </section>
