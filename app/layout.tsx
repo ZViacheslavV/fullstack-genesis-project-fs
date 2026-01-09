@@ -74,6 +74,18 @@ function RootLayout({
 }>) {
   return (
     <html lang="uk">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                const theme = localStorage.getItem('theme') || 'neutral';
+                document.documentElement.setAttribute('data-theme', theme);
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
