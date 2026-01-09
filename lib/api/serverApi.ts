@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { API_ENDPOINTS, nextServer } from './api';
 
 import type { User } from '@/types/user';
-import { Task /* , TaskFormData, UpdateTaskStatus */ } from '@/types/task';
+import { Task } from '@/types/task';
 
 //===========================================================================
 
@@ -40,26 +40,6 @@ export const getServerTasks = async () => {
   });
   return data;
 };
-
-/* export async function createServerTask(newTask: TaskFormData): Promise<Task> {
-  const headers = await cookieHeaders();
-  const { data } = await nextServer.post<Task>(
-    `${API_ENDPOINTS.TASKS_POST}`,
-    newTask
-  );
-  return data;
-}
-export async function updateServerTaskStatus({
-  id,
-  isDone,
-}: UpdateTaskStatus): Promise<Task> {
-  const headers = await cookieHeaders();
-  const { data } = await nextServer.patch<Task>(
-    `${API_ENDPOINTS.TASKS_PATCH_TASK_ID}${id}`,
-    { isDone }
-  );
-  return data;
-} */
 
 // ---------------- DIARIES --------------------------------------------------
 export const fetchDiaries = async () => {};
