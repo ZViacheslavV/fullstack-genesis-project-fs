@@ -17,8 +17,14 @@ function SideBar() {
   const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
   const [isOpen, setIsOpen] = useState(false);
 
-  const pathname =
-    typeof window !== 'undefined' ? window.location.pathname : '/';
+  /*   const pathname =
+    typeof window !== 'undefined' ? window.location.pathname : '/'; */ //!Changed this
+
+  const [pathname, setPathname] = useState('/');
+
+  useEffect(() => {
+    setPathname(window.location.pathname); //TODO need check
+  }, []);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -69,7 +75,7 @@ function SideBar() {
 
         <nav className={css.nav}>
           <Link
-            href={isAuthenticated ? '/' : '/auth/login'}
+            href={/* isAuthenticated ?  */ '/' /*:  '/auth/login' */}
             className={`${css.navItem} ${
               isActive(pathname, '/') ? css.active : ''
             }`}
