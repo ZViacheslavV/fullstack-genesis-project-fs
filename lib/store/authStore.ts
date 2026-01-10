@@ -27,7 +27,7 @@ export const useAuthUserStore = create<AuthUserStore>()(
   persist(
     (set) => ({
       user: initialUser,
-      isAuthenticated: true, //TODO auth: return after auth provided
+      isAuthenticated: false, //TODO auth: return after auth provided
       setIsAuthenticated: (value) => set({ isAuthenticated: value }),
       setUser: (user: User) =>
         set(() => ({
@@ -37,7 +37,7 @@ export const useAuthUserStore = create<AuthUserStore>()(
       clearIsAuthenticated: () =>
         set(() => ({
           user: initialUser,
-          isAuthenticated: true, //TODO auth: return after auth provided
+          isAuthenticated: false, //TODO auth: return after auth provided
         })),
     }),
     {

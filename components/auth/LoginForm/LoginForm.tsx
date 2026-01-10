@@ -1,20 +1,22 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { useId } from 'react';
 import * as Yup from 'yup';
+import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
+
+import { loginRequest, loginUser } from '@/lib/api/clientApi';
+import { ApiError } from '@/app/api/api';
 
 import css from '../RegistrationForm/RegistrationForm.module.css';
 
 //===============================================================
 
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
-
-const initialValues: LoginFormValues = {
+const initialValues: loginRequest = {
   email: '',
   password: '',
 };
@@ -36,13 +38,31 @@ const LoginFormSchema = Yup.object().shape({
 
 function LoginForm() {
   const fieldId = useId();
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (
-    values: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
+  const handleSubmit = async (
+    values: loginRequest,
+    actions: FormikHelpers<loginRequest>
   ) => {
-    console.log('Login data:', values);
-    actions.resetForm();
+    try {
+      const res = await loginUser(values);
+
+      if (res) {
+        router.push('/');
+      } else {
+        setError('Invalid email or password');
+      }
+    } catch (error) {
+      setError(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          'Oops... some error'
+      );
+    } finally {
+      actions.setSubmitting(false);
+    }
   };
 
   return (
@@ -86,16 +106,32 @@ function LoginForm() {
 
           {/* Password */}
           <div className={css.fieldGroup}>
-            <Field
-              className={`${css.field} ${
-                touched.password && errors.password ? css.fieldInvalid : ''
-              } ${touched.password && !errors.password ? css.fieldValid : ''}`}
-              type="password"
-              name="password"
-              id={`${fieldId}-password`}
-              placeholder="Пароль"
-              autoComplete="new-password"
-            />
+            <div className={css.passwordWrapper}>
+              <Field
+                className={`${css.field} ${
+                  touched.password && errors.password ? css.fieldInvalid : ''
+                } ${touched.password && !errors.password ? css.fieldValid : ''}`}
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                id={`${fieldId}-password`}
+                placeholder="••••••••"
+                autoComplete="new-password"
+              />
+
+              <button
+                type="button"
+                className={css.passwordToggle}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Сховати пароль' : 'Показати пароль'}
+                tabIndex={-1}
+              >
+                {showPassword ? (
+                  <EyeOff className={css.passwordIcon} />
+                ) : (
+                  <Eye className={css.passwordIcon} />
+                )}
+              </button>
+            </div>
 
             <div className={css.errorSlot} aria-live="polite">
               <ErrorMessage name="password">

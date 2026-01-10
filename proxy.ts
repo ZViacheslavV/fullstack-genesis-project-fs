@@ -6,10 +6,10 @@ import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
 //===========================================================================
 
-// const privateRoutes = ['/profile', '/diary', '/journey']; //TODO auth: return after auth provided
-//const publicRoutes = ['/auth']; //TODO auth: return after auth provided
-const privateRoutes: string[] = []; //TODO auth: return after auth provided
-const publicRoutes = ['/auth', '/profile', '/diary', '/journey']; //TODO auth: return after auth provided
+const privateRoutes = ['/profile', '/diary', '/journey']; //TODO auth: return after auth provided
+const publicRoutes = ['/auth']; //TODO auth: return after auth provided
+// const privateRoutes: string[] = []; //TODO auth: return after auth provided
+// const publicRoutes = ['/auth', '/profile', '/diary', '/journey']; //TODO auth: return after auth provided
 
 //===========================================================================
 
