@@ -17,8 +17,14 @@ function SideBar() {
   const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
   const [isOpen, setIsOpen] = useState(false);
 
-  const pathname =
-    typeof window !== 'undefined' ? window.location.pathname : '/';
+  /*   const pathname =
+    typeof window !== 'undefined' ? window.location.pathname : '/'; */
+
+  const [pathname, setPathname] = useState('/');
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {

@@ -68,16 +68,14 @@ function UserBar() {
         </svg>
       </button>
 
-      {isModalOpen && (
-        <ConfirmationModal
-          isOpen={true}
-          title="Ви впевнені, що хочете вийти?"
-          confirmButtonText="Так"
-          cancelButtonText="Ні"
-          onConfirm={handleLogoutConfirm}
-          onCancel={() => setIsModalOpen(false)}
-        />
-      )}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        title="Ви впевнені, що хочете вийти?"
+        confirmButtonText="Так"
+        cancelButtonText="Ні"
+        onConfirm={handleLogoutConfirm}
+        onCancel={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }
