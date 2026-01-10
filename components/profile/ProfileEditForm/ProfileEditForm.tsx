@@ -1,84 +1,85 @@
 'use client';
 
-import { User } from '@/types/user';
+import { childGender, User } from '@/types/user';
 import css from './ProfileEditForm.module.css';
-import { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+import { profileValidationSchema } from './ProfileValidationSchema';
 // import { updateMe } from '@/lib/api/clientApi';
-
-//===========================================================================
 
 interface ProfileEditFormProps {
   user: User;
 }
 
+interface FormValues {
+  name: string;
+  email: string;
+  gender: childGender;
+  dueDate: string;
+}
+
 function ProfileEditForm({ user }: ProfileEditFormProps) {
-
-  const [userName, setUserName] = useState(user.name);
-  const [userEmail, setUserEmail] = useState(user.email);
-  const [userGenderChoice, setUserGenderChoice] = useState(user.gender ?? 'Ще не знаю');
-   const [userDateChoice, setUserDateChoice] = useState(  user.dueDate ?? '');
-
-
-
-const handleChangeUser = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
+  const initialValues: FormValues = {
+    name: user.name,
+    email: user.email,
+    gender: user.gender ?? 'unknown',
+    dueDate: user.dueDate ?? '',
   };
-  const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserEmail(event.target.value);
-  };
- const handleChangeGender = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  setUserGenderChoice(e.target.value);
-};
-  const handleDateChoice= (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserDateChoice(event.target.value);
-  }
 
- const handleClick = () => {
-setUserName(user.name);
-  setUserEmail(user.email);
-  setUserGenderChoice(user.gender ?? 'Ще не знаю');
-  setUserDateChoice(user.dueDate ?? '');
-};
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-     const payload = {
-      name: userName,
-      email: userEmail,
-      gender: userGenderChoice,
-       dueDate: userDateChoice,
+  const handleSubmit = async (values: FormValues) => {
+    const payload = {
+      name: values.name,
+      email: values.email,
+      gender: values.gender,
+      dueDate: values.dueDate,
     };
-//     try {
-  ///update on server
-    //       const updatedUser = updateMe(payload);
-    
-	  // console.log(`sent ${payload}`);
-//     } catch {
-      
-// }
+
+    // try {
+    //   await updateMe(payload);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+    console.log('sent', payload);
   };
 
-  return <div className={css.picker}>
-  <form onSubmit={handleSubmit} className="">
-      <label htmlFor="userName" className="">
-  <input onChange={handleChangeUser}type="text" id="userName"   value={userName} />
-      </label>
-      <label htmlFor="userEmail" className="">
-  <input  onChange={handleChangeEmail}  type="email"  id="userEmail"   value={userEmail} />
-      </label>
-        <select value={userGenderChoice} onChange={handleChangeGender}>
-  <option>Ще не знаю</option>
-  <option>Хлопчик</option>
-  <option>Дівчинка</option>
-</select>
-      <label htmlFor="babyDueDate" className="">
-  <input onChange={ handleDateChoice} type="date" id="babyDueDate"   value={userDateChoice}/>
-      </label>
-      <button type="button" className="" onClick={handleClick} >cancel changes</button>
-       <button type="submit" className="" >save changes</button>
-    </form>
+  return (
+    <div className={css.picker}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}  enableReinitialize validationSchema={profileValidationSchema}>
+        {({ resetForm }) => (
+          <Form>
+            <label htmlFor="name">
+              <Field id="name" name="name" type="text" />
+            </label>
 
-  </div>;
+            <label htmlFor="email">
+              <Field id="email" name="email" type="email" />
+            </label>
+
+            <Field as="select" name="gender">
+                <option value="unknown">Ще не знаю</option>
+                <option value="boy">Хлопчик</option>
+               <option value="girl">Дівчинка</option>
+            </Field>
+
+            <label htmlFor="dueDate">
+              <Field id="dueDate" name="dueDate" type="date" />
+            </label>
+
+            <button
+              type="button"
+              onClick={() => resetForm()}
+            >
+              cancel changes
+            </button>
+
+            <button type="submit">
+              save changes
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
 }
 
 export default ProfileEditForm;
