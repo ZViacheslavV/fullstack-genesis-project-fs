@@ -1,50 +1,25 @@
 'use client';
 
-import type { FormEvent } from 'react';
-
 type AddDiaryEntryFormProps = {
-  onSuccess?: () => void;
-  mode?: 'create' | 'edit';
+  onSuccess: () => void;
   initialValues?: Record<string, unknown>;
+  mode?: 'create' | 'edit';
 };
 
-function AddDiaryEntryForm({
+export default function AddDiaryEntryForm({
   onSuccess,
-  mode = 'create',
   initialValues,
+  mode = 'create',
 }: AddDiaryEntryFormProps) {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSuccess?.();
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div style={{ display: 'grid', gap: 12 }}>
-        <label>
-          Заголовок
-          <input
-            name="title"
-            defaultValue={(initialValues?.title as string) ?? ''}
-          />
-        </label>
+    <div>
+      <p>AddDiaryEntryForm placeholder</p>
+      <p>Mode: {mode}</p>
 
-        <label>
-          Текст
-          <textarea
-            name="content"
-            defaultValue={(initialValues?.content as string) ?? ''}
-          />
-        </label>
-
-        <button type="submit">
-          {mode === 'edit' ? 'Зберегти зміни' : 'Зберегти'}
-        </button>
-      </div>
-    </form>
+      <button type="button" onClick={onSuccess}>
+        Close modal
+      </button>
+    </div>
   );
 }
-
-export default AddDiaryEntryForm;
-
 
