@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
 
 export type JourneyPageProps = {
-  params: { weekNumber: string };
+  weekNumber: string;
 };
 
-export default function JourneyPage({ params }: JourneyPageProps) {
-  redirect(`/journey/${params.weekNumber}/baby`);
+export default function JourneyPage({ weekNumber }: JourneyPageProps) {
+  redirect(`/journey/${weekNumber}/baby`);
 }
