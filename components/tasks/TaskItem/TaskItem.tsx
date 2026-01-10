@@ -3,6 +3,7 @@ import { Task } from '@/types/task';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import css from './TaskItem.module.css';
+import { format } from 'date-fns';
 
 interface TaskItemProps {
   task: Task;
@@ -24,10 +25,11 @@ export default function TaskItem({ task }: TaskItemProps) {
   const handleChange = () => {
     mutate({ id: task._id, isDone: !task.isDone });
   };
+  const formattedDate = task.date ? format(new Date(task.date), 'dd.MM') : '';
 
   return (
     <li className={task.isDone ? 'done-style' : ''}>
-      <p className={css.taskItemDate}>{task.date}</p>
+      <p className={css.taskItemDate}>{formattedDate}</p>
       <div className={css.taskItemText}>
         <div className={css.checkboxWrapper}>
           <input

@@ -6,3 +6,12 @@
     justify-content: center;
     align-items: center;
 }
+
+.addTaskBtnIcon {
+    transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) ease-in-out;
+}
+
+.addTaskBtnIcon:hover,
+.addTaskBtnIcon:focus {
+    transform: scale(1.1);
+}

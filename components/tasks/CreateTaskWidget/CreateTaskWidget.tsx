@@ -11,7 +11,12 @@ export default function CreateTaskWidget() {
   return (
     <>
       <button onClick={openModal} className={css.addTaskBtn}>
-        <svg width={21} height={21} fill={'#000000'}>
+        <svg
+          width={21}
+          height={21}
+          fill={'#000000'}
+          className={css.addTaskBtnIcon}
+        >
           <use href="/icons.svg#icon-add-circle"></use>
         </svg>
       </button>

@@ -12,7 +12,9 @@
     height: 498px;
     padding: 24px;
     background-color: var(--color-scheme-foreground);
+    overflow-x: hidden;
     overflow-y: auto;
+    scrollbar-color: var(--color-scheme-accent) transparent;
 }
 
 .taskList {
