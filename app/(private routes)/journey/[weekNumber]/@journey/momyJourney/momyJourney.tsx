@@ -1,6 +1,8 @@
 import FeelingCheckCard from '@/components/dashboard/FeelingCheckCard/FeelingCheckCard';
 import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
-import ComfortTips from '@/components/journey/ComfortTips/ComfortTips';
+import ComfortTips, {
+  ComfortTipsProps,
+} from '@/components/journey/ComfortTips/ComfortTips';
 import { getJourneyData } from '@/lib/api/clientApi';
 
 type Props = {
@@ -15,7 +17,7 @@ const MomyJourney = async ({ params }: Props) => {
   return (
     <>
       <FeelingCheckCard />
-      <ComfortTips comfortTips={data.comfortTips} />
+      <ComfortTips comfortTips={data.comfortTips as ComfortTipsProps[]} />
       <TasksReminderCard />
     </>
   );
