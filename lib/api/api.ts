@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
   DIARIES_POST: '/diaries',
   DIARIES_DELETE_ID: '/diaries/',
   DIARIES_PATCH_ID: '/diaries/',
+  EMOTIONS: '/emotions',
 
   TASKS_GET: '/tasks',
   TASKS_POST: '/tasks',
