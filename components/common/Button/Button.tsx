@@ -3,26 +3,51 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import css from './Button.module.css';
 
-// ================================================================
-
 type ButtonVariant = 'normal' | 'cancel' | 'delete' | 'logout';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
-// ================================================================
-
-interface ButtonProps extends Omit<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  'type' | 'children'
-> {
+interface ButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'children'> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   type?: 'submit' | 'button' | 'reset';
   children?: ReactNode;
   isLoading?: boolean;
+  leftIcon?: ReactNode;
   rightIcon?: ReactNode;
+  loadingText?: ReactNode;
 }
 
-// ================================================================
+/**
+ * Кнопка (має відповідти макету Figma, якщо ні, скажіть мені, виправлю).
+ *
+ * Використання:
+ * - За замовчуванням (md + normal):
+ *   <Button>Зберегти</Button>
+ *
+ * - На всю ширину (форми):
+ *   <Button className={css.fullWidth}>Продовжити</Button>
+ *
+ * - Маленькі (модалки «Так/Ні», «Зберегти/Відмінити»):
+ *   <Button size="sm">Так</Button>
+ *
+ * - Вторинні / нейтральні (сірі):
+ *   <Button variant="cancel">Відмінити</Button>
+ *
+ * - Небезпечна дія - видалення:
+ *   <Button variant="delete">Видалити</Button>
+ *
+ * - Кнопка з іконкою зліва (Google 24×24):
+ *   <Button variant="cancel" leftIcon={<GoogleIcon />}>Увійти через Google</Button>
+ * 
+ *  **** - Стан завантаження (кнопка тимчасово disabled + спінер):
+ *   <Button
+ *     isLoading={isCreating}
+ *     loadingText="Створення…"
+ *   >
+ *     Створити
+ *   </Button>
+ */
 
 function Button({
   variant = 'normal',
@@ -30,6 +55,8 @@ function Button({
   size = 'md',
   className,
   children,
+  leftIcon,
+  loadingText,
   rightIcon,
   isLoading = false,
   disabled,
@@ -53,7 +80,15 @@ function Button({
     >
       {isLoading ? <span className={css.spinner} aria-hidden="true" /> : null}
 
-      <span className={css.label}>{children}</span>
+      {!isLoading && leftIcon ? (
+        <span className={css.leftIcon} aria-hidden="true">
+          {leftIcon}
+        </span>
+      ) : null}
+
+      <span className={css.label}>
+        {isLoading && loadingText ? loadingText : children}
+      </span>
 
       {!isLoading && rightIcon ? (
         <span className={css.rightIcon} aria-hidden="true">
@@ -65,3 +100,4 @@ function Button({
 }
 
 export default Button;
+
