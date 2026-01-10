@@ -11,7 +11,7 @@ import Button from '@/components/common/Button/Button';
 import { useRouter } from 'next/navigation';
 
 export default function TaskReminderCardClientPage() {
-  // const { isAuthenticated } = useAuthUserStore();
+  const { isAuthenticated } = useAuthUserStore();
   const router = useRouter();
   const { data, isError, isSuccess, isPending } = useQuery({
     queryKey: ['task'],
@@ -27,7 +27,7 @@ export default function TaskReminderCardClientPage() {
   }, [isError]);
 
   // temporary auth state
-  const isAuthenticated = true;
+  // const isAuthenticated = false;
   // end of temporary auth state
 
   const handleCreateTaskBtnClick = () => {

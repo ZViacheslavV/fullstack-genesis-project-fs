@@ -3,10 +3,25 @@ import Modal from '@/components/common/Modal/Modal';
 import { useState } from 'react';
 import AddTaskForm from '../AddTaskForm/AddTaskForm';
 import css from './CreateTaskWidget.module.css';
+import { useAuthUserStore } from '@/lib/store/authStore';
+import { useRouter } from 'next/navigation';
 
 export default function CreateTaskWidget() {
+  const { isAuthenticated } = useAuthUserStore();
+  const router = useRouter();
+
+  // temporary auth state
+  //   const isAuthenticated = false;
+  // end of temporary auth state
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
+  const openModal = () => {
+    if (isAuthenticated) {
+      setIsModalOpen(true);
+    } else {
+      router.push('/auth/register');
+    }
+  };
   const closeModal = () => setIsModalOpen(false);
   return (
     <>
