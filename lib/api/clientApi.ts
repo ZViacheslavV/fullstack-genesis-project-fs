@@ -3,7 +3,6 @@ import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
 import { Baby, JourneyType, Momy } from '@/types/journey';
-import { nextServer } from './api';
 
 //-----------------JOURNEY------------------------------------------------------
 type JourneyResponse<T extends JourneyType> = T extends 'baby' ? Baby : Momy;

@@ -1,10 +1,13 @@
 import Image from 'next/image';
 
 import css from './babyJourney.module.css';
-import { JourneyPageProps } from '../../page';
 import { getJourneyData } from '@/lib/api/clientApi';
 
-const BabyJourney = async ({ params }: JourneyPageProps) => {
+type Props = {
+  params: { weekNumber: string };
+};
+
+const BabyJourney = async ({ params }: Props) => {
   const week = Number(params.weekNumber);
 
   const data = await getJourneyData(week, 'baby');
