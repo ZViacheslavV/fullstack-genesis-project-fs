@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-// import { logout } from '@/lib/api/clientApi';
+import { logout } from '@/lib/api/clientApi';
 import Image from 'next/image';
 import { useAuthUserStore } from '@/lib/store/authStore';
 import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
@@ -25,7 +25,7 @@ function UserBar() {
     try {
       setIsLoading(true);
 
-      // await logout();
+      await logout();
 
       clearIsAuthenticated();
 
@@ -68,15 +68,16 @@ function UserBar() {
         </svg>
       </button>
 
-      {/*      {isModalOpen && (
-  <ConfirmationModal
-    title="Ви впевнені, що хочете вийти?"
-    confirmButtonText="Так"
-    cancelButtonText="Ні"
-    onConfirm={handleLogoutConfirm}
-    onCancel={() => setIsModalOpen(false)}
-  />
-)} */}
+      {isModalOpen && (
+        <ConfirmationModal
+          isOpen={true}
+          title="Ви впевнені, що хочете вийти?"
+          confirmButtonText="Так"
+          cancelButtonText="Ні"
+          onConfirm={handleLogoutConfirm}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      )}
     </section>
   );
 }
