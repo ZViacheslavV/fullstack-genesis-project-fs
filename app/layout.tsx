@@ -4,6 +4,7 @@ import { Lato, Comfortaa } from 'next/font/google';
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import Header from '@/components/layout/Header/Header';
+import Sidebar from '@/components/layout/Sidebar/Sidebar';
 
 import './globals.css';
 import css from './layout.module.css';
@@ -26,16 +27,51 @@ const comfortaa = Comfortaa({
 
 //===========================================================================
 
-export const metadata: Metadata = {};
+const SITE_URL = 'https://fullstack-genesis-project.vercel.app/';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+
+  title: 'Лелека | Додаток для майбутніх мам',
+  description:
+    'Лелека — додаток для майбутніх мам: відстеження тижнів вагітності, поради, важливі завдання та щоденник самопочуття.',
+
+  openGraph: {
+    title: 'Лелека | Додаток для майбутніх мам',
+    description:
+      'Відстежуйте тижні вагітності, отримуйте поради, керуйте завданнями та ведіть щоденник.',
+    url: SITE_URL,
+    siteName: 'Лелека',
+    images: [
+      {
+        url: '/public/leleka-og-meta.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Лелека — додаток для майбутніх мам',
+      },
+    ],
+
+    locale: 'uk_UA',
+    type: 'website',
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Лелека | Додаток для майбутніх мам',
+    description:
+      'Відстежуйте тижні вагітності, отримуйте поради, керуйте завданнями та ведіть щоденник.',
+    images: ['/public/leleka-og-meta.jpg'],
+  },
+};
 
 //===========================================================================
 
 function RootLayout({
-  children,
-  modal,
+  children /* ,
+  modal, */,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
+  /* modal: React.ReactNode; */
 }>) {
   return (
     <html lang="uk">
@@ -43,11 +79,12 @@ function RootLayout({
         <TanStackProvider>
           <AuthProvider>
             <Header />
+            <Sidebar />
             <div className="container">
               <main className={css.main}>
                 <div className={css.container}>
                   {children}
-                  {modal}
+                  {/* {modal} */}
                 </div>
               </main>
             </div>
