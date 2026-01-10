@@ -18,12 +18,12 @@ function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
 
   /*   const pathname =
-    typeof window !== 'undefined' ? window.location.pathname : '/'; */
+    typeof window !== 'undefined' ? window.location.pathname : '/'; */ //!Changed this
 
   const [pathname, setPathname] = useState('/');
 
   useEffect(() => {
-    setPathname(window.location.pathname);
+    setPathname(window.location.pathname); //TODO need check
   }, []);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ function SideBar() {
 
         <nav className={css.nav}>
           <Link
-            href={isAuthenticated ? '/' : '/auth/login'}
+            href={/* isAuthenticated ?  */ '/' /*:  '/auth/login' */}
             className={`${css.navItem} ${
               isActive(pathname, '/') ? css.active : ''
             }`}
