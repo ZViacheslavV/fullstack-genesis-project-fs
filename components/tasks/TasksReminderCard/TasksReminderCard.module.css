@@ -1,6 +1,6 @@
 .taskCardHeader {
     display: flex;
-    width: 342px;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
@@ -8,14 +8,28 @@
 
 .taskCard {
     border-radius: 32px;
-    width: 390px;
-    height: 498px;
+    width: 335px;
     padding: 24px;
     background-color: var(--color-scheme-foreground);
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-color: var(--color-scheme-accent) transparent;
 }
+
+@media only screen and (min-width: 768px) {
+    .taskCard {
+        width: 704px;
+    }
+}
+
+@media only screen and (min-width: 1336px) {
+    .taskCard {
+        width: 390px;
+        height: 498px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-color: var(--color-scheme-accent) transparent;
+    }
+}
+
+
 
 .taskList {
     display: flex;
