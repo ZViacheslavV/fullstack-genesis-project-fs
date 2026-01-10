@@ -4,7 +4,7 @@ import { childGender, User } from '@/types/user';
 import css from './ProfileEditForm.module.css';
 import { Formik, Form, Field } from 'formik';
 import { profileValidationSchema } from './ProfileValidationSchema';
-// import { updateMe } from '@/lib/api/clientApi';
+
 
 interface ProfileEditFormProps {
   user: User;
