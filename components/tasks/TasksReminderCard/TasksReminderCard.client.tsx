@@ -6,9 +6,14 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import TaskItem from '../TaskItem/TaskItem';
 import css from './TasksReminderCard.module.css';
+import { useAuthUserStore } from '@/lib/store/authStore';
+import Button from '@/components/common/Button/Button';
+import { useRouter } from 'next/navigation';
 
 export default function TaskReminderCardClientPage() {
-  const { data, isError, isSuccess } = useQuery({
+  // const { isAuthenticated } = useAuthUserStore();
+  const router = useRouter();
+  const { data, isError, isSuccess, isPending } = useQuery({
     queryKey: ['task'],
     queryFn: () => getTasks(),
     placeholderData: keepPreviousData,
@@ -20,13 +25,42 @@ export default function TaskReminderCardClientPage() {
       toast('Sorry, something went wrong, please try again');
     }
   }, [isError]);
+
+  // temporary auth state
+  const isAuthenticated = true;
+  // end of temporary auth state
+
+  const handleCreateTaskBtnClick = () => {
+    router.push('/auth/register');
+  };
+
   return (
     <>
-      {isSuccess && data?.length > 0 && (
+      {isAuthenticated ? (
+        <>
+          {isPending ? (
+            <p className={css.loading}>Завантаження завдань...</p>
+          ) : isSuccess && data?.length > 0 ? (
+            <ul className={css.taskList}>
+              {data.map((task) => (
+                <TaskItem key={task._id} task={task} />
+              ))}
+            </ul>
+          ) : (
+            <p className={css.emptyState}>У вас поки немає завдань</p>
+          )}
+        </>
+      ) : (
         <ul className={css.taskList}>
-          {data.map((task) => (
-            <TaskItem key={task._id} task={task} />
-          ))}
+          <li>
+            <p className={css.subTitleTaskList}>Наразі немає жодних завдань</p>
+            <p>Створіть мершій нове завдання!</p>
+          </li>
+          <li>
+            <Button onClick={handleCreateTaskBtnClick}>
+              Створити завдання
+            </Button>
+          </li>
         </ul>
       )}
     </>

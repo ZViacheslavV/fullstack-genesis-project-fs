@@ -30,3 +30,11 @@
     line-height: 140%;
     letter-spacing: 0.01em;
 }
+
+.subTitleTaskList {
+    font-weight: 700;
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+}
