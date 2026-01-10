@@ -64,7 +64,7 @@ const Modal: React.FC<ModalProps> = ({
             type="button"
             className={css.closeButton}
             onClick={onClose}
-            aria-label="Закрити модалку"
+            aria-label="Закрити модальне вікно"
           >
             <svg
               className={css.closeIcon}
