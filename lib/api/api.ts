@@ -10,6 +10,11 @@ export const API_ENDPOINTS = {
   LOGOUT: '/auth/logout',
   REFRESH: '/auth/refresh',
 
+  WEEKS: '/weeks',
+  WEEKS_MOM_NUMB: '/weeks/mom/',
+  WEEKS_BABY_NUMB: '/weeks/baby/',
+  WEEKS_DEMO: '/weeks/demo',
+
   USER_CURRENT_GET: '/users/current',
   USER_CURRENT_PATCH: '/users/current',
   USER_CURRENT_PATCH_AVA: '/users/current/avatar',
