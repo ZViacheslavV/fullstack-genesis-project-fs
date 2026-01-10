@@ -1,6 +1,6 @@
 'use client';
 
-import css from "./PageTitle.module.css";
+import css from "./GreetingBlock.module.css";
 import { useAuthUserStore } from "@/lib/store/authStore";
 
 type UserForTitle = {
