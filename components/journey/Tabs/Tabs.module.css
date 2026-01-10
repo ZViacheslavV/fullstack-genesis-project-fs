@@ -1,0 +1,8 @@
+.container_tab {
+  border: 1px solid var(--opacity-transparent);
+  border-radius: 100px;
+  padding: 4px;
+  width: 335px;
+  height: 50px;
+  background: var(--color-scheme-foreground);
+}

@@ -1,15 +1,14 @@
-/* Button.module.css */
-
 .button {
-  --btn-bg: var(--color-scheme-foreground-alt);
-  --btn-bg-hover: var(--color-scheme-foreground-alt);
-  --btn-bg-active: var(--color-scheme-foreground-alt);
+--btn-bg: var(--color-scheme-foreground-alt, #ffdae0);
+--btn-bg-hover: var(--color-scheme-foreground-alt, #fff4f6);
+--btn-bg-active: var(--color-scheme-foreground-alt, #ffdae0);
 
-  --btn-text: var(--color-scheme-text);
-  --btn-border: var(--color-scheme-accent);
+--btn-text: var(--color-scheme-text, #191919);
+--btn-border: var(--color-scheme-accent, #ffcbd3);
 
-  --btn-disabled-bg: #f2f2f2;
-  --btn-disabled-text: #7f7f7f;
+
+  --btn-disabled-bg: var(--color-neutral-lightest, #f2f2f2);
+  --btn-disabled-text: var(--color-neutral, #7f7f7f);
   --btn-disabled-border: rgba(0, 0, 0, 0.1);
 
   --btn-radius: 100px;
@@ -29,7 +28,7 @@
   justify-content: center;
   gap: 12px;
 
-  height: var(--btn-height);
+  min-height: var(--btn-height);
   padding: var(--btn-padding-y) var(--btn-padding-x);
 
   border: none;
@@ -39,8 +38,8 @@
   background: var(--btn-bg);
   color: var(--btn-text);
 
-  font-family: var(--font-family, "Comfortaa", sans-serif);
-  font-weight: 500;
+  font-family: var(--second-family, "Comfortaa", sans-serif);
+  font-weight: var(--fw-medium, 500);
   font-size: var(--btn-font-size);
   line-height: var(--btn-line-height);
   text-align: center;
@@ -83,27 +82,22 @@
   cursor: progress;
 }
 
-.button:disabled.loading {
-  cursor: progress;
-}
-
 .cancel,
 .logout {
-  --btn-bg: var(--opacity-neutral-darkest-5);
+  --btn-bg: var(--opacity-neutral-darkest-5, rgba(0,0,0,0.05));
   --btn-bg-hover: var(--opacity-neutral-darkest-10, rgba(0, 0, 0, 0.1));
   --btn-bg-active: var(--opacity-neutral-darkest-10, rgba(0, 0, 0, 0.1));
-  --btn-border: var(--opacity-neutral-darkest-15);
+  --btn-border: var(--opacity-neutral-darkest-15, rgba(0,0,0,0.15));
 }
 
 .delete {
-  --btn-bg: #c60000;
+  --btn-bg: var(--color-red, #c60000);
   --btn-bg-hover: #e00000;
   --btn-bg-active: #e00000;
   --btn-text: #ffffff;
   --btn-border: rgba(0, 0, 0, 0.3);
 }
 
-/* sizes */
 .sm {
   --btn-height: 38px;
   --btn-padding-y: 8px;
@@ -137,7 +131,6 @@
   justify-content: center;
 }
 
-/* loader */
 .spinner {
   width: 16px;
   height: 16px;
@@ -171,6 +164,7 @@
     --btn-font-size: 16px;
   }
 }
+
 
 
 
