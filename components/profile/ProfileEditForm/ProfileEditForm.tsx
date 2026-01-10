@@ -3,6 +3,7 @@
 import { User } from '@/types/user';
 import css from './ProfileEditForm.module.css';
 import { useState } from 'react';
+// import { updateMe } from '@/lib/api/clientApi';
 
 //===========================================================================
 
@@ -14,7 +15,8 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
 
   const [userName, setUserName] = useState(user.name);
   const [userEmail, setUserEmail] = useState(user.email);
-    const [userGenderChoice, setUserGenderChoice] = useState('Ще не знаю');
+  const [userGenderChoice, setUserGenderChoice] = useState(user.gender ?? 'Ще не знаю');
+   const [userDateChoice, setUserDateChoice] = useState(  user.dueDate ?? '');
 
 
 
@@ -24,43 +26,55 @@ const handleChangeUser = (event: React.ChangeEvent<HTMLInputElement>) => {
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserEmail(event.target.value);
   };
-  const handleChangeGender = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserGenderChoice(event.target.value);
-  };
+ const handleChangeGender = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  setUserGenderChoice(e.target.value);
+};
+  const handleDateChoice= (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserDateChoice(event.target.value);
+  }
 
-
- const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-   e.preventDefault();
-  const form = e.currentTarget.form;
-  if (form) form.reset();
+ const handleClick = () => {
+setUserName(user.name);
+  setUserEmail(user.email);
+  setUserGenderChoice(user.gender ?? 'Ще не знаю');
+  setUserDateChoice(user.dueDate ?? '');
 };
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
      const payload = {
       name: userName,
       email: userEmail,
       gender: userGenderChoice,
-       dueDate: formData.get('dueDate'),
+       dueDate: userDateChoice,
     };
-//add send to server patch.user 
-	  console.log(`sent ${payload}`);
+//     try {
+  ///update on server
+    //       const updatedUser = updateMe(payload);
+    
+	  // console.log(`sent ${payload}`);
+//     } catch {
+      
+// }
   };
 
   return <div className={css.picker}>
-  <form action={handleSubmit} className="">
+  <form onSubmit={handleSubmit} className="">
       <label htmlFor="userName" className="">
-  <input onChange={handleChangeUser} defaultValue={user.name} type="text" id="userName" />
+  <input onChange={handleChangeUser}type="text" id="userName"   value={userName} />
       </label>
       <label htmlFor="userEmail" className="">
-  <input  onChange={handleChangeEmail}  type="email"  id="userEmail" defaultValue={user.email}  />
+  <input  onChange={handleChangeEmail}  type="email"  id="userEmail"   value={userEmail} />
       </label>
-      <label htmlFor="babyGender" className="">
-        <input onChange={ handleChangeGender} type="select" id="babyGender" defaultValue={user.gender} />
-      </label>
+        <select value={userGenderChoice} onChange={handleChangeGender}>
+  <option>Ще не знаю</option>
+  <option>Хлопчик</option>
+  <option>Дівчинка</option>
+</select>
       <label htmlFor="babyDueDate" className="">
-  <input type="select" id="babyDueDate" defaultValue={user.dueDate} />
+  <input onChange={ handleDateChoice} type="date" id="babyDueDate"   value={userDateChoice}/>
       </label>
-      <button className="" onClick={handleClick} >cancel changes</button>
+      <button type="button" className="" onClick={handleClick} >cancel changes</button>
        <button type="submit" className="" >save changes</button>
     </form>
 
