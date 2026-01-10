@@ -18,11 +18,6 @@ export const profileValidationSchema = Yup.object({
     .max(64, 'Email must be at most 64 characters')
     .required('Email is required'),
 
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .max(128, 'Password must be at most 128 characters')
-    .required('Password is required'),
-
 gender: Yup.mixed<childGender>()
     .oneOf(['unknown', 'girl', 'boy'])
     .required(),

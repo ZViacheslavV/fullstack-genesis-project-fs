@@ -26,11 +26,7 @@ export const metadata: Metadata = {
 async function ProfilePage() {
   const user = await getServerMe();
   return (<>
-    <div className="">
-      <ProfileAvatar profilePhotoUrl = {user.photo || ''} />
-      <p className="">{ user.name}</p>
-      <p className="">{ user.email}</p>
-    </div>
+    <ProfileAvatar user={user}/>
     <ProfileEditForm user={user} />
   </>);
 };
