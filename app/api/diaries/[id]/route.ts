@@ -2,26 +2,24 @@ import { API_ENDPOINTS } from '@/lib/api/api';
 import { isAxiosError } from 'axios';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+
 import { logErrorResponse } from '../../_utils/utils';
 import { api } from '../../api';
 
 type Props = {
-  params: Promise<{ taskId: string }>;
+  params: Promise<{ id: string }>;
 };
 
 export async function PATCH(request: Request, { params }: Props) {
   const cookieStore = await cookies();
-  const { taskId } = await params;
+  const { id } = await params;
   const body = await request.json();
 
   try {
-    const res = await api.patch(
-      `${API_ENDPOINTS.DIARIES_PATCH_ID}${taskId}`,
-      body,
-      {
-        headers: { Cookie: cookieStore.toString() },
-      }
-    );
+    const res = await api.patch(`${API_ENDPOINTS.DIARIES_PATCH_ID}${id}`, body, {
+      headers: { Cookie: cookieStore.toString() },
+    });
+
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -31,27 +29,21 @@ export async function PATCH(request: Request, { params }: Props) {
         { status: error.status }
       );
     }
-    logErrorResponse({ message: (error as Error).message });
 
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    logErrorResponse({ message: (error as Error).message });
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
-export async function DELETE(request: Request, { params }: Props) {
+export async function DELETE(_: Request, { params }: Props) {
   const cookieStore = await cookies();
-  const { taskId } = await params;
-  // const body = await request.json();
+  const { id } = await params;
 
   try {
-    const res = await api.delete(
-      `${API_ENDPOINTS.DIARIES_DELETE_ID}${taskId}`,
-      {
-        headers: { Cookie: cookieStore.toString() },
-      }
-    );
+    const res = await api.delete(`${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`, {
+      headers: { Cookie: cookieStore.toString() },
+    });
+
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -61,11 +53,8 @@ export async function DELETE(request: Request, { params }: Props) {
         { status: error.status }
       );
     }
-    logErrorResponse({ message: (error as Error).message });
 
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    logErrorResponse({ message: (error as Error).message });
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

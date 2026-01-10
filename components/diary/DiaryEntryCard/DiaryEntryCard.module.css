@@ -1,0 +1,45 @@
+.card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 12px;
+  background: #fdecec; /* світло-рожевий як у макеті */
+  cursor: pointer;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.date {
+  font-size: 12px;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.emotions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.emotion {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.emotionMuted {
+  font-size: 12px;
+  opacity: 0.6;
+}
