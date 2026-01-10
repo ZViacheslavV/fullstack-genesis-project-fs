@@ -58,7 +58,7 @@ function AvatarPicker({ profilePhotoUrl }: Props) {
   };
 
   return (
-    <div>
+    <div className={css.avatar}>
       <div ></div>
       {previewUrl &&
         <Image  src={previewUrl} alt='Preview' width={300} height={300} />}
