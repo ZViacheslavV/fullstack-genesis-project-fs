@@ -22,26 +22,29 @@ function UserBar() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogoutConfirm = async () => {
-  setIsLoading(true);
+    setIsLoading(true);
 
-  try {
-    await logout();
-    clearIsAuthenticated();
-    router.replace('/');
-    setIsModalOpen(false);
-  } catch {
-    toast.error('Logout error');
-  } finally {
-    setIsLoading(false);
-  }
-};
+    try {
+      await logout();
+      clearIsAuthenticated();
+      setIsModalOpen(false);
+      router.replace('/');
+    } catch {
+      toast.error('Logout error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className={css.userBar}>
       <div className={css.userInfo}>
         <Image
           className={css.avatar}
-          src={user?.photo || 'https://ac.goit.global/fullstack/react/default-avatar.jpg'}
+          src={
+            user?.photo ||
+            'https://ac.goit.global/fullstack/react/default-avatar.jpg'
+          }
           alt="User avatar"
           width={40}
           height={40}
