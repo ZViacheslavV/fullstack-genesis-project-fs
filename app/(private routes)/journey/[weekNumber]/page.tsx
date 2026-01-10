@@ -5,5 +5,5 @@ export type JourneyPageProps = {
 };
 
 export default function JourneyPage({ weekNumber }: JourneyPageProps) {
-  redirect(`/journey/${weekNumber}/baby`);
+  // redirect(`/journey/${weekNumber}`);
 }
