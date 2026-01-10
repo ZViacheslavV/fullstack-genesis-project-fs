@@ -47,7 +47,7 @@ export default function AuthLayout({
           alt=""
           fill
           priority
-          sizes="(min-width: 1200px) 50vw, 0px"
+          sizes="(min-width: 1440px) 40vw, 0px"
           className={css.illustration}
         />
       </div>
