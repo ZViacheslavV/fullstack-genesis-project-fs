@@ -1,0 +1,38 @@
+.container {
+  border: 0px solid var(--color-scheme-border);
+  border-radius: 32px;
+  padding: 24px;
+  width: 311px;
+  height: 419px;
+}
+
+.title {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: var(--color-scheme-text);
+}
+
+.item {
+}
+
+.svg {
+}
+
+.item_title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-scheme-text);
+}
+
+.item_text {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-scheme-text);
+}
