@@ -1,5 +1,9 @@
-const JourneyPage = () => {
-  return <div />;
+import { redirect } from 'next/navigation';
+
+export type JourneyPageProps = {
+  weekNumber: string;
 };
 
-export default JourneyPage;
+export default function JourneyPage({ weekNumber }: JourneyPageProps) {
+  redirect(`/journey/${weekNumber}/baby`);
+}
