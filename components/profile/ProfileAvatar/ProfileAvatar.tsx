@@ -12,7 +12,7 @@ type Props = {
 
 function ProfileAvatar({ profilePhotoUrl }: Props) {
 const [previewUrl, setPreviewUrl] = useState<string>('');
-  const [error, setError] = useState<string>('');
+const [error, setError] = useState<string>('');
 
 useEffect(() => {
     if (profilePhotoUrl) {
