@@ -19,7 +19,7 @@ function Home() {
         {/*<MomTipCard />*/}
       </div>
       <div>
-        <TasksReminderCard />
+        {<TasksReminderCard />}
         <Toaster position="top-right" />
         {/*<FeelingCheckCard/>*/}
       </div>

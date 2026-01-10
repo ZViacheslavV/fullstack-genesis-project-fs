@@ -4,6 +4,7 @@ import { Lato, Comfortaa } from 'next/font/google';
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import Header from '@/components/layout/Header/Header';
+import Sidebar from '@/components/layout/Sidebar/Sidebar';
 
 import './globals.css';
 import css from './layout.module.css';
@@ -26,7 +27,7 @@ const comfortaa = Comfortaa({
 
 //===========================================================================
 
-const SITE_URL = 'https://...';
+const SITE_URL = 'https://fullstack-genesis-project.vercel.app/';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -66,11 +67,11 @@ export const metadata: Metadata = {
 //===========================================================================
 
 function RootLayout({
-  children,
-  modal,
+  children /* ,
+  modal, */,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
+  /* modal: React.ReactNode; */
 }>) {
   return (
     <html lang="uk">
@@ -78,11 +79,12 @@ function RootLayout({
         <TanStackProvider>
           <AuthProvider>
             <Header />
+            <Sidebar />
             <div className="container">
               <main className={css.main}>
                 <div className={css.container}>
                   {children}
-                  {modal}
+                  {/* {modal} */}
                 </div>
               </main>
             </div>
