@@ -5,11 +5,14 @@ import Header from '@/components/layout/Header/Header';
 import Tabs from '@/components/journey/Tabs/Tabs';
 
 export type JourneyLayoutProps = {
-  journey: React.ReactNode;
+  children: React.ReactNode;
   params: { weekNumber: string }; //?????
 };
 
-export async function JourneyLayout({ journey, params }: JourneyLayoutProps) {
+export default async function JourneyLayout({
+  children,
+  params,
+}: JourneyLayoutProps) {
   const week = Number(params.weekNumber);
 
   return (
@@ -21,7 +24,7 @@ export async function JourneyLayout({ journey, params }: JourneyLayoutProps) {
 
       <Tabs weekNumber={week} />
 
-      {journey}
+      {children}
     </section>
   );
 }

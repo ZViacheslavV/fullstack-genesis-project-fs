@@ -1,16 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
 import css from "./PageTitle.module.css";
 import { useAuthUserStore } from "@/lib/store/authStore";
-
-type BaseTitleProps = {
-  children: React.ReactNode;
-};
-
-export function BasePageTitle({ children }: BaseTitleProps) {
-  return <h1 className={css.title}>{children}</h1>;
-}
 
 type UserForTitle = {
   name?: string | null;
@@ -20,9 +11,9 @@ type UserForTitle = {
 function getGreeting(date = new Date()): string {
   const hour = date.getHours();
 
-  if (hour >= 5 && hour < 12) return "Доброго ранку";
+  if (hour >= 6 && hour < 12) return "Доброго ранку";
   if (hour >= 12 && hour < 18) return "Доброго дня";
-  if (hour >= 18 && hour < 23) return "Доброго вечора";
+  if (hour >= 18 && hour < 24) return "Доброго вечора";
 
   return "Доброї ночі";
 }
@@ -30,11 +21,11 @@ function getGreeting(date = new Date()): string {
 function PageTitle() {
   const user = useAuthUserStore((state) => state.user) as UserForTitle | null;
 
-  const userName = user?.name || user?.email || "Гість";
+  const userName = user?.name || "Гість";
 
   const greeting = `${getGreeting()}, ${userName}!`;
 
-  return <BasePageTitle>{greeting}</BasePageTitle>;
+  return <h1 className={css.title}>{greeting}</h1>;
 }
 
 export default PageTitle;

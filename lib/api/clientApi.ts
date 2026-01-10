@@ -2,6 +2,8 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
+import { WeeksApiResponse } from '@/types/weeks';
+
 import { Baby, JourneyType, Momy } from '@/types/journey';
 
 //-----------------JOURNEY------------------------------------------------------
@@ -83,6 +85,17 @@ export const logout = async (): Promise<void> => {
 
 // ============================  WEEKS  =============================
 
+
+
+export const getWeeks = async (): Promise<WeeksApiResponse> => {
+  const { data } = await axios.get<WeeksApiResponse>(
+    'https://fullstack-genesis-project.onrender.com/api/weeks/demo'
+  );
+
+  return data;
+};
+
+
 // ============================  USERS  =============================
 
 export const getMe = async () => {
@@ -112,6 +125,7 @@ export const updateMe = async (userData: UpdateProfile) => {
 // ============================  TASKS  =============================
 
 import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';
+import axios from 'axios';
 
 export async function getTasks(): Promise<Task[]> {
   const { data } = await nextServer.get<Task[]>(`${API_ENDPOINTS.TASKS_GET}`);

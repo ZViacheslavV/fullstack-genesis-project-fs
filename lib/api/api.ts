@@ -25,6 +25,11 @@ export const API_ENDPOINTS = {
   DIARIES_PATCH_ID: '/diaries/',
   EMOTIONS: '/emotions',
 
+  WEEKS_GET: '/weeks',
+  WEEKS_DEMO: '/weeks/demo',
+  WEEKS_BABY: '/weeks/baby/',
+  WEEKS_MOM: '/weeks/mom/',
+
   TASKS_GET: '/tasks',
   TASKS_POST: '/tasks',
   TASKS_PATCH_TASK_ID: '/tasks/',
