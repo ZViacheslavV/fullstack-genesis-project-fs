@@ -3,6 +3,8 @@ import css from './page.module.css';
 import StatusBlock from '@/components/dashboard/StatusBlock/StatusBlock';
 import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';
 import MomTipCard from '@/components/dashboard/MomTipCard/MomTipCard';
+import { Toaster } from 'react-hot-toast';
+import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
 
 //===========================================================================
 
@@ -28,7 +30,8 @@ function Home() {
         <MomTipCard text={tipText} /> 
       </div>
       <div>
-        {/*<TasksReminderCard />*/}
+        {<TasksReminderCard />}
+        <Toaster position="top-right" />
         {/*<FeelingCheckCard/>*/}
       </div>
     </section>

@@ -1,10 +1,10 @@
-export type childGender = 'Ще не знаю' | 'Дівчинка' | 'Хлопчик';
+export type childGender = 'unknown' | 'girl' | 'boy';
 
 export interface User {
   _id: string;
   name: string;
   email: string;
-  childGender?: childGender;
+  gender?: childGender;
   dueDate?: string;
   photo?: string;
   createdAt: string;
