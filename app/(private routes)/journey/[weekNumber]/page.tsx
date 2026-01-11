@@ -4,9 +4,15 @@ type Props = {
   params: { weekNumber: string };
 };
 
-export default function JourneyPage({ params }: Props) {
-  const week = Number(params.weekNumber);
-  return <JourneyDetails weekNumber={week} />;
+export default async function JourneyPage({ params }: Props) {
+  const { weekNumber } = await params;
+  return (
+    <>
+      <h1>Hello from JourneyPage</h1>
+      <div>{weekNumber}</div>
+      {/* <JourneyDetails weekNumber={Number(weekNumber)} /> */}
+    </>
+  );
 }
 
-///dont render tooo
+//dont render tooo
