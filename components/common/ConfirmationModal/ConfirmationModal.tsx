@@ -4,7 +4,6 @@ import Modal from '@/components/common/Modal/Modal';
 import Button from '@/components/common/Button/Button';
 import css from './ConfirmationModal.module.css';
 
-
 type ConfirmationModalProps = {
   isOpen: boolean;
   title: string;
@@ -31,9 +30,10 @@ function ConfirmationModal({
     <Modal
       isOpen={isOpen}
       onClose={onCancel}
-      showCloseButton={false}
+      showCloseButton
       closeOnBackdrop
       closeOnEsc
+      modalClassName={css.modal}
     >
       <div className={css.wrapper}>
         <h2 className={css.title}>{title}</h2>
@@ -41,7 +41,7 @@ function ConfirmationModal({
         <div className={css.actions}>
           <Button
             variant="cancel"
-            size="sm"
+            size="md"
             onClick={onCancel}
             disabled={isLoading}
             className={css.btn}
@@ -51,7 +51,7 @@ function ConfirmationModal({
 
           <Button
             variant="delete"
-            size="sm"
+            size="md"
             onClick={onConfirm}
             isLoading={isLoading}
             className={css.btn}
@@ -65,3 +65,4 @@ function ConfirmationModal({
 }
 
 export default ConfirmationModal;
+

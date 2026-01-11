@@ -1,55 +1,48 @@
 .page {
-  padding: 16px;
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-/* loader */
-.loader {
-  display: grid;
-  place-items: center;
-  padding: 20px 0;
-}
-
-/* текст коли нема доступу */
-.infoText {
-  margin: 0;
-  color: var(--color-neutral);
-  text-align: center;
-  font-size: 14px;
-}
-
-/* контейнер зі списком + деталями */
-.grid {
-  display: grid;
-  gap: 16px;
-}
-
-/* ===== 📱 MOBILE / TABLET ===== */
-@media (max-width: 1023px) {
-  .details {
-    display: none;
-  }
-}
-
-/* ===== 🖥 DESKTOP ===== */
-@media (min-width: 1024px) {
+/* ===== DESKTOP (1440px і більше) ===== */
+@media (min-width: 1440px) {
   .grid {
-    grid-template-columns: 320px 1fr;
+    display: grid;
+    grid-template-columns: 360px 1fr;
     gap: 24px;
   }
 
   .details {
     display: block;
-    overflow-y: auto;
-    max-height: 80vh;
-    min-width: 0;
+    background: #fff5f6;
+    border-radius: 20px;
+    padding: 24px;
+    min-height: 520px;
   }
 }
 
-/* large desktop tweaks */
-@media (min-width: 1440px) {
-  .page {
-    gap: 20px;
+/* ===== TABLET + MOBILE (до 1439px) ===== */
+@media (max-width: 1439px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
+
+  /* Приховуємо праву колонку */
+  .details {
+    display: none !important;
+  }
+}
+
+/* LOADER + INFO TEXT */
+.loader {
+  display: grid;
+  place-items: center;
+  padding: 40px 0;
+}
+
+.infoText {
+  text-align: center;
+  color: #888;
 }
