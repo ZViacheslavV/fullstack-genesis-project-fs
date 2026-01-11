@@ -1,58 +1,70 @@
 'use client';
 
-import type { MouseEventHandler } from 'react';
 import css from './DiaryEntryCard.module.css';
 import type { DiaryEntry } from '@/types/diary';
 
-type DiaryEntryCardProps = {
+type EmotionObj = { _id: string; title: string };
+type EmotionValue = EmotionObj | string;
+
+type Props = {
   entry: DiaryEntry;
-  onClick: MouseEventHandler<HTMLButtonElement>;
-  isActive?: boolean; // optional: highlight selected on desktop
+  isActive?: boolean;
+  onClick: () => void;
 };
 
-function formatShortDate(dateStr: string) {
-  const date = new Date(dateStr);
-  if (Number.isNaN(date.getTime())) return '';
-
-  return new Intl.DateTimeFormat('uk-UA', {
+function formatDateShort(iso: string) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return d.toLocaleDateString('uk-UA', {
     day: '2-digit',
-    month: 'long',
+    month: '2-digit',
     year: 'numeric',
-  }).format(date);
+  });
 }
 
-function DiaryEntryCard({ entry, onClick, isActive = false }: DiaryEntryCardProps) {
-  const date = formatShortDate(entry.createdAt);
+function DiaryEntryCard({ entry, isActive = false, onClick }: Props) {
+  const emotions = (entry.emotions ?? []) as unknown as EmotionValue[];
 
-  const emotions = Array.isArray(entry.emotions) ? entry.emotions : [];
-  const visible = emotions.slice(0, 2);
-  const rest = emotions.length - visible.length;
+  const dateLabel = formatDateShort(entry.createdAt);
 
   return (
     <button
       type="button"
       className={`${css.card} ${isActive ? css.active : ''}`}
       onClick={onClick}
-      aria-label={`Відкрити запис: ${entry.title}`}
     >
       <div className={css.topRow}>
-        <h4 className={css.title}>{entry.title}</h4>
-        <time className={css.date} dateTime={entry.createdAt}>
-          {date}
-        </time>
+        <h3 className={css.title} title={entry.title}>
+          {entry.title}
+        </h3>
+
+        {dateLabel ? <p className={css.date}>{dateLabel}</p> : null}
       </div>
 
-      {emotions.length > 0 && (
-        <ul className={css.emotions} aria-label="Емоції запису">
-          {visible.map((emotion) => (
-            <li key={emotion} className={css.emotion}>
-              {emotion}
-            </li>
-          ))}
+      <div className={css.bottomRow}>
+        {emotions.length ? (
+          <ul className={css.emotions} aria-label="Емоції">
+            {emotions.slice(0, 6).map((e) => {
+              const key = typeof e === 'string' ? e : e._id;
+              const label = typeof e === 'string' ? e : e.title;
 
-          {rest > 0 && <li className={css.more}>+{rest}</li>}
-        </ul>
-      )}
+              return (
+                <li key={key} className={css.chip} title={label}>
+                  {label}
+                </li>
+              );
+            })}
+
+            {emotions.length > 6 ? (
+              <li className={css.more} aria-label="Більше емоцій">
+                +{emotions.length - 6}
+              </li>
+            ) : null}
+          </ul>
+        ) : (
+          <p className={css.noEmotions}>Без емоцій</p>
+        )}
+      </div>
     </button>
   );
 }

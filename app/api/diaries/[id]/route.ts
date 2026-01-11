@@ -1,23 +1,32 @@
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { isAxiosError } from 'axios';
-
-import { api } from '../../api';
 import { API_ENDPOINTS } from '@/lib/api/api';
+import { isAxiosError } from 'axios';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
+
 import { logErrorResponse } from '../../_utils/utils';
+import { api } from '../../api';
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
+async function serializeCookies() {
+  const store = await cookies();
+  return store
+    .getAll()
+    .map((c) => `${c.name}=${encodeURIComponent(c.value)}`)
+    .join('; ');
+}
+
 export async function PATCH(request: Request, { params }: Props) {
-  const cookieStore = cookies();
+  const { id } = await params;
   const body = await request.json();
-  const { id } = params;
 
   try {
+    const cookieHeader = await serializeCookies();
+
     const res = await api.patch(`${API_ENDPOINTS.DIARIES_PATCH_ID}${id}`, body, {
-      headers: { Cookie: cookieStore.toString() },
+      headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
     });
 
     return NextResponse.json(res.data, { status: res.status });
@@ -36,12 +45,13 @@ export async function PATCH(request: Request, { params }: Props) {
 }
 
 export async function DELETE(_: Request, { params }: Props) {
-  const cookieStore = cookies();
-  const { id } = params;
+  const { id } = await params;
 
   try {
+    const cookieHeader = await serializeCookies();
+
     const res = await api.delete(`${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`, {
-      headers: { Cookie: cookieStore.toString() },
+      headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
     });
 
     return NextResponse.json(res.data, { status: res.status });

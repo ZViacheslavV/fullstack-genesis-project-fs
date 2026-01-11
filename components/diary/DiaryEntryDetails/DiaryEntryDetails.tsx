@@ -3,85 +3,93 @@
 import css from './DiaryEntryDetails.module.css';
 import type { DiaryEntry } from '@/types/diary';
 
-type DiaryEntryDetailsProps = {
-  entry?: DiaryEntry | null;
+type EmotionObj = { _id: string; title: string };
+type EmotionValue = EmotionObj | string;
+
+type Props = {
+  entry: DiaryEntry | null;
   onEdit?: (entry: DiaryEntry) => void;
-  onDelete?: (entry: DiaryEntry) => void;
+  onDelete?: (id: string) => void;
 };
 
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr);
+function formatDate(iso: string) {
+  const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return '';
-
-  return new Intl.DateTimeFormat('uk-UA', {
+  return date.toLocaleDateString('uk-UA', {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
-  }).format(date);
+  });
 }
 
-function DiaryEntryDetails({
-  entry,
-  onEdit,
-  onDelete,
-}: DiaryEntryDetailsProps) {
+function getEmotionKey(e: EmotionValue) {
+  return typeof e === 'string' ? e : e._id;
+}
+
+function getEmotionLabel(e: EmotionValue) {
+  return typeof e === 'string' ? e : e.title;
+}
+
+function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
   if (!entry) {
     return (
-      <section className={css.empty} aria-label="Деталі запису щоденника">
-        <p className={css.emptyText}>Наразі записи у щоденнику відсутні</p>
-      </section>
+      <div className={css.empty}>
+        <p className={css.emptyText}>Оберіть запис зі списку, щоб переглянути деталі.</p>
+      </div>
     );
   }
 
-  const createdAt = formatDate(entry.createdAt);
+  // якщо у вашому DiaryEntry emotions типізовані інакше — тут робимо “м’яке” приведення
+  const emotions = (entry.emotions ?? []) as unknown as EmotionValue[];
+
+  const dateLabel = formatDate(entry.createdAt);
 
   return (
-    <section className={css.wrapper} aria-label="Деталі запису щоденника">
-      <header className={css.header}>
-        <h3 className={css.title}>{entry.title}</h3>
-
-        <div className={css.metaRow}>
-          <time className={css.date} dateTime={entry.createdAt}>
-            {createdAt}
-          </time>
-
-          <div className={css.actions}>
-            <button
-              type="button"
-              className={css.iconBtn}
-              onClick={() => onEdit?.(entry)}
-              aria-label="Редагувати запис"
-              title="Редагувати"
-            >
-              ✎
-            </button>
-
-            <button
-              type="button"
-              className={css.iconBtn}
-              onClick={() => onDelete?.(entry)}
-              aria-label="Видалити запис"
-              title="Видалити"
-            >
-              ✕
-            </button>
-          </div>
+    <section className={css.wrapper} aria-label="Деталі запису">
+      <div className={css.header}>
+        <div className={css.headerText}>
+          <h2 className={css.title}>{entry.title}</h2>
+          {dateLabel ? <p className={css.date}>{dateLabel}</p> : null}
         </div>
-      </header>
 
-      <div className={css.content}>
-        <p className={css.note}>{entry.note}</p>
+        <div className={css.actions}>
+          <button
+            type="button"
+            className={css.iconBtn}
+            onClick={() => onEdit?.(entry)}
+            aria-label="Редагувати запис"
+            title="Редагувати"
+          >
+            ✎
+          </button>
+
+          <button
+            type="button"
+            className={css.iconBtnDanger}
+            onClick={() => onDelete?.(entry._id)}
+            aria-label="Видалити запис"
+            title="Видалити"
+          >
+            🗑
+          </button>
+        </div>
       </div>
 
-      {entry.emotions?.length > 0 && (
+      {emotions.length ? (
         <ul className={css.emotions} aria-label="Емоції">
-          {entry.emotions.map((emotion) => (
-            <li key={emotion} className={css.emotion}>
-              {emotion}
+          {emotions.map((e) => (
+            <li key={getEmotionKey(e)} className={css.chip} title={getEmotionLabel(e)}>
+              {getEmotionLabel(e)}
             </li>
           ))}
         </ul>
+      ) : (
+        <p className={css.noEmotions}>Емоції не обрані</p>
       )}
+
+      <div className={css.noteBox}>
+        <p className={css.note}>{entry.note}</p>
+      </div>
     </section>
   );
 }

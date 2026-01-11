@@ -1,93 +1,95 @@
 .card {
   width: 100%;
-  text-align: left;
-
-  border: none;
-  cursor: pointer;
-
-  background: var(--color-pastel-pink-light);
+  border: 1px solid var(--color-scheme-border);
+  background: var(--color-scheme-background);
   border-radius: 16px;
-  padding: 14px;
-
-  display: grid;
-  gap: 10px;
-
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
   transition:
-    transform 120ms ease,
-    box-shadow 120ms ease,
-    background 120ms ease;
+    border-color 150ms ease,
+    background 150ms ease;
 }
 
-.card:focus-visible {
-  outline: 2px solid var(--opacity-neutral-darkest-20);
-  outline-offset: 2px;
+.card:hover {
+  border-color: var(--opacity-neutral-darkest-30);
+}
+
+.active {
+  border-color: var(--focus);
+  background: var(--color-scheme-foreground);
 }
 
 .topRow {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
 }
 
 .title {
   margin: 0;
   font-weight: var(--fw-semibold);
   font-size: 14px;
-  line-height: 1.3;
-  color: var(--color-neutral-darkest);
-
-  /* щоб не ламало layout */
-  min-width: 0;
+  line-height: 1.25;
+  max-width: 70%;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .date {
-  flex: 0 0 auto;
+  margin: 0;
   font-size: 12px;
-  color: var(--color-neutral);
+  color: var(--color-neutral-dark);
   white-space: nowrap;
 }
 
-.emotions {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.bottomRow {
+  margin-top: 10px;
 }
 
-.emotion {
-  background: var(--color-white);
-  border: 1px solid var(--opacity-neutral-darkest-10);
-  border-radius: 12px;
-  padding: 4px 10px;
+.emotions {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--color-scheme-foreground-alt);
   font-size: 12px;
-  color: var(--color-neutral-darker);
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .more {
-  background: var(--color-white);
-  border: 1px dashed var(--opacity-neutral-darkest-15);
-  border-radius: 12px;
-  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--opacity-neutral-darkest-10);
   font-size: 12px;
-  color: var(--color-neutral);
+  line-height: 1;
 }
 
-/* optional: selected state (desktop list) */
-.active {
-  background: var(--color-pastel-pink);
-  box-shadow: 0 6px 16px var(--opacity-neutral-darkest-10);
+.noEmotions {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-neutral);
 }
 
 @media only screen and (min-width: 768px) {
   .card {
-    padding: 16px;
-    gap: 12px;
+    padding: 14px;
   }
 
   .title {
@@ -96,13 +98,11 @@
 }
 
 @media only screen and (min-width: 1440px) {
-  .card:hover {
-    background: var(--color-pastel-pink);
-    box-shadow: 0 6px 16px var(--opacity-neutral-darkest-10);
-    transform: translateY(-1px);
+  .card {
+    padding: 16px;
   }
 
-  .card:active {
-    transform: translateY(0);
+  .title {
+    font-size: 16px;
   }
 }

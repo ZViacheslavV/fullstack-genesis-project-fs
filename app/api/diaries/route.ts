@@ -6,12 +6,24 @@ import { api } from '../api';
 import { API_ENDPOINTS } from '@/lib/api/api';
 import { logErrorResponse } from '../_utils/utils';
 
+function serializeCookies() {
+  // Next 15: cookies() async
+  // Header Cookie: "a=1; b=2"
+  // Беремо всі cookie і склеюємо
+  return cookies().then((store) =>
+    store
+      .getAll()
+      .map((c) => `${c.name}=${encodeURIComponent(c.value)}`)
+      .join('; ')
+  );
+}
+
 export async function GET() {
   try {
-    const cookieStore = cookies();
+    const cookieHeader = await serializeCookies();
 
     const res = await api.get(API_ENDPOINTS.DIARIES_GET, {
-      headers: { Cookie: cookieStore.toString() },
+      headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
     });
 
     return NextResponse.json(res.data, { status: res.status });
@@ -30,12 +42,13 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const cookieStore = cookies();
   const body = await request.json();
 
   try {
+    const cookieHeader = await serializeCookies();
+
     const res = await api.post(API_ENDPOINTS.DIARIES_POST, body, {
-      headers: { Cookie: cookieStore.toString() },
+      headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
     });
 
     return NextResponse.json(res.data, { status: res.status });
