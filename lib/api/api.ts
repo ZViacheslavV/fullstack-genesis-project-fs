@@ -10,9 +10,9 @@ export const API_ENDPOINTS = {
   LOGOUT: '/auth/logout',
   REFRESH: '/auth/refresh',
 
-  WEEKS: '/weeks',
-  WEEKS_MOM_NUMB: '/weeks/mom/',
-  WEEKS_BABY_NUMB: '/weeks/baby/',
+  WEEKS_GET: '/weeks',
+  WEEKS_MOM_WEEK_NUMB: '/weeks/mom/',
+  WEEKS_BABY_WEEK_NUMB: '/weeks/baby/',
   WEEKS_DEMO: '/weeks/demo',
 
   USER_CURRENT_GET: '/users/current',
