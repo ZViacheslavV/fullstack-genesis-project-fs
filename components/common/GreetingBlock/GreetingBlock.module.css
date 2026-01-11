@@ -8,7 +8,11 @@
   text-align: left;
 }
 
-@media (min-width: 768px) { .title { font-size: 34px; } }
+@media (min-width: 768px) {
+  .title {
+    font-size: 34px;
+  }
+}
 
 @media (min-width: 1440px) {
   .title {

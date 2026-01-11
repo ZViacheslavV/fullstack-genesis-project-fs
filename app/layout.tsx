@@ -6,6 +6,7 @@ import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvi
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import Header from '@/components/layout/Header/Header';
 import Sidebar from '@/components/layout/Sidebar/Sidebar';
+import Breadcrumbs from '@/components/layout/Breadcrumbs/Breadcrumbs';
 
 import './globals.css';
 import css from './layout.module.css';
@@ -82,11 +83,9 @@ function RootLayout({
             <Header />
             <Sidebar />
             <div className="container">
+              <Breadcrumbs />
               <main className={css.main}>
-                <div className={css.container}>
-                  {children}
-                  {/* {modal} */}
-                </div>
+                <div className={css.container}>{children}</div>
               </main>
             </div>
             <Toaster position="top-right" />
