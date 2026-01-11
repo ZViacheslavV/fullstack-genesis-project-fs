@@ -16,6 +16,9 @@ type ModalProps = {
 
   modalClassName?: string;
   backdropClassName?: string;
+
+  closeButtonClassName?: string;
+  closeIconClassName?: string;
 };
 
 function Modal({
@@ -27,6 +30,9 @@ function Modal({
   closeOnEsc = true,
   modalClassName,
   backdropClassName,
+  closeButtonClassName,
+  closeIconClassName,
+  
 }: ModalProps) {
   useEffect(() => {
     if (!isOpen) return;
@@ -60,20 +66,16 @@ function Modal({
       onClick={handleBackdropClick}
       role="presentation"
     >
-      <div
-        className={clsx(css.modal, modalClassName)}
-        role="dialog"
-        aria-modal="true"
-      >
+      <div className={clsx(css.modal, modalClassName)} role="dialog" aria-modal="true">
         {showCloseButton && (
           <button
             type="button"
-            className={css.closeButton}
+            className={clsx(css.closeButton, closeButtonClassName)}
             onClick={onClose}
             aria-label="Закрити діалогове вікно"
           >
             <svg
-              className={css.closeIcon}
+              className={clsx(css.closeIcon, closeIconClassName)}
               width="24"
               height="24"
               aria-hidden="true"
