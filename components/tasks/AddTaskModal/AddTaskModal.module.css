@@ -42,7 +42,7 @@
   }
 }
 
-@media only screen and (min-width: 1336px) {
+@media only screen and (min-width: 1440px) {
   .modalTask {
     width: 768px;
   }
