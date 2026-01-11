@@ -36,5 +36,14 @@
   }
 }
 
+@media only screen and (min-width: 768px) {
+  .modalTask {
+    width: 704px;
+  }
+}
 
-
+@media only screen and (min-width: 1440px) {
+  .modalTask {
+    width: 768px;
+  }
+}

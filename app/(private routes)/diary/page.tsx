@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
-import Loader from '@/components/common/Loader/Loader';
+// import Loader from '@/components/common/Loader/Loader';
 
 import DiaryList from '@/components/diary/DiaryList/DiaryList';
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
@@ -110,9 +110,7 @@ export default function DiaryPage() {
       <GreetingBlock />
 
       {isLoading ? (
-        <div className={css.loader}>
-          <Loader />
-        </div>
+        <div className={css.loader}>{/* <Loader /> */}</div>
       ) : isForbidden ? (
         <p className={css.infoText}>
           Щоб переглянути щоденник, потрібно увійти.

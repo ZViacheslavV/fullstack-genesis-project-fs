@@ -8,9 +8,11 @@ import { useId } from 'react';
 import * as Yup from 'yup';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 import { loginRequest, loginUser } from '@/lib/api/clientApi';
-import { ApiError } from '@/app/api/api';
+import { useAuthUserStore } from '@/lib/store/authStore';
+import type { User } from '@/types/user';
 
 import css from '../RegistrationForm/RegistrationForm.module.css';
 
@@ -40,7 +42,8 @@ function LoginForm() {
   const fieldId = useId();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+
+  const setUser = useAuthUserStore((s) => s.setUser);
 
   const handleSubmit = async (
     values: loginRequest,
@@ -49,17 +52,12 @@ function LoginForm() {
     try {
       const res = await loginUser(values);
 
-      if (res) {
-        router.push('/');
-      } else {
-        setError('Invalid email or password');
-      }
-    } catch (error) {
-      setError(
-        (error as ApiError).response?.data?.error ??
-          (error as ApiError).message ??
-          'Oops... some error'
-      );
+      setUser(res.data as User);
+      router.push('/');
+    } catch (err) {
+      console.error('Login error:', err);
+
+      toast.error('Пошта або пароль введені невірно.');
     } finally {
       actions.setSubmitting(false);
     }
@@ -146,7 +144,7 @@ function LoginForm() {
           </div>
 
           <button className={css.btn} type="submit" disabled={isSubmitting}>
-            Увійти
+            {isSubmitting ? 'Входимо…' : 'Увійти'}
           </button>
 
           <p className={css.helper}>

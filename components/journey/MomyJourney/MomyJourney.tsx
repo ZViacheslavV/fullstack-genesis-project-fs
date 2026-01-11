@@ -6,13 +6,11 @@ import ComfortTips, {
 import { getJourneyData } from '@/lib/api/clientApi';
 
 type Props = {
-  params: { weekNumber: string };
+  weekNumber: number;
 };
 
-const MomyJourney = async ({ params }: Props) => {
-  const week = Number(params.weekNumber);
-
-  const data = await getJourneyData(week, 'momy');
+const MomyJourney = async ({ weekNumber }: Props) => {
+  const data = await getJourneyData(weekNumber, 'momy');
 
   return (
     <>
