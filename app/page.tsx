@@ -5,6 +5,7 @@ import DashboardClient from '@/components/dashboard/DashboardClient';
 import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
 // import moduleName from 'module';
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
+import FeelRecommendationCard from '@/components/dashboard/FeelingCheckCard/FeelingCheckCard';
 
 //===========================================================================
 
@@ -22,7 +23,7 @@ function Home() {
       <div>
         {<TasksReminderCard />}
         {/* <Toaster position="top-right" /> */}
-        {/*<FeelingCheckCard/>*/}
+        <FeelRecommendationCard recommendationText="" />
       </div>
     </section>
   );

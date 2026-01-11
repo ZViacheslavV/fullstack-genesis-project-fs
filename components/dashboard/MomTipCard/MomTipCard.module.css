@@ -1,48 +1,46 @@
 .picker {
-        padding-bottom: 24px;
+  padding-bottom: 24px;
 }
 .card {
-    border: 0px solid var(--color-scheme-border);
-    border-radius: 32px;
-    padding: 24px;
-    background: var(--color-scheme-foreground);
-    margin-top: 24px;
+  border: 0px solid var(--color-scheme-border);
+  border-radius: 32px;
+  padding: 24px;
+  background: var(--color-scheme-foreground);
+  margin-top: 24px;
 }
 
 .title {
-    font-family: var(--second-family);
-    font-weight: 700;
-    font-size: 20px;
-line-height: 140%;
-letter-spacing: 0.01em;
-color: var(--color-scheme-text);
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: 0.01em;
+  color: var(--color-scheme-text);
 }
 
 .text {
-    margin-top: 4px;
-    font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 14px;
-line-height: 160%;
-color: var(--color-scheme-text);
+  margin-top: 4px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  color: var(--color-scheme-text);
 }
-
 
 @media (min-width: 768px) {
-    .picker {
-        padding-bottom: 32px;
-}
+  .picker {
+    padding-bottom: 32px;
+  }
 }
 
-
-@media (min-width: 1024px) {
-    .title {
-        font-size: 24px;
-    }
-    .text {
-        font-size: 16px;
-    }
-    .picker {
-        padding-bottom: 32px;
-}
+@media (min-width: 1440px) {
+  .title {
+    font-size: 24px;
+  }
+  .text {
+    font-size: 16px;
+  }
+  .picker {
+    padding-bottom: 32px;
+  }
 }
