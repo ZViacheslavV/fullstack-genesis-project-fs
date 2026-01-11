@@ -1,6 +1,6 @@
 .taskCardHeader {
     display: flex;
-    width: 342px;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
@@ -8,11 +8,43 @@
 
 .taskCard {
     border-radius: 32px;
-    width: 390px;
-    height: 498px;
+    width: 335px;
     padding: 24px;
     background-color: var(--color-scheme-foreground);
-    overflow-y: auto;
+}
+
+@media only screen and (min-width: 768px) {
+    .taskCard {
+        width: 704px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .taskCard {
+        width: 390px;
+        height: 498px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-color: var(--color-scheme-accent) transparent;
+    }
+}
+
+.addTaskBtn {
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addTaskBtnIcon {
+    transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) ease-in-out;
+}
+
+.addTaskBtnIcon:hover,
+.addTaskBtnIcon:focus {
+    transform: scale(1.1);
 }
 
 .taskList {
@@ -27,4 +59,12 @@
     font-size: 24px;
     line-height: 140%;
     letter-spacing: 0.01em;
+}
+
+.subTitleTaskList {
+    font-weight: 700;
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
 }

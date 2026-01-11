@@ -5,8 +5,21 @@ export interface User {
   name: string;
   email: string;
   gender?: childGender;
+  dueDate?: string | null;
+  photo?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/*
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  gender?: childGender;
   dueDate?: string;
   photo?: string;
   createdAt: string;
   updatedAt: string;
 }
+*/

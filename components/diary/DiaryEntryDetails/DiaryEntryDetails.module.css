@@ -1,0 +1,136 @@
+.wrapper {
+  width: 100%;
+  border: 1px solid var(--color-scheme-border);
+  border-radius: 16px;
+  background: var(--color-scheme-background);
+  padding: 14px;
+}
+
+.empty {
+  width: 100%;
+  border: 1px dashed var(--color-scheme-border);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--color-neutral-dark);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.headerText {
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--second-family);
+  font-weight: var(--fw-semibold);
+  font-size: 18px;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.date {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--color-neutral-dark);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.iconBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--color-scheme-border);
+  background: var(--color-scheme-foreground);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.iconBtnDanger {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--color-scheme-border);
+  background: var(--opacity-neutral-darkest-10);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.emotions {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--color-scheme-foreground-alt);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.noEmotions {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--color-neutral);
+}
+
+.noteBox {
+  margin-top: 12px;
+  border-radius: 14px;
+  background: var(--color-scheme-foreground);
+  padding: 12px;
+}
+
+.note {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media only screen and (min-width: 768px) {
+  .wrapper {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .noteBox {
+    padding: 14px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .wrapper {
+    padding: 18px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}

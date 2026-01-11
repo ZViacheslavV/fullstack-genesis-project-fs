@@ -1,0 +1,49 @@
+.modal {
+  --modal-max-w: 335px;
+
+  --modal-bg: transparent;
+  --modal-padding-y: 0px;
+  --modal-padding-x: 0px;
+  box-shadow: none;
+
+  /* close button */
+  --modal-close-size: 32px;
+  --modal-close-pad: 4px;
+  --modal-close-top: 20px;
+  --modal-close-right: 20px;
+  --modal-overflow: visible;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+/* tablet */
+@media (min-width: 768px) {
+  .modal {
+    --modal-max-w: 704px;
+    --modal-close-top: 32px;
+    --modal-close-right: 32px;
+  }
+}
+
+/* desktop */
+@media (min-width: 1440px) {
+  .modal {
+    --modal-max-w: 768px;
+    --modal-close-top: 25px;
+    --modal-close-right: 32px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .modalTask {
+    width: 704px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .modalTask {
+    width: 768px;
+  }
+}
