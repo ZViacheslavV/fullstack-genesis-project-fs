@@ -85,8 +85,6 @@ export const logout = async (): Promise<void> => {
 
 // ============================  WEEKS  =============================
 
-
-
 export const getWeeks = async (): Promise<WeeksApiResponse> => {
   const { data } = await axios.get<WeeksApiResponse>(
     'https://fullstack-genesis-project.onrender.com/api/weeks/demo'
@@ -95,6 +93,41 @@ export const getWeeks = async (): Promise<WeeksApiResponse> => {
   return data;
 };
 
+export const getWeeksDemo = async (): Promise<WeeksApiResponse> => {
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_DEMO}`
+  );
+
+  return data;
+};
+
+export const getWeeksCurrent = async (): Promise<WeeksApiResponse> => {
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_GET}`
+  );
+
+  return data;
+};
+
+export const getBabyWeeks = async (
+  weekNumber: number | string
+): Promise<WeeksApiResponse> => {
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
+  );
+
+  return data;
+};
+
+export const getMomWeeks = async (
+  weekNumber: number | string
+): Promise<WeeksApiResponse> => {
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
+  );
+
+  return data;
+};
 
 // ============================  USERS  =============================
 
