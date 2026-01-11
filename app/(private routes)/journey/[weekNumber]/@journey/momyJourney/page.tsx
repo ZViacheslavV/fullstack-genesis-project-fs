@@ -1,4 +1,4 @@
-import FeelingCheckCard from '@/components/dashboard/FeelingCheckCard/FeelingCheckCard';
+// import FeelingCheckCard from '@/components/dashboard/FeelingCheckCard/FeelingCheckCard';
 import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
 import ComfortTips, {
   ComfortTipsProps,
@@ -6,15 +6,17 @@ import ComfortTips, {
 import { getJourneyData } from '@/lib/api/clientApi';
 
 type Props = {
-  weekNumber: number;
+  params: { weekNumber: string };
 };
 
-const MomyJourney = async ({ weekNumber }: Props) => {
-  const data = await getJourneyData(weekNumber, 'momy');
+const MomyJourney = async ({ params }: Props) => {
+  const week = Number(params.weekNumber);
+
+  const data = await getJourneyData(week, 'momy');
 
   return (
     <>
-      <FeelingCheckCard />
+      {/* <FeelingCheckCard /> */}
       <ComfortTips comfortTips={data.comfortTips as ComfortTipsProps[]} />
       <TasksReminderCard />
     </>
