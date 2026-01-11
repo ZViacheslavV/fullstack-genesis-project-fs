@@ -1,0 +1,59 @@
+.modal {
+  --modal-bg: var(--color-scheme-background);
+  --modal-radius: 40px;
+
+  --modal-max-width: 335px;
+  --modal-min-height: 695px;
+
+  --modal-padding: 48px 20px;
+
+  --close-btn-top: 20px;
+  --close-btn-right: 20px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--color-scheme-text);
+}
+
+/* tablet */
+@media (min-width: 768px) {
+  .modal {
+    --modal-max-width: 704px;
+    --modal-min-height: 755px;
+
+    --modal-padding: 64px 32px;
+
+    --close-btn-top: 32px;
+    --close-btn-right: 32px;
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 1.2;
+  }
+}
+
+/* desktop */
+@media (min-width: 1440px) {
+  .modal {
+    --modal-max-width: 768px;
+    --modal-min-height: 786px;
+
+    --modal-padding: 64px;
+
+    --close-btn-top: 25px;
+    --close-btn-right: 32px;
+  }
+}

@@ -1,55 +1,30 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import css from './Tabs.module.css';
 
 type Props = {
-  weekNumber: number;
+  active: 'baby' | 'momy';
+  onChange: (value: 'baby' | 'momy') => void;
 };
 
-export default function Tabs({ weekNumber }: Props) {
-  const pathname = usePathname();
-
-  const tabs = [
-    {
-      href: `/journey/${weekNumber}/baby`,
-      label: 'Розвиток малюка',
-    },
-    {
-      href: `/journey/${weekNumber}/momy`,
-      label: 'Тіло мами',
-    },
-  ];
-
+export default function Tabs({ active, onChange }: Props) {
   return (
     <div className={css.container_tab}>
-      {tabs.map((tab) => (
-        <Link
-          key={tab.href}
-          href={tab.href}
-          aria-current={pathname === tab.href ? 'page' : undefined}
-        >
-          <button
-            type="button"
-            className={css.button} // styles button ????
-          >
-            {tab.label}
-          </button>
-        </Link>
-      ))}
+      <button
+        onClick={() => onChange('baby')}
+        aria-pressed={active === 'baby'}
+        className={css.button}
+      >
+        Розвиток малюка
+      </button>
+
+      <button
+        onClick={() => onChange('momy')}
+        aria-pressed={active === 'momy'}
+        className={css.button}
+      >
+        Тіло мами
+      </button>
     </div>
   );
-}
-
-// or... ???
-{
-  /* <Link
-  key={tab.href}
-  href={tab.href}
-  aria-current={pathname === tab.href ? 'page' : undefined}
-  className={css.button}
->
-  {tab.label}
-</Link>; */
 }

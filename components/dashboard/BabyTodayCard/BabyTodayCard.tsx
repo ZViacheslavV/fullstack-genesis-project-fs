@@ -2,16 +2,21 @@
 
 import css from './BabyTodayCard.module.css';
 
+
 //===============================================================
 type BabyTodayCardProps = {
   imageUrl: string;
   sizeText: string;
+  weightText: string;
+  babyActivity: string;
   description: string;
 };
 
   const BabyTodayCard = ({
     imageUrl,
     sizeText,
+    weightText,
+    babyActivity,
     description,
   }: BabyTodayCardProps) => {
   return <div className={css.backdrop}>
@@ -23,6 +28,8 @@ type BabyTodayCardProps = {
         <img src={imageUrl} alt="Baby illustration" />
       </div>
         <p className={css.size}>{sizeText}</p>
+        <p className={css.weight}>{weightText}</p>
+        <p className={css.babyActivity}>{babyActivity}</p>
       </div>
       
         <p className={css.description}>{description}</p>

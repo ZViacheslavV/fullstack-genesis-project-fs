@@ -1,33 +1,44 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import clsx from 'clsx';
 import css from './Modal.module.css';
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+
   showCloseButton?: boolean;
   closeOnBackdrop?: boolean;
   closeOnEsc?: boolean;
+
+  modalClassName?: string;
+  backdropClassName?: string;
+
+  closeButtonClassName?: string;
+  closeIconClassName?: string;
 };
 
-const Modal: React.FC<ModalProps> = ({
+function Modal({
   isOpen,
   onClose,
   children,
   showCloseButton = true,
   closeOnBackdrop = true,
   closeOnEsc = true,
-}) => {
+  modalClassName,
+  backdropClassName,
+  closeButtonClassName,
+  closeIconClassName,
+  
+}: ModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (closeOnEsc && e.key === 'Escape') {
-        onClose();
-      }
+      if (closeOnEsc && e.key === 'Escape') onClose();
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -42,32 +53,29 @@ const Modal: React.FC<ModalProps> = ({
   }, [isOpen, closeOnEsc, onClose]);
 
   if (!isOpen) return null;
-
   if (typeof document === 'undefined') return null;
 
-  const handleBackdropClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!closeOnBackdrop) return;
-    if (event.target === event.currentTarget) onClose();
+    if (e.target === e.currentTarget) onClose();
   };
 
-  const modal = (
+  return createPortal(
     <div
-      className={css.backdrop}
+      className={clsx(css.backdrop, backdropClassName)}
       onClick={handleBackdropClick}
       role="presentation"
     >
-      <div className={css.modal} role="dialog" aria-modal="true">
+      <div className={clsx(css.modal, modalClassName)} role="dialog" aria-modal="true">
         {showCloseButton && (
           <button
             type="button"
-            className={css.closeButton}
+            className={clsx(css.closeButton, closeButtonClassName)}
             onClick={onClose}
-            aria-label="Закрити модалку"
+            aria-label="Закрити діалогове вікно"
           >
             <svg
-              className={css.closeIcon}
+              className={clsx(css.closeIcon, closeIconClassName)}
               width="24"
               height="24"
               aria-hidden="true"
@@ -79,10 +87,9 @@ const Modal: React.FC<ModalProps> = ({
 
         <div className={css.content}>{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
-
-  return createPortal(modal, document.body);
-};
+}
 
 export default Modal;
