@@ -14,7 +14,7 @@ export async function getJourneyData<T extends JourneyType>(
   type: T
 ): Promise<JourneyResponse<T>> {
   const { data } = await nextServer.get<JourneyResponse<T>>(
-    `/journey/${weekNumber}/${type}`
+    `/weeks/${type}/${weekNumber}`
   );
 
   return data;
@@ -226,8 +226,11 @@ export async function updateTaskStatus({
 // ------------------------- Данило
 
 export const updateCurrentUser = async (data: UpdateProfile) => {
-  const res = await nextServer.patch(`${API_ENDPOINTS.USER_CURRENT_PATCH}`, data);
+  const res = await nextServer.patch(
+    `${API_ENDPOINTS.USER_CURRENT_PATCH}`,
+    data
+  );
   return res.data;
 };
-  
+
 // ------------------------- Данило

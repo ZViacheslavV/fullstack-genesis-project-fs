@@ -3,8 +3,8 @@
 import css from './Tabs.module.css';
 
 type Props = {
-  active: 'baby' | 'momy';
-  onChange: (value: 'baby' | 'momy') => void;
+  active: 'baby' | 'mom';
+  onChange: (value: 'baby' | 'mom') => void;
 };
 
 export default function Tabs({ active, onChange }: Props) {
@@ -19,8 +19,8 @@ export default function Tabs({ active, onChange }: Props) {
       </button>
 
       <button
-        onClick={() => onChange('momy')}
-        aria-pressed={active === 'momy'}
+        onClick={() => onChange('mom')}
+        aria-pressed={active === 'mom'}
         className={css.button}
       >
         Тіло мами

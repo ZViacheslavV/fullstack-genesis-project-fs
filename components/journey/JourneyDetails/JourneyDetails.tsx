@@ -13,7 +13,7 @@ type Props = {
 };
 
 function JourneyDetails({ weekNumber }: Props) {
-  const [activeTab, setActiveTab] = useState<'baby' | 'momy'>('baby');
+  const [activeTab, setActiveTab] = useState<'baby' | 'mom'>('baby');
 
   return (
     <>
@@ -23,7 +23,7 @@ function JourneyDetails({ weekNumber }: Props) {
         </div>
 
         {activeTab === 'baby' && <BabyJourney weekNumber={weekNumber} />}
-        {activeTab === 'momy' && <MomyJourney weekNumber={weekNumber} />}
+        {activeTab === 'mom' && <MomyJourney weekNumber={weekNumber} />}
       </div>
     </>
   );
