@@ -1,38 +1,15 @@
 'use client';
 
-import { useParams, useSelectedLayoutSegment } from 'next/navigation';
 import css from './Tabs.module.css';
-import Link from 'next/link';
 
-export default function Tabs() {
-  const params = useParams<{ weekNumber: string }>();
-  const active = useSelectedLayoutSegment();
+type Props = {
+  active: 'baby' | 'momy';
+  onChange: (value: 'baby' | 'momy') => void;
+};
 
-  const week = params.weekNumber;
-
+export default function Tabs({ active, onChange }: Props) {
   return (
     <div className={css.container_tab}>
-      <Link
-        href={`/journey/${week}/baby`}
-        aria-current={active === 'baby'}
-        className={css.button}
-      >
-        Розвиток малюка
-      </Link>
-
-      <Link
-        href={`/journey/${week}/momy`}
-        aria-current={active === 'momy'}
-        className={css.button}
-      >
-        Тіло мами
-      </Link>
-    </div>
-  );
-}
-
-{
-  /* <div className={css.container_tab}>
       <button
         onClick={() => onChange('baby')}
         aria-pressed={active === 'baby'}
@@ -48,5 +25,6 @@ export default function Tabs() {
       >
         Тіло мами
       </button>
-    </div> */
+    </div>
+  );
 }
