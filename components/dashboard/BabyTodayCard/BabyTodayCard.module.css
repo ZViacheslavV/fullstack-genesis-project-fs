@@ -17,7 +17,7 @@
 .top {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; 
 }
 
 .imageWrapper {
@@ -26,9 +26,15 @@
     max-width: 287px;
     height: auto;
     margin: 16px 16px;
+    overflow: hidden;
 }
 
-.size {
+.row {
+    margin: 0;
+    line-height: 150%;
+  }
+  
+.value {
     margin-bottom: 24px;
     font-family: var(--font-family);
     font-weight: 400;
@@ -44,6 +50,21 @@
     line-height: 150%;
     color: var(--color-scheme-text);
 }
+
+.params {
+    margin-bottom: 24px;
+    display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.label {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--color-scheme-text);
+}
+
 
 @media (min-width: 768px) {
     .card {
