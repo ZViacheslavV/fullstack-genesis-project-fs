@@ -1,44 +1,48 @@
 .page {
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.loader {
-  display: grid;
-  place-items: center;
-  padding: 20px 0;
-}
-
-.infoText {
-  margin: 0;
-  color: var(--color-neutral);
-  text-align: center;
-  font-size: 14px;
-}
-
-.grid {
-  display: grid;
-  gap: 16px;
-}
-
-@media only screen and (min-width: 768px) {
-  .page {
-    gap: 20px;
-  }
-
+/* ===== DESKTOP (1440px і більше) ===== */
+@media (min-width: 1440px) {
   .grid {
-    gap: 20px;
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
+    display: grid;
+    grid-template-columns: 360px 1fr;
     gap: 24px;
   }
 
   .details {
-    min-width: 0;
+    display: block;
+    background: #fff5f6;
+    border-radius: 20px;
+    padding: 24px;
+    min-height: 520px;
   }
+}
+
+/* ===== TABLET + MOBILE (до 1439px) ===== */
+@media (max-width: 1439px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Приховуємо праву колонку */
+  .details {
+    display: none !important;
+  }
+}
+
+/* LOADER + INFO TEXT */
+.loader {
+  display: grid;
+  place-items: center;
+  padding: 40px 0;
+}
+
+.infoText {
+  text-align: center;
+  color: #888;
 }

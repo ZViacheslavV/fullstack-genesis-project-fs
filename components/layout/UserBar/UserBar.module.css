@@ -35,6 +35,11 @@
   height: 40px;
 }
 
+.logoutBtn:focus-visible {
+  outline: 2px solid var(--color-scheme-foreground);
+  outline-offset: 2px;
+}
+
 @media only screen and (min-width: 1440px) {
   .name {
     font-size: 14px;

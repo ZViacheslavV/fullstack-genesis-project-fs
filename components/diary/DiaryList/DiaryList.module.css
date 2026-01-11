@@ -1,5 +1,5 @@
 .wrapper {
-  background: var(--color-white);
+  background: var(--color-scheme-foreground);
   border-radius: 16px;
   padding: 16px;
 }
@@ -16,6 +16,7 @@
   margin: 0;
   font-size: 16px;
   font-weight: var(--fw-semibold);
+  font-family: var(--second-family);
 }
 
 .addBtn {
@@ -28,9 +29,10 @@
   cursor: pointer;
 
   font-size: 14px;
-  font-weight: var(--fw-semibold);
+  font-weight: var(--second-family);
   padding: 6px 8px;
   border-radius: 10px;
+
 }
 
 .addBtn:focus-visible {
@@ -55,8 +57,10 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .item {

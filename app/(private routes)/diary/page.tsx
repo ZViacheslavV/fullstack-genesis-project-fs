@@ -17,28 +17,25 @@ import css from './page.module.css';
 
 type ModalMode = 'create' | 'edit';
 
-const DiaryPage = () => {
+export default function DiaryPage() {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isForbidden, setIsForbidden] = useState(false);
 
-  // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<ModalMode>('create');
-  const [modalInitialValues, setModalInitialValues] = useState<
-    Record<string, unknown> | undefined
-  >(undefined);
+  const [modalInitialValues, setModalInitialValues] =
+    useState<Record<string, unknown>>();
 
   const selectedEntry = useMemo(() => {
     if (!selectedId) return null;
     return entries.find((e) => e._id === selectedId) ?? null;
   }, [entries, selectedId]);
 
-  // Load diaries
   useEffect(() => {
-    let isMounted = true;
+    let active = true;
 
     const load = async () => {
       try {
@@ -46,25 +43,21 @@ const DiaryPage = () => {
         setIsForbidden(false);
 
         const res = await fetch('/api/diaries', {
-          method: 'GET',
           credentials: 'include',
-          headers: { Accept: 'application/json' },
           cache: 'no-store',
         });
 
         if (res.status === 401 || res.status === 403) {
-          if (!isMounted) return;
+          if (!active) return;
           setIsForbidden(true);
           setEntries([]);
           setSelectedId(null);
           return;
         }
 
-        if (!res.ok) {
-          throw new Error(`Request failed: ${res.status}`);
-        }
+        if (!res.ok) throw new Error();
 
-        const raw = (await res.json()) as unknown;
+        const raw = await res.json();
 
         const list: DiaryEntry[] = Array.isArray(raw)
           ? raw
@@ -72,7 +65,7 @@ const DiaryPage = () => {
             ? raw.data
             : [];
 
-        if (!isMounted) return;
+        if (!active) return;
 
         setEntries(list);
 
@@ -80,46 +73,36 @@ const DiaryPage = () => {
           setSelectedId(list[0]._id);
         }
       } catch {
-        if (!isMounted) return;
+        if (!active) return;
         toast.error('Не вдалося завантажити записи щоденника');
         setEntries([]);
         setSelectedId(null);
       } finally {
-        if (!isMounted) return;
-        setIsLoading(false);
+        if (active) setIsLoading(false);
       }
     };
 
     load();
-
     return () => {
-      isMounted = false;
+      active = false;
     };
   }, []);
 
-  // Open create modal
   const openCreateModal = () => {
     setModalMode('create');
     setModalInitialValues(undefined);
     setIsModalOpen(true);
   };
 
-  // Open edit modal (prefill)
   const openEditModal = (entry: DiaryEntry) => {
     setModalMode('edit');
-
     setModalInitialValues({
       _id: entry._id,
       title: entry.title,
       note: entry.note,
       emotions: entry.emotions,
     });
-
     setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -139,7 +122,7 @@ const DiaryPage = () => {
               entries={entries}
               selectedId={selectedId}
               onAddEntry={openCreateModal}
-              onSelectEntry={(id) => setSelectedId(id)}
+              onSelectEntry={setSelectedId}
             />
 
             <div className={css.details}>
@@ -149,7 +132,7 @@ const DiaryPage = () => {
 
           <DiaryEntryModal
             isOpen={isModalOpen}
-            onClose={closeModal}
+            onClose={() => setIsModalOpen(false)}
             mode={modalMode}
             initialValues={modalInitialValues}
           />
@@ -157,6 +140,4 @@ const DiaryPage = () => {
       )}
     </div>
   );
-};
-
-export default DiaryPage;
+}
