@@ -1,0 +1,140 @@
+/* EMPTY STATE */
+.empty {
+  background: var(--color-pastel-pink-lightest);
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--color-neutral);
+  text-align: center;
+  font-size: 14px;
+}
+
+/* DETAILS WRAPPER */
+.wrapper {
+  background: var(--color-pastel-pink-lightest);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 220px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--second-family);
+  font-weight: var(--fw-semibold);
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--color-neutral-darkest);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.date {
+  font-size: 12px;
+  color: var(--color-neutral);
+}
+
+.actions {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.iconBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid var(--opacity-neutral-darkest-10);
+  background: var(--color-white);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBtn:focus-visible {
+  outline: 2px solid var(--opacity-neutral-darkest-20);
+  outline-offset: 2px;
+}
+
+/* CONTENT */
+.content {
+  background: var(--color-pastel-pink-lighter);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.note {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-neutral-darkest);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* EMOTIONS */
+.emotions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.emotion {
+  background: var(--color-white);
+  border: 1px solid var(--opacity-neutral-darkest-10);
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--color-neutral-darker);
+}
+
+@media only screen and (min-width: 768px) {
+  .wrapper {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .content {
+    padding: 14px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .wrapper {
+    height: 520px;
+    overflow-y: auto;
+  }
+
+  .empty {
+    height: 520px;
+  }
+}

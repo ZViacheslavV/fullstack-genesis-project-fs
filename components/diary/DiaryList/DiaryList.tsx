@@ -1,100 +1,81 @@
 'use client';
 
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
 
-import DiaryEntryCard from '../DiaryEntryCard/DiaryEntryCard';
+import DiaryEntryCard from '@/components/diary/DiaryEntryCard/DiaryEntryCard';
+
+import type { DiaryEntry } from '@/types/diary';
+
 import css from './DiaryList.module.css';
 
-// ===============================================================
-
-export type DiaryEntry = {
-  _id: string;
-  title: string;
-  emotions: string[];
-  createdAt: string;
-};
-
 type DiaryListProps = {
-  onAddEntry?: () => void;              // 👈 заглушка під модалку
-  onSelectEntry?: (id: string) => void; // 👈 для desktop (потім)
+  entries: DiaryEntry[];
+  selectedId: string | null;
+  onAddEntry: () => void;
+  onSelectEntry: (id: string) => void;
 };
 
-const fetchDiaries = async (): Promise<DiaryEntry[]> => {
-  const res = await fetch('/api/diaries', {
-    credentials: 'include',
-  });
+const DESKTOP_MQ = '(min-width: 1440px)';
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch diaries');
-  }
-
-  return res.json();
-};
-
-// ===============================================================
-
-function DiaryList({ onAddEntry, onSelectEntry }: DiaryListProps) {
+function DiaryList({ entries, selectedId, onAddEntry, onSelectEntry }: DiaryListProps) {
   const router = useRouter();
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['diaries'],
-    queryFn: fetchDiaries,
-  });
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  const handleSelect = (id: string) => {
-    // ✅ mobile-first логіка
-    if (onSelectEntry) {
-      // desktop сценарій (коли буде права колонка)
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_MQ);
+    const update = () => setIsDesktop(mq.matches);
+
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  const sortedEntries = useMemo(() => {
+    return [...entries].sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }, [entries]);
+
+  const handleCardClick = (id: string) => {
+    if (isDesktop) {
       onSelectEntry(id);
       return;
     }
-
-    // mobile / tablet
     router.push(`/diary/${id}`);
   };
 
   return (
-    <section className={css.wrapper}>
-      {/* ===== Header ===== */}
+    <section className={css.wrapper} aria-label="Щоденник: список записів">
       <div className={css.header}>
-        <h2 className={css.title}>Щоденник</h2>
+        <h2 className={css.heading}>Ваші записи</h2>
 
-        <button
-          type="button"
-          className={css.addBtn}
-          onClick={onAddEntry}
-        >
-          Новий запис +
+        <button type="button" className={css.addBtn} onClick={onAddEntry}>
+          <span>Новий запис</span>
+          <span className={css.plus} aria-hidden="true">
+            +
+          </span>
         </button>
       </div>
 
-      {/* ===== States ===== */}
-      {isLoading && (
-        <p className={css.state}>Завантаження…</p>
+      {sortedEntries.length === 0 ? (
+        <div className={css.state}>
+          <p className={css.stateText}>Наразі записи у щоденнику відсутні</p>
+        </div>
+      ) : (
+        <ul className={css.list}>
+          {sortedEntries.map((entry) => (
+            <li key={entry._id} className={css.item}>
+              <DiaryEntryCard
+                entry={entry}
+                onClick={() => handleCardClick(entry._id)}
+                isActive={isDesktop && selectedId === entry._id}
+              />
+            </li>
+          ))}
+        </ul>
       )}
-
-      {isError && (
-        <p className={css.state}>Помилка завантаження</p>
-      )}
-
-      {!isLoading && data?.length === 0 && (
-        <p className={css.state}>
-          Наразі записи у щоденнику відсутні
-        </p>
-      )}
-
-      {/* ===== List ===== */}
-      <ul className={css.list}>
-        {data?.map(entry => (
-          <li key={entry._id}>
-            <DiaryEntryCard
-              entry={entry}
-              onClick={() => handleSelect(entry._id)}
-            />
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

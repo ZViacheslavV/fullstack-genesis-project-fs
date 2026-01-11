@@ -1,19 +1,19 @@
-import { API_ENDPOINTS } from '@/lib/api/api';
-import { isAxiosError } from 'axios';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { isAxiosError } from 'axios';
 
-import { logErrorResponse } from '../../_utils/utils';
 import { api } from '../../api';
+import { API_ENDPOINTS } from '@/lib/api/api';
+import { logErrorResponse } from '../../_utils/utils';
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
 export async function PATCH(request: Request, { params }: Props) {
-  const cookieStore = await cookies();
-  const { id } = await params;
+  const cookieStore = cookies();
   const body = await request.json();
+  const { id } = params;
 
   try {
     const res = await api.patch(`${API_ENDPOINTS.DIARIES_PATCH_ID}${id}`, body, {
@@ -26,7 +26,7 @@ export async function PATCH(request: Request, { params }: Props) {
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status }
+        { status: error.response?.status ?? 500 }
       );
     }
 
@@ -36,8 +36,8 @@ export async function PATCH(request: Request, { params }: Props) {
 }
 
 export async function DELETE(_: Request, { params }: Props) {
-  const cookieStore = await cookies();
-  const { id } = await params;
+  const cookieStore = cookies();
+  const { id } = params;
 
   try {
     const res = await api.delete(`${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`, {
@@ -50,7 +50,7 @@ export async function DELETE(_: Request, { params }: Props) {
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status }
+        { status: error.response?.status ?? 500 }
       );
     }
 

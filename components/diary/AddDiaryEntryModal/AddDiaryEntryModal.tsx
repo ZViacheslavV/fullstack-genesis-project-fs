@@ -2,7 +2,7 @@
 
 import Modal from '@/components/common/Modal/Modal';
 import AddDiaryEntryForm from '@/components/diary/AddDiaryEntryForm/AddDiaryEntryForm_SUPPOSED_EXAMPLE';
-import css from './DiaryEntryModal.module.css';
+import css from './AddDiaryEntryModal.module.css';
 
 type DiaryEntryModalProps = {
   isOpen: boolean;
