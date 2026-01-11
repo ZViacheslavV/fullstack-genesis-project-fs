@@ -13,6 +13,16 @@
   z-index: 9999;
 }
 
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  /* Без фону, без рамки */
+  background: transparent;
+}
+
 /* Основний контейнер лоадера */
 .container {
   display: flex;
@@ -34,6 +44,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 2rem;
 }
 
@@ -78,6 +90,7 @@
   opacity: 0;
   animation: dotAnimation 1.5s infinite;
   color: #3b82f6;
+  padding: 5px;
 }
 
 .dot:nth-child(1) {
@@ -106,7 +119,7 @@
 /* ===== АДАПТАЦІЯ ПІД ТОЧКИ ПЕРЕЛОМУ ===== */
 
 /* Адаптивність для мобільних пристроїв */
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 374px) {
   .container {
     min-width: 100%;
     padding: 0 16px;
