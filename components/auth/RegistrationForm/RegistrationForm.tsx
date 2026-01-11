@@ -2,26 +2,23 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { useId } from 'react';
 import * as Yup from 'yup';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 import { registerUser, RegisterRequest } from '@/lib/api/clientApi';
-import { ApiError } from '@/app/api/api';
+import { useAuthUserStore } from '@/lib/store/authStore';
+import type { User } from '@/types/user';
 
 import css from './RegistrationForm.module.css';
 
 //===============================================================
 
-const initialValues: RegisterRequest = {
-  name: '',
-  email: '',
-  password: '',
-};
+const initialValues: RegisterRequest = { name: '', email: '', password: '' };
 
 //===============================================================
 
@@ -47,27 +44,25 @@ function RegistrationForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
+  const setUser = useAuthUserStore((s) => s.setUser);
+
   const handleSubmit = async (
     values: RegisterRequest,
     actions: FormikHelpers<RegisterRequest>
   ) => {
     try {
-      await registerUser(values);
+      const res = await registerUser(values);
+      setUser(res.data as User);
 
       toast.success(
         'Вітаємо з успішною реєстрацією у додатку для майбутніх мам!'
       );
       actions.resetForm();
 
-      router.push('/profile/edit');
+      router.push('/');
     } catch (err) {
-      const e = err as ApiError;
-
-      const message =
-        e?.response?.data?.error ||
-        'Не вдалося зареєструватися. Спробуйте ще раз.';
-
-      toast.error(message);
+      console.error('Register error:', err);
+      toast.error('Не вдалося зареєструватися. Спробуйте ще раз.');
     } finally {
       actions.setSubmitting(false);
     }

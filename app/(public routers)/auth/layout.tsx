@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 import css from './layout.module.css';
 
@@ -29,13 +30,15 @@ export default function AuthLayout({
     <div className={css.page}>
       <div className={css.left}>
         <div className={css.logoRow}>
-          <Image
-            src="/company-logo.svg"
-            alt="Лелека"
-            width={105}
-            height={45}
-            priority
-          />
+          <Link href="/">
+            <Image
+              src="/company-logo.svg"
+              alt="Лелека"
+              width={105}
+              height={45}
+              priority
+            />
+          </Link>
         </div>
 
         <div className={css.formWrap}>{children}</div>

@@ -39,6 +39,22 @@ export interface RegisterRequest {
   password: string;
 }
 
+export interface AuthResponse {
+  status: number;
+  message: string;
+  data: {
+    _id: string;
+    name: string;
+    email: string;
+    gender: string;
+    dueDate: string | null;
+    photo: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+/*
 export interface RegisterLoginUserResponse {
   status: number;
   message: string;
@@ -54,6 +70,19 @@ export interface RegisterLoginUserResponse {
   };
 }
 
+*/
+
+export async function registerUser(
+  params: RegisterRequest
+): Promise<AuthResponse> {
+  const { data } = await nextServer.post<AuthResponse>(
+    API_ENDPOINTS.REGISTER,
+    params
+  );
+  return data;
+}
+
+/*
 export async function registerUser(
   params: RegisterRequest
 ): Promise<RegisterLoginUserResponse> {
@@ -63,12 +92,21 @@ export async function registerUser(
   );
   return data;
 }
-
+*/
 export interface loginRequest {
   email: string;
   password: string;
 }
 
+export async function loginUser(params: loginRequest): Promise<AuthResponse> {
+  const { data } = await nextServer.post<AuthResponse>(
+    API_ENDPOINTS.LOGIN,
+    params
+  );
+  return data;
+}
+
+/*
 export async function loginUser(
   params: loginRequest
 ): Promise<RegisterLoginUserResponse> {
@@ -78,6 +116,8 @@ export async function loginUser(
   );
   return data;
 }
+
+*/
 
 export const logout = async (): Promise<void> => {
   await nextServer.post(`${API_ENDPOINTS.LOGOUT}`);
