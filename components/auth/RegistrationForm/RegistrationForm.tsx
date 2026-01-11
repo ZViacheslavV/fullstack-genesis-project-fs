@@ -14,6 +14,7 @@ import { registerUser, RegisterRequest } from '@/lib/api/clientApi';
 import { useAuthUserStore } from '@/lib/store/authStore';
 import type { User } from '@/types/user';
 
+import Button from '@/components/common/Button/Button';
 import css from './RegistrationForm.module.css';
 
 //===============================================================
@@ -59,7 +60,7 @@ function RegistrationForm() {
       );
       actions.resetForm();
 
-      router.push('/');
+      router.push('/profile/edit');
     } catch (err) {
       console.error('Register error:', err);
       toast.error('Не вдалося зареєструватися. Спробуйте ще раз.');
@@ -184,9 +185,14 @@ function RegistrationForm() {
             </div>
           </div>
 
-          <button className={css.btn} type="submit" disabled={isSubmitting}>
+          <Button
+            variant="normal"
+            size="md"
+            type="submit"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? 'Зачекайте…' : 'Зареєструватись'}
-          </button>
+          </Button>
 
           <p className={css.helper}>
             Вже маєте акаунт?
