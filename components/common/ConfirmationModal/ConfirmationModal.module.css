@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 4px;
+}
+
+.title {
+  font-family: var(--second-family);
+  font-weight: var(--fw-medium);
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--color-scheme-text);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn {
+  min-width: 120px;
+}

@@ -1,31 +1,79 @@
-// // app/(private routes)/diary/[entryId]/page.tsx
+'use client';
 
-// import GreetingBlock from '@/components/diary/GreetingBlock/GreetingBlock';
-// import DiaryList from '@/components/diary/DiaryList/DiaryList';
-// import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
+import { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 
-// import css from './page.module.css';
+import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
+import Loader from '@/components/common/Loader/Loader';
+import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
 
-// type Props = {
-//   params: {
-//     entryId: string;
-//   };
-// };
+import type { DiaryEntry } from '@/types/diary';
+import { isWrappedDiariesResponse } from '@/types/diary';
 
-// export default function DiaryEntryPage({ params }: Props) {
-//   return (
-//     <main style={{ padding: 16 }}>
-//       <GreetingBlock />
+import css from './page.module.css';
 
-//       <section className={css.container}>
-//         <aside className={css.sidebar}>
-//           <DiaryList />
-//         </aside>
+export default function DiaryEntryPage() {
+  const { entryId } = useParams<{ entryId: string }>();
 
-//         <section className={css.details}>
-//           <DiaryEntryDetails diaryId={params.entryId} />
-//         </section>
-//       </section>
-//     </main>
-//   );
-// }
+  const [entries, setEntries] = useState<DiaryEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+
+    const load = async () => {
+      try {
+        setIsLoading(true);
+
+        const res = await fetch('/api/diaries', {
+          credentials: 'include',
+          cache: 'no-store',
+        });
+
+        if (!res.ok) throw new Error();
+
+        const raw = await res.json();
+
+        const list: DiaryEntry[] = Array.isArray(raw)
+          ? raw
+          : isWrappedDiariesResponse(raw)
+            ? raw.data
+            : [];
+
+        if (active) setEntries(list);
+      } catch {
+        if (active) {
+          toast.error('Не вдалося завантажити запис');
+          setEntries([]);
+        }
+      } finally {
+        if (active) setIsLoading(false);
+      }
+    };
+
+    load();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const entry = useMemo(
+    () => entries.find((e) => e._id === entryId) ?? null,
+    [entries, entryId]
+  );
+
+  return (
+    <div className={css.page}>
+      <GreetingBlock />
+
+      {isLoading ? (
+        <div className={css.loader}>
+          <Loader />
+        </div>
+      ) : (
+        <DiaryEntryDetails entry={entry} />
+      )}
+    </div>
+  );
+}

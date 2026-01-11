@@ -1,0 +1,51 @@
+.left {
+  padding-top: 16px;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+}
+
+.formWrap {
+  min-height: calc(100dvh - 62px);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 16px 0;
+}
+
+/* desktop: split */
+.right {
+  display: none;
+}
+
+@media (min-width: 1440px) {
+  .page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+
+  .left {
+    padding-right: 32px;
+    padding-left: 32px;
+  }
+
+  .formWrap {
+    padding: 0;
+  }
+
+  .right {
+    display: block;
+    position: relative;
+    min-height: 100dvh;
+    overflow: hidden;
+    background: var(--color-scheme-foreground);
+  }
+
+  .illustration {
+    object-fit: cover;
+    object-position: center;
+  }
+}

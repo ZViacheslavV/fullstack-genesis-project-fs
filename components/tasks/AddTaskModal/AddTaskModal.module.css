@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.modalTask {
+  max-width: 768px;
+  border-radius: 40px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+
+

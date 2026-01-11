@@ -1,0 +1,221 @@
+.form {
+  width: 100%;
+  display: grid;
+  gap: 5px;
+}
+
+.title {
+  font-family: var(--second-family);
+  font-weight: var(--fw-bold);
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+
+  text-align: center;
+  margin: 0 0 27px;
+}
+
+.label {
+  display: flex;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-scheme-text);
+
+  margin: 0 0 8px;
+}
+
+.fieldGroup {
+  display: grid;
+}
+
+.field {
+  width: 100%;
+  height: 37px;
+
+  border: 2px solid var(--opacity-transparent);
+  border-radius: 12px;
+  padding: 8px 44px 8px 12px;
+
+  background: var(--opacity-neutral-darkest-5);
+  color: var(--color-scheme-text);
+
+  transition: border-color 160ms ease;
+}
+
+.field::placeholder {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--opacity-neutral-darkest-60);
+}
+
+.field:hover,
+.field:focus-visible {
+  border: 2px solid var(--color-scheme-accent);
+}
+
+/* Fields with errors */
+.errorSlot {
+  min-height: 20px;
+  margin-top: 5px;
+}
+
+.errorText {
+  font-family: var(--font-family);
+  font-size: 12px;
+  line-height: 1.6;
+
+  color: var(--color-red);
+  margin: 0;
+}
+
+.errorTextHidden {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  visibility: hidden;
+}
+
+.fieldInvalid {
+  border: 1px solid var(--color-red);
+}
+
+.fieldInvalid:hover,
+.fieldInvalid:focus-visible {
+  border: 1px solid var(--color-red);
+}
+
+/* Button */
+.btn {
+  height: 44px;
+  font-size: 14px;
+  border-radius: 999px;
+  background: var(--btn-primary-bg, var(--color-scheme-accent));
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--btn-primary-bg-hover, var(--color-pastel-pink-light));
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Helper + Link animation */
+.helper {
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--color-scheme-text);
+
+  margin-top: 20px;
+}
+
+.link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: var(--color-scheme-text);
+
+  transition: transform 160ms ease;
+  margin-left: 5px;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 160ms ease;
+  opacity: 0.9;
+}
+
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Password toggle */
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  color: var(--color-neutral);
+
+  transition: color 160ms ease;
+}
+
+.passwordToggle:hover {
+  color: var(--color-neutral-darkest);
+}
+
+.passwordIcon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===== tablet ===== */
+@media (min-width: 768px) {
+  .form {
+    max-width: 480px;
+  }
+}
+
+/* ===== des =====k */
+@media (min-width: 1440px) {
+  .title {
+    font-size: 48px;
+    margin: 0 0 27px;
+  }
+
+  .label {
+    font-size: 16px;
+  }
+
+  .field {
+    height: 40px;
+  }
+
+  .field::placeholder {
+    font-size: 16px;
+  }
+
+  /* Button */
+  .btn {
+    height: 46px;
+    font-size: 16px;
+  }
+
+  /* Helper + Link animation */
+  .helper {
+    font-size: 16px;
+  }
+}

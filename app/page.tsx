@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
 import css from './page.module.css';
+import DashboardClient from '@/components/dashboard/DashboardClient';
+import { Toaster } from 'react-hot-toast';
+import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
+// import moduleName from 'module';
+import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
 
 //===========================================================================
 
@@ -11,13 +16,12 @@ function Home() {
   return (
     <section className={css.hero}>
       <div>
-        {/*<GreetingBlock />*/}
-        {/*<StatusBlock />*/}
-        {/*<BabyTodayCard />*/}
-        {/*<MomTipCard />*/}
+        <GreetingBlock />
+        <DashboardClient />
       </div>
       <div>
-        {/*<TasksReminderCard />*/}
+        {<TasksReminderCard />}
+        <Toaster position="top-right" />
         {/*<FeelingCheckCard/>*/}
       </div>
     </section>

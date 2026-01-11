@@ -2,10 +2,39 @@
 
 import css from './BabyTodayCard.module.css';
 
-//===============================================================
 
-function BabyTodayCard() {
-  return <div className={css.backdrop}></div>;
+//===============================================================
+type BabyTodayCardProps = {
+  imageUrl: string;
+  sizeText: string;
+  weightText: string;
+  babyActivity: string;
+  description: string;
+};
+
+  const BabyTodayCard = ({
+    imageUrl,
+    sizeText,
+    weightText,
+    babyActivity,
+    description,
+  }: BabyTodayCardProps) => {
+  return <div className={css.backdrop}>
+      <div className={css.card}>
+      <p className={css.babyToday}>Малюк сьогодні</p>
+
+      <div className={css.top}>
+      <div className={css.imageWrapper}>
+        <img src={imageUrl} alt="Baby illustration" />
+      </div>
+        <p className={css.size}>{sizeText}</p>
+        <p className={css.weight}>{weightText}</p>
+        <p className={css.babyActivity}>{babyActivity}</p>
+      </div>
+      
+        <p className={css.description}>{description}</p>
+    </div>
+  </div>;
 }
 
 export default BabyTodayCard;

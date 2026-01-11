@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { parse } from 'cookie';
-
-import { checkSession } from './lib/api/serverApi';
+import { checkServerSession } from './lib/api/serverApi';
+import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
 //===========================================================================
 
-const privateRoutes = ['/profile', '/diary', '/journey'];
-const publicRoutes = ['/auh/login', '/auh/register'];
+const privateRoutes = ['/profile', '/diary', '/journey']; //TODO auth: return after auth provided
+const publicRoutes = ['/auth']; //TODO auth: return after auth provided
+// const privateRoutes: string[] = []; //TODO auth: return after auth provided
+// const publicRoutes = ['/auth', '/profile', '/diary', '/journey']; //TODO auth: return after auth provided
 
 //===========================================================================
 
@@ -20,21 +22,20 @@ export async function proxy(request: NextRequest) {
   const isPublicRoute = publicRoutes.some((route) =>
     pathname.startsWith(route)
   );
-
   const isPrivateRoute = privateRoutes.some((route) =>
     pathname.startsWith(route)
   );
 
   if (!accessToken) {
     if (refreshToken) {
-      const data = await checkSession();
+      const data = await checkServerSession();
       const setCookie = data.headers['set-cookie'];
 
       if (setCookie) {
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
         for (const cookieStr of cookieArray) {
           const parsed = parse(cookieStr);
-          const options = {
+          const options: Partial<ResponseCookie> = {
             expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
             path: parsed.Path,
             maxAge: Number(parsed['Max-Age']),
@@ -66,14 +67,16 @@ export async function proxy(request: NextRequest) {
     if (isPublicRoute) {
       return NextResponse.next();
     }
+
     if (isPrivateRoute) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('/auth/login', request.url));
     }
   }
 
   if (isPublicRoute) {
     return NextResponse.redirect(new URL('/', request.url));
   }
+
   if (isPrivateRoute) {
     return NextResponse.next();
   }
@@ -84,9 +87,8 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     '/profile/:path*',
-    '/diary:path*',
-    '/journey:path*',
-    '/auh/login',
-    '/auh/register',
+    '/diary/:path*',
+    '/journey/:path*',
+    '/auth/:path',
   ],
 };
