@@ -26,7 +26,6 @@ export const API_ENDPOINTS = {
   EMOTIONS: '/emotions',
 
   WEEKS_GET: '/weeks',
-  WEEKS_DEMO: '/weeks/demo',
   WEEKS_BABY: '/weeks/baby/',
   WEEKS_MOM: '/weeks/mom/',
 
