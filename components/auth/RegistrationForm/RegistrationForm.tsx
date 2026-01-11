@@ -1,30 +1,30 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { useId } from 'react';
 import * as Yup from 'yup';
+import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
+import { registerUser, RegisterRequest } from '@/lib/api/clientApi';
+import { useAuthUserStore } from '@/lib/store/authStore';
+import type { User } from '@/types/user';
+
+import Button from '@/components/common/Button/Button';
 import css from './RegistrationForm.module.css';
 
 //===============================================================
 
-interface RegistrationFormValues {
-  username: string;
-  email: string;
-  password: string;
-}
-
-const initialValues: RegistrationFormValues = {
-  username: '',
-  email: '',
-  password: '',
-};
+const initialValues: RegisterRequest = { name: '', email: '', password: '' };
 
 //===============================================================
 
 const RegistrationFormSchema = Yup.object().shape({
-  username: Yup.string()
+  name: Yup.string()
     .min(2, 'Ім’я має містити щонайменше 2 символи')
     .max(32, 'Ім’я занадто довге')
     .required('Поле має бути заповненим'),
@@ -42,13 +42,31 @@ const RegistrationFormSchema = Yup.object().shape({
 
 function RegistrationForm() {
   const fieldId = useId();
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (
-    values: RegistrationFormValues,
-    actions: FormikHelpers<RegistrationFormValues>
+  const setUser = useAuthUserStore((s) => s.setUser);
+
+  const handleSubmit = async (
+    values: RegisterRequest,
+    actions: FormikHelpers<RegisterRequest>
   ) => {
-    console.log('Registration data:', values);
-    actions.resetForm();
+    try {
+      const res = await registerUser(values);
+      setUser(res.data as User);
+
+      toast.success(
+        'Вітаємо з успішною реєстрацією у додатку для майбутніх мам!'
+      );
+      actions.resetForm();
+
+      router.push('/profile/edit');
+    } catch (err) {
+      console.error('Register error:', err);
+      toast.error('Не вдалося зареєструватися. Спробуйте ще раз.');
+    } finally {
+      actions.setSubmitting(false);
+    }
   };
 
   return (
@@ -66,26 +84,26 @@ function RegistrationForm() {
 
           {/* Username */}
           <div className={css.fieldGroup}>
-            <label className={css.label} htmlFor={`${fieldId}-username`}>
+            <label className={css.label} htmlFor={`${fieldId}-name`}>
               Ім’я*
             </label>
 
             <Field
               className={`${css.field} ${
-                touched.username && errors.username ? css.fieldInvalid : ''
-              } ${touched.username && !errors.username ? css.fieldValid : ''}`}
+                touched.name && errors.name ? css.fieldInvalid : ''
+              } ${touched.name && !errors.name ? css.fieldValid : ''}`}
               type="text"
-              name="username"
-              id={`${fieldId}-username`}
+              name="name"
+              id={`${fieldId}-name`}
               placeholder="Ваше ім’я"
               autoComplete="name"
             />
 
             <div className={css.errorSlot} aria-live="polite">
-              <ErrorMessage name="username">
+              <ErrorMessage name="name">
                 {(msg) => <p className={css.errorText}>{msg}</p>}
               </ErrorMessage>
-              {!(touched.username && errors.username) && (
+              {!(touched.name && errors.name) && (
                 <p className={css.errorTextHidden} aria-hidden="true">
                   hidden text;
                 </p>
@@ -129,16 +147,31 @@ function RegistrationForm() {
               Пароль*
             </label>
 
-            <Field
-              className={`${css.field} ${
-                touched.password && errors.password ? css.fieldInvalid : ''
-              } ${touched.password && !errors.password ? css.fieldValid : ''}`}
-              type="password"
-              name="password"
-              id={`${fieldId}-password`}
-              placeholder="••••••••"
-              autoComplete="new-password"
-            />
+            <div className={css.passwordWrapper}>
+              <Field
+                className={`${css.field} ${
+                  touched.password && errors.password ? css.fieldInvalid : ''
+                } ${touched.password && !errors.password ? css.fieldValid : ''}`}
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                id={`${fieldId}-password`}
+                placeholder="••••••••"
+                autoComplete="new-password"
+              />
+
+              <button
+                type="button"
+                className={css.passwordToggle}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Сховати пароль' : 'Показати пароль'}
+              >
+                {showPassword ? (
+                  <EyeOff className={css.passwordIcon} />
+                ) : (
+                  <Eye className={css.passwordIcon} />
+                )}
+              </button>
+            </div>
 
             <div className={css.errorSlot} aria-live="polite">
               <ErrorMessage name="password">
@@ -152,9 +185,14 @@ function RegistrationForm() {
             </div>
           </div>
 
-          <button className={css.btn} type="submit" disabled={isSubmitting}>
-            Зареєструватись
-          </button>
+          <Button
+            variant="normal"
+            size="md"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Зачекайте…' : 'Зареєструватись'}
+          </Button>
 
           <p className={css.helper}>
             Вже маєте акаунт?

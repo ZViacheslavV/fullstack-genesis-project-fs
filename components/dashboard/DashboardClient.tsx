@@ -1,18 +1,16 @@
 'use client';
 
-import { getWeeks } from '@/lib/api/clientApi';
+import { getWeeks, getWeeksCurrent } from '@/lib/api/clientApi';
 import StatusBlock from './StatusBlock/StatusBlock';
 import MomTipCard from './MomTipCard/MomTipCard';
 import { useQuery } from '@tanstack/react-query';
 import BabyTodayCard from './BabyTodayCard/BabyTodayCard';
 
 
-
-
 export default function DashboardClient() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
-    queryFn: getWeeks,
+    queryFn: getWeeksCurrent,
   });
   console.log('RAW weeks response from backend:', data);
 
@@ -25,11 +23,10 @@ export default function DashboardClient() {
   const mom = weeksInfo.momState;
   const tips = mom.comfortTips;
 
-
-const tipText =
-  tips && tips.length > 0
-    ? tips[0].tip
-    : 'Порада для мами скоро буде доступна';
+  const tipText =
+    tips && tips.length > 0
+      ? tips[0].tip
+      : 'Порада для мами скоро буде доступна';
 
   return (
     <>

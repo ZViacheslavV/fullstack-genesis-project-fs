@@ -1,9 +1,18 @@
-import { redirect } from 'next/navigation';
+import JourneyDetails from '@/components/journey/JourneyDetails/JourneyDetails';
 
-export type JourneyPageProps = {
-  weekNumber: string;
+type Props = {
+  params: { weekNumber: string };
 };
 
-export default function JourneyPage({ weekNumber }: JourneyPageProps) {
-  redirect(`/journey/${weekNumber}/baby`);
+export default async function JourneyPage({ params }: Props) {
+  const { weekNumber } = await params;
+  return (
+    <>
+      <h1>Hello from JourneyPage</h1>
+      <div>{weekNumber}</div>
+      {/* <JourneyDetails weekNumber={Number(weekNumber)} /> */}
+    </>
+  );
 }
+
+//dont render tooo

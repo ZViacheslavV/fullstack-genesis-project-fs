@@ -11,7 +11,7 @@ export async function GET(request: NextRequest, { params }: Props) {
   try {
     const cookieStore = await cookies();
     const { data } = await api(
-      `${API_ENDPOINTS.WEEKS_BABY_NUMB}${weekNumber}`,
+      `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`,
       {
         headers: { Cookie: cookieStore.toString() },
       }

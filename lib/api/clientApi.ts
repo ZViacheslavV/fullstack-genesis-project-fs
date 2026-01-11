@@ -14,7 +14,7 @@ export async function getJourneyData<T extends JourneyType>(
   type: T
 ): Promise<JourneyResponse<T>> {
   const { data } = await nextServer.get<JourneyResponse<T>>(
-    `/journey/${weekNumber}/${type}`
+    `/weeks/${type}/${weekNumber}`
   );
 
   return data;
@@ -39,6 +39,22 @@ export interface RegisterRequest {
   password: string;
 }
 
+export interface AuthResponse {
+  status: number;
+  message: string;
+  data: {
+    _id: string;
+    name: string;
+    email: string;
+    gender: string;
+    dueDate: string | null;
+    photo: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+/*
 export interface RegisterLoginUserResponse {
   status: number;
   message: string;
@@ -54,6 +70,19 @@ export interface RegisterLoginUserResponse {
   };
 }
 
+*/
+
+export async function registerUser(
+  params: RegisterRequest
+): Promise<AuthResponse> {
+  const { data } = await nextServer.post<AuthResponse>(
+    API_ENDPOINTS.REGISTER,
+    params
+  );
+  return data;
+}
+
+/*
 export async function registerUser(
   params: RegisterRequest
 ): Promise<RegisterLoginUserResponse> {
@@ -63,12 +92,21 @@ export async function registerUser(
   );
   return data;
 }
-
+*/
 export interface loginRequest {
   email: string;
   password: string;
 }
 
+export async function loginUser(params: loginRequest): Promise<AuthResponse> {
+  const { data } = await nextServer.post<AuthResponse>(
+    API_ENDPOINTS.LOGIN,
+    params
+  );
+  return data;
+}
+
+/*
 export async function loginUser(
   params: loginRequest
 ): Promise<RegisterLoginUserResponse> {
@@ -79,13 +117,13 @@ export async function loginUser(
   return data;
 }
 
+*/
+
 export const logout = async (): Promise<void> => {
   await nextServer.post(`${API_ENDPOINTS.LOGOUT}`);
 };
 
 // ============================  WEEKS  =============================
-
-
 
 export const getWeeks = async (): Promise<WeeksApiResponse> => {
   const { data } = await axios.get<WeeksApiResponse>(
@@ -95,6 +133,41 @@ export const getWeeks = async (): Promise<WeeksApiResponse> => {
   return data;
 };
 
+export const getWeeksDemo = async (): Promise<WeeksApiResponse> => {
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_DEMO}`
+  );
+
+  return data;
+};
+
+export const getWeeksCurrent = async (): Promise<WeeksApiResponse> => {
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_GET}`
+  );
+
+  return data;
+};
+
+export const getBabyWeeks = async (
+  weekNumber: number | string
+): Promise<WeeksApiResponse> => {
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
+  );
+
+  return data;
+};
+
+export const getMomWeeks = async (
+  weekNumber: number | string
+): Promise<WeeksApiResponse> => {
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
+  );
+
+  return data;
+};
 
 // ============================  USERS  =============================
 
@@ -105,7 +178,7 @@ export const getMe = async () => {
   return data;
 };
 
-interface UpdateProfile {
+export interface UpdateProfile {
   name?: string;
   email?: string;
   gender?: childGender;
@@ -122,10 +195,26 @@ export const updateMe = async (userData: UpdateProfile) => {
   return data;
 };
 
+//TODO test route works very strange ;-;
+
+export const updateAvatar = async (file: File) => {
+  const formData = new FormData();
+  formData.append('avatar', file);
+console.log(formData)
+  const { data } = await nextServer.patch<User>(
+   `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
+    formData,
+  );
+
+  return data;
+};
+
+
+
 // ============================  TASKS  =============================
 
 import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 export async function getTasks(): Promise<Task[]> {
   const { data } = await nextServer.get<Task[]>(`${API_ENDPOINTS.TASKS_GET}`);
@@ -150,4 +239,14 @@ export async function updateTaskStatus({
   return data;
 }
 
-// ============================  DIARIES  =============================
+// ------------------------- Данило
+
+export const updateCurrentUser = async (data: UpdateProfile) => {
+  const res = await nextServer.patch(
+    `${API_ENDPOINTS.USER_CURRENT_PATCH}`,
+    data
+  );
+  return res.data;
+};
+
+// ------------------------- Данило
