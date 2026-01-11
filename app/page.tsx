@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import css from './page.module.css';
 import DashboardClient from '@/components/dashboard/DashboardClient';
-import { Toaster } from 'react-hot-toast';
+//import { Toaster } from 'react-hot-toast';
 import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
 // import moduleName from 'module';
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
@@ -21,7 +21,7 @@ function Home() {
       </div>
       <div>
         {<TasksReminderCard />}
-        <Toaster position="top-right" />
+        {/* <Toaster position="top-right" />*/}
         {/*<FeelingCheckCard/>*/}
       </div>
     </section>
