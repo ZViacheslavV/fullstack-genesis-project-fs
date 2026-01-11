@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
-import Loader from '@/components/common/Loader/Loader';
+// import Loader from '@/components/common/Loader/Loader';
 
 import DiaryList from '@/components/diary/DiaryList/DiaryList';
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
@@ -27,9 +27,9 @@ const DiaryPage = () => {
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<ModalMode>('create');
-  const [modalInitialValues, setModalInitialValues] = useState<Record<string, unknown> | undefined>(
-    undefined
-  );
+  const [modalInitialValues, setModalInitialValues] = useState<
+    Record<string, unknown> | undefined
+  >(undefined);
 
   const selectedEntry = useMemo(() => {
     if (!selectedId) return null;
@@ -76,7 +76,6 @@ const DiaryPage = () => {
 
         setEntries(list);
 
-
         if (!selectedId && list.length > 0) {
           setSelectedId(list[0]._id);
         }
@@ -96,7 +95,6 @@ const DiaryPage = () => {
     return () => {
       isMounted = false;
     };
-
   }, []);
 
   // Open create modal
@@ -129,11 +127,11 @@ const DiaryPage = () => {
       <GreetingBlock />
 
       {isLoading ? (
-        <div className={css.loader}>
-          <Loader />
-        </div>
+        <div className={css.loader}>{/* <Loader /> */}</div>
       ) : isForbidden ? (
-        <p className={css.infoText}>Щоб переглянути щоденник, потрібно увійти.</p>
+        <p className={css.infoText}>
+          Щоб переглянути щоденник, потрібно увійти.
+        </p>
       ) : (
         <>
           <div className={css.grid}>
