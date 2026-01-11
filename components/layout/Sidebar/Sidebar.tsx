@@ -69,7 +69,7 @@ function SideBar() {
 
       <aside className={`${css.root} ${isOpen ? css.open : ''}`}>
         <div className={css.top}>
-          <Link href="/" onClick={close}>
+          <Link className={css.logoLink} href="/" onClick={close} >
             <Image
               src="/company-logo.svg"
               alt="Logo"
@@ -105,7 +105,7 @@ function SideBar() {
           </Link>
 
           <Link
-            href="/journey/1" // TODO: weekNumber ${weekNumber}
+            href="/journey/${weekNumber}" 
             className={`${css.navItem} ${
               isActive(pathname, '/journey') ? css.active : ''
             }`}

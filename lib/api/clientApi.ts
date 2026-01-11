@@ -178,7 +178,7 @@ export const getMe = async () => {
   return data;
 };
 
-interface UpdateProfile {
+export interface UpdateProfile {
   name?: string;
   email?: string;
   gender?: childGender;
@@ -198,7 +198,7 @@ export const updateMe = async (userData: UpdateProfile) => {
 // ============================  TASKS  =============================
 
 import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 export async function getTasks(): Promise<Task[]> {
   const { data } = await nextServer.get<Task[]>(`${API_ENDPOINTS.TASKS_GET}`);
@@ -223,4 +223,11 @@ export async function updateTaskStatus({
   return data;
 }
 
-// ============================  DIARIES  =============================
+// ------------------------- Данило
+
+export const updateCurrentUser = async (data: UpdateProfile) => {
+  const res = await nextServer.patch(`${API_ENDPOINTS.USER_CURRENT_PATCH}`, data);
+  return res.data;
+};
+  
+// ------------------------- Данило
