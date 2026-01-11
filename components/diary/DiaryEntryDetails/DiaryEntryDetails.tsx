@@ -1,5 +1,3 @@
-'use client';
-
 import css from './DiaryEntryDetails.module.css';
 import type { DiaryEntry } from '@/types/diary';
 
@@ -30,18 +28,18 @@ function getEmotionLabel(e: EmotionValue) {
   return typeof e === 'string' ? e : e.title;
 }
 
-function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
+export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
   if (!entry) {
     return (
       <div className={css.empty}>
-        <p className={css.emptyText}>Оберіть запис зі списку, щоб переглянути деталі.</p>
+        <p className={css.emptyText}>
+          Оберіть запис зі списку, щоб переглянути деталі.
+        </p>
       </div>
     );
   }
 
-  // якщо у вашому DiaryEntry emotions типізовані інакше — тут робимо “м’яке” приведення
   const emotions = (entry.emotions ?? []) as unknown as EmotionValue[];
-
   const dateLabel = formatDate(entry.createdAt);
 
   return (
@@ -78,7 +76,11 @@ function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
       {emotions.length ? (
         <ul className={css.emotions} aria-label="Емоції">
           {emotions.map((e) => (
-            <li key={getEmotionKey(e)} className={css.chip} title={getEmotionLabel(e)}>
+            <li
+              key={getEmotionKey(e)}
+              className={css.chip}
+              title={getEmotionLabel(e)}
+            >
               {getEmotionLabel(e)}
             </li>
           ))}
@@ -93,5 +95,3 @@ function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
     </section>
   );
 }
-
-export default DiaryEntryDetails;

@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import DiaryEntryCard from '@/components/diary/DiaryEntryCard/DiaryEntryCard';
-
 import type { DiaryEntry } from '@/types/diary';
 
 import css from './DiaryList.module.css';
@@ -18,9 +17,13 @@ type DiaryListProps = {
 
 const DESKTOP_MQ = '(min-width: 1440px)';
 
-function DiaryList({ entries, selectedId, onAddEntry, onSelectEntry }: DiaryListProps) {
+export default function DiaryList({
+  entries,
+  selectedId,
+  onAddEntry,
+  onSelectEntry,
+}: DiaryListProps) {
   const router = useRouter();
-
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -34,7 +37,8 @@ function DiaryList({ entries, selectedId, onAddEntry, onSelectEntry }: DiaryList
 
   const sortedEntries = useMemo(() => {
     return [...entries].sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
   }, [entries]);
 
@@ -79,5 +83,3 @@ function DiaryList({ entries, selectedId, onAddEntry, onSelectEntry }: DiaryList
     </section>
   );
 }
-
-export default DiaryList;
