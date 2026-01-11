@@ -21,7 +21,7 @@ function Home() {
       </div>
       <div>
         {<TasksReminderCard />}
-        {/* <Toaster position="top-right" />*/}
+        {/* <Toaster position="top-right" /> */}
         {/*<FeelingCheckCard/>*/}
       </div>
     </section>
