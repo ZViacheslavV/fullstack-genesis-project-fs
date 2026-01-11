@@ -1,13 +1,16 @@
 import Image from 'next/image';
+
 import css from './babyJourney.module.css';
 import { getJourneyData } from '@/lib/api/clientApi';
 
 type Props = {
-  weekNumber: number;
+  params: { weekNumber: string };
 };
 
-const BabyJourney = async ({ weekNumber }: Props) => {
-  const data = await getJourneyData(weekNumber, 'baby');
+const BabyJourney = async ({ params }: Props) => {
+  const week = Number(params.weekNumber);
+
+  const data = await getJourneyData(week, 'baby');
 
   return (
     <>
