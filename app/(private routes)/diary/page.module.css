@@ -1,0 +1,44 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+.loader {
+  display: grid;
+  place-items: center;
+  padding: 20px 0;
+}
+
+.infoText {
+  margin: 0;
+  color: var(--color-neutral);
+  text-align: center;
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media only screen and (min-width: 768px) {
+  .page {
+    gap: 20px;
+  }
+
+  .grid {
+    gap: 20px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 24px;
+  }
+
+  .details {
+    min-width: 0;
+  }
+}
