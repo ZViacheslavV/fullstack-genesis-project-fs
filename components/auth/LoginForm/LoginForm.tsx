@@ -14,6 +14,7 @@ import { loginRequest, loginUser } from '@/lib/api/clientApi';
 import { useAuthUserStore } from '@/lib/store/authStore';
 import type { User } from '@/types/user';
 
+import Button from '@/components/common/Button/Button';
 import css from '../RegistrationForm/RegistrationForm.module.css';
 
 //===============================================================
@@ -143,9 +144,14 @@ function LoginForm() {
             </div>
           </div>
 
-          <button className={css.btn} type="submit" disabled={isSubmitting}>
+          <Button
+            variant="normal"
+            size="md"
+            type="submit"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? 'Входимо…' : 'Увійти'}
-          </button>
+          </Button>
 
           <p className={css.helper}>
             Немає аккаунту?

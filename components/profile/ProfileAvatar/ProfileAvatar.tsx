@@ -14,7 +14,7 @@ function ProfileAvatar({user}:ProfileAvatarProps) {
   return (<>
     <p className="">{ user.name}</p>
     <p className="">{user.email}</p>
-    <AvatarPicker/>
+    <AvatarPicker profilePhotoUrl={user.photo} />
   </>);
 }
 

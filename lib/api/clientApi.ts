@@ -14,7 +14,7 @@ export async function getJourneyData<T extends JourneyType>(
   type: T
 ): Promise<JourneyResponse<T>> {
   const { data } = await nextServer.get<JourneyResponse<T>>(
-    `/journey/${weekNumber}/${type}`
+    `/weeks/${type}/${weekNumber}`
   );
 
   return data;
@@ -195,6 +195,22 @@ export const updateMe = async (userData: UpdateProfile) => {
   return data;
 };
 
+//TODO test route works very strange ;-;
+
+export const updateAvatar = async (file: File) => {
+  const formData = new FormData();
+  formData.append('avatar', file);
+console.log(formData)
+  const { data } = await nextServer.patch<User>(
+   `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
+    formData,
+  );
+
+  return data;
+};
+
+
+
 // ============================  TASKS  =============================
 
 import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';
@@ -226,8 +242,11 @@ export async function updateTaskStatus({
 // ------------------------- Данило
 
 export const updateCurrentUser = async (data: UpdateProfile) => {
-  const res = await nextServer.patch(`${API_ENDPOINTS.USER_CURRENT_PATCH}`, data);
+  const res = await nextServer.patch(
+    `${API_ENDPOINTS.USER_CURRENT_PATCH}`,
+    data
+  );
   return res.data;
 };
-  
+
 // ------------------------- Данило
