@@ -195,6 +195,22 @@ export const updateMe = async (userData: UpdateProfile) => {
   return data;
 };
 
+//TODO test route works very strange ;-;
+
+export const updateAvatar = async (file: File) => {
+  const formData = new FormData();
+  formData.append('avatar', file);
+console.log(formData)
+  const { data } = await nextServer.patch<User>(
+   `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
+    formData,
+  );
+
+  return data;
+};
+
+
+
 // ============================  TASKS  =============================
 
 import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';

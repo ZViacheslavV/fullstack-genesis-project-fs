@@ -1,10 +1,10 @@
 'use client';
 
 import { childGender, User } from '@/types/user';
-import css from './ProfileEditForm.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { profileValidationSchema } from './ProfileValidationSchema';
 import { updateMe } from '@/lib/api/clientApi';
+import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 
 
 interface ProfileEditFormProps {
@@ -44,20 +44,24 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
   };
 
   return (
-    <div className={css.picker}>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}  enableReinitialize validationSchema={profileValidationSchema}>
+    <div className="">
+      <Formik className="" initialValues={initialValues} onSubmit={handleSubmit}  enableReinitialize validationSchema={profileValidationSchema}>
         {({ resetForm }) => (
           <Form>
             <label htmlFor="name">
               Імя
               <Field id="name" name="name" type="text" />
-              <ErrorMessage name="name" component="div" />
+                <ErrorMessage name="name">
+                {(msg) => <p className="">{msg}</p>}
+              </ErrorMessage>
             </label>
 
             <label htmlFor="email">
               Пошта
               <Field id="email" name="email" type="email" />
-                <ErrorMessage name="email" component="div" />
+                  <ErrorMessage name="email">
+                {(msg) => <p className="">{msg}</p>}
+              </ErrorMessage>
             </label>
             <label htmlFor="gender">
               Стать дитини
@@ -66,15 +70,25 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                 <option value="unknown">Ще не знаю</option>
                 <option value="boy">Хлопчик</option>
                <option value="girl">Дівчинка</option>
+
               </Field>
-              </label>
-
-            <label htmlFor="dueDate">
-              Дата пологів
-              <Field id="dueDate" name="dueDate" type="date" />
-              <ErrorMessage name="dueDate" component="div" />
+                          <ErrorMessage name="gender">
+                {(msg) => <p className="">{msg}</p>}
+              </ErrorMessage>
             </label>
-
+            <label htmlFor="dueDate">
+ <Field
+      id='dueDate'
+      name="dueDate"
+      component={CalendarDatePicker}
+      className="date-picker"
+      wrapperClassName="date-picker-wrapper"
+    />
+              <ErrorMessage name="dueDate">
+  {(msg) => <p className="">{msg}</p>}
+</ErrorMessage>
+            </label>
+            
             <button
               type="button"
               onClick={() => resetForm()}

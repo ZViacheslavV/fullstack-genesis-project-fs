@@ -10,33 +10,33 @@ maxDate.setDate(today.getDate() + 40 * 7);
 
 export const profileValidationSchema = Yup.object({
   name: Yup.string()
-    .max(32, 'Name must be at most 32 characters')
-    .required('Name is required'),
+    .max(32, 'Імя занадто довге')
+    .required('Поле має бути заповненим'),
 
   email: Yup.string()
-    .email('Invalid email address')
-    .max(64, 'Email must be at most 64 characters')
-    .required('Email is required'),
+    .email('Недійсний формат електронної пошти')
+    .max(64, 'Пошта занадто довга')
+    .required('Поле має бути заповненим'),
 
-gender: Yup.mixed<childGender>()
+gender: Yup.mixed<childGender>() 
     .oneOf(['unknown', 'girl', 'boy'])
     .required(),
 
   dueDate: Yup.string()
-    .required('Due date is required')
+    .required('Поле має бути заповненим')
     .test(
       'valid-format',
-      'Date must be in YYYY-MM-DD format',
+      'Дата пологів має бути у форматі рік-MM-DD ',
       value => !!value && /^\d{4}-\d{2}-\d{2}$/.test(value)
     )
     .test(
       'min-date',
-      'Due date must be at least 1 week from today',
+      'Дата пологів має бути щонайменше за тиждень',
       value => value ? new Date(value) >= minDate : false
     )
     .test(
       'max-date',
-      'Due date must be within 40 weeks from today',
+      'Час до пологів не може перевищувати 40 тижнів',
       value => value ? new Date(value) <= maxDate : false
     ),
 });
