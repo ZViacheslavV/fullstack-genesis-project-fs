@@ -18,18 +18,35 @@
 }
 
 .modal {
-  background: #fff;
-  border-radius: 12px;
-  max-width: 600px;
+  --modal-bg: var(--color-scheme-background, #fff);
+  --modal-radius: 40px;
+
+  --modal-max-w: calc(100vw - 32px);
+  --modal-max-h: calc(100vh - 32px);
+
+  --modal-padding-y: 48px;
+  --modal-padding-x: 20px;
+
+  --modal-overflow: auto;
+
+  /* close button defaults */
+  --modal-close-top: 16px;
+  --modal-close-right: 16px;
+  --modal-close-size: 32px;
+  --modal-close-pad: 4px;
+
+  background: var(--modal-bg);
+  border-radius: var(--modal-radius);
+
   width: 100%;
+  max-width: var(--modal-max-w);
+  max-height: var(--modal-max-h);
 
-  max-height: calc(100vh - 32px);
-  overflow: auto;
+  overflow: var(--modal-overflow);
 
-  padding: 32px 24px 24px;
+  padding: var(--modal-padding-y) var(--modal-padding-x);
 
   position: relative;
-
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
 
   animation: scaleIn 0.2s ease;
@@ -39,15 +56,23 @@
   width: 100%;
 }
 
-/* Close button */
+/* Close button (base) */
 .closeButton {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: var(--modal-close-top);
+  right: var(--modal-close-right);
+
+  width: var(--modal-close-size);
+  height: var(--modal-close-size);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   background: transparent;
   border: none;
-  padding: 4px;
+  padding: var(--modal-close-pad);
+
   cursor: pointer;
 }
 
@@ -62,7 +87,6 @@
   opacity: 0.7;
 }
 
-/* Animations */
 @keyframes scaleIn {
   from {
     transform: scale(0.9);
@@ -83,13 +107,11 @@
   }
 }
 
-/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .modal {
-    animation: none;
-  }
-
+  .modal,
   .backdrop {
     animation: none;
   }
 }
+
+
