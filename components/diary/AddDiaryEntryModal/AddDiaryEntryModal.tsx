@@ -11,19 +11,20 @@ type DiaryEntryModalProps = {
   initialValues?: Record<string, unknown>;
 };
 
-function DiaryEntryModal({
-  isOpen,
-  onClose,
-  mode = 'create',
-  initialValues,
-}: DiaryEntryModalProps) {
+function DiaryEntryModal({ isOpen, onClose, mode = 'create', initialValues }: DiaryEntryModalProps) {
   const title = mode === 'edit' ? 'Редагувати запис' : 'Новий запис';
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} showCloseButton closeOnBackdrop closeOnEsc>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      showCloseButton
+      closeOnBackdrop
+      closeOnEsc
+      modalClassName={css.modal}
+    >
       <div className={css.wrapper}>
         <h2 className={css.title}>{title}</h2>
-
         <AddDiaryEntryForm onSuccess={onClose} initialValues={initialValues} mode={mode} />
       </div>
     </Modal>
@@ -31,3 +32,5 @@ function DiaryEntryModal({
 }
 
 export default DiaryEntryModal;
+
+
