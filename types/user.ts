@@ -11,6 +11,11 @@ export interface User {
   updatedAt: string;
 }
 
+export interface UpdateUserData {
+  gender?: 'boy' | 'girl' | 'unknown';
+  dueDate?: string;
+}
+
 /*
 export interface User {
   _id: string;
@@ -22,4 +27,5 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
 */

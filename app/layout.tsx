@@ -20,7 +20,7 @@ const lato = Lato({
 });
 
 const comfortaa = Comfortaa({
-  subsets: ['latin', 'latin-ext'],
+  subsets: ['latin', 'latin-ext', 'cyrillic', 'cyrillic-ext'],
   weight: ['700'],
   variable: '--second-family',
   display: 'swap',
