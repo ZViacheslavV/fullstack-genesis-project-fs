@@ -1,0 +1,164 @@
+/* Контейнер для повного екрану */
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+}
+
+/* Основний контейнер лоадера */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+
+  /* Mobile default */
+  min-width: 335px;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Обгортка для контенту */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* SVG з лелекою */
+.storkSvg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+/* Контейнер для тексту */
+.textContainer {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  color: #4b5563;
+  font-weight: 500;
+  font-family:
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    sans-serif;
+
+  /* Mobile default */
+  font-size: 1rem;
+}
+
+/* Основний текст */
+.text {
+  color: #374151;
+}
+
+/* Контейнер для крапок */
+.dots {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+/* Анімація для крапок */
+.dot {
+  opacity: 0;
+  animation: dotAnimation 1.5s infinite;
+  color: #3b82f6;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* Анімація крапок */
+@keyframes dotAnimation {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ===== АДАПТАЦІЯ ПІД ТОЧКИ ПЕРЕЛОМУ ===== */
+
+/* Адаптивність для мобільних пристроїв */
+@media only screen and (max-width: 375px) {
+  .container {
+    min-width: 100%;
+    padding: 0 16px;
+  }
+
+  .storkSvg {
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  .textContainer {
+    font-size: 0.875rem;
+  }
+}
+
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+
+  .textContainer {
+    font-size: 1.125rem;
+  }
+
+  .storkSvg {
+    width: 300px !important;
+    height: 300px !important;
+  }
+
+  .wrapper {
+    gap: 2.5rem;
+  }
+}
+
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+  }
+
+  .textContainer {
+    font-size: 1.25rem;
+  }
+
+  .storkSvg {
+    width: 400px !important;
+    height: 400px !important;
+  }
+
+  .wrapper {
+    gap: 3rem;
+  }
+}
