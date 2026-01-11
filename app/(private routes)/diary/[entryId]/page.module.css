@@ -1,0 +1,16 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+.loader {
+  display: grid;
+  place-items: center;
+  padding: 20px 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .page {
+    gap: 20px;
+  }
+}
