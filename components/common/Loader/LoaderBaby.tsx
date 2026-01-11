@@ -62,7 +62,7 @@ const sizeMap = {
   lg: 'w-64 h-64',
 };
 
-export default function LoaderBaby({
+export default function Loader({
   size = 'md',
   fullscreen = false,
 }: LoaderProps) {
