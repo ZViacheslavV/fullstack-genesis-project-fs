@@ -73,6 +73,7 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
   ) => {
     mutate(values, {
       onSuccess: () => {
+        clearDraft();
         actions.resetForm({
           values: { name: '', date: todayString },
         });

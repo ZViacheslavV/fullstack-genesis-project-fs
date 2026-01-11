@@ -1,7 +1,7 @@
 .form {
     border-radius: 40px;
     padding: 64px 0px;
-    max-width: 295px;
+    width: 295px;
     height: 484px;
     /* max-width: 768px; */
     background-color: var(--color-scheme-background);

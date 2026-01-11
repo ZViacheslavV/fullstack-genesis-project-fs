@@ -14,14 +14,30 @@ export default function TaskItem({ task }: TaskItemProps) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateTaskStatus,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['task'] });
+
+    onMutate: async (newStatus) => {
+      await queryClient.cancelQueries({ queryKey: ['task'] });
+      const previousTasks = queryClient.getQueryData<Task[]>(['task']);
+      queryClient.setQueryData<Task[]>(['task'], (old) => {
+        if (!old) return [];
+        return old.map((t) =>
+          t._id === newStatus.id ? { ...t, isDone: newStatus.isDone } : t
+        );
+      });
+      return { previousTasks };
     },
-    onError: () => {
+
+    onError: (err, newStatus, context) => {
+      if (context?.previousTasks) {
+        queryClient.setQueryData(['task'], context.previousTasks);
+      }
       toast.error('Failed to update task');
     },
-  });
 
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['task'] });
+    },
+  });
   const handleChange = () => {
     mutate({ id: task._id, isDone: !task.isDone });
   };
@@ -36,7 +52,6 @@ export default function TaskItem({ task }: TaskItemProps) {
             type="checkbox"
             checked={task.isDone}
             onChange={handleChange}
-            disabled={isPending}
             className={css.taskItemCheckbox}
             id={`task-${task._id}`}
           />

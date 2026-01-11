@@ -14,7 +14,7 @@ import AddTaskModal from '../AddTaskModal/AddTaskModal';
 //===============================================================
 
 function TasksReminderCard() {
-  // const { isAuthenticated } = useAuthUserStore();
+  const { isAuthenticated } = useAuthUserStore();
   const router = useRouter();
   const { data, isError, isSuccess, isPending } = useQuery({
     queryKey: ['task'],
@@ -30,16 +30,12 @@ function TasksReminderCard() {
   }, [isError]);
 
   // temporary auth state
-  const isAuthenticated = true;
+  // const isAuthenticated = true;
   // end of temporary auth state
 
   const handleCreateTaskBtnClick = () => {
     router.push('/auth/register');
   };
-
-  // temporary auth state
-  //   const isAuthenticated = false;
-  // end of temporary auth state
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
