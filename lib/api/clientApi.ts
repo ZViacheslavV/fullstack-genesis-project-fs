@@ -178,7 +178,7 @@ export const getMe = async () => {
   return data;
 };
 
-interface UpdateProfile {
+export interface UpdateProfile {
   name?: string;
   email?: string;
   gender?: childGender;
