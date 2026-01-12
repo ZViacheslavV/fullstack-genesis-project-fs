@@ -21,6 +21,7 @@ function TasksReminderCard() {
     queryFn: () => getTasks(),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
+    enabled: !!isAuthenticated,
   });
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function TasksReminderCard() {
       console.log('smth went wrong in get tasks');
       toast('Sorry, something went wrong, please try again');
     }
-  }, [isError]);
+  }, [isError, isAuthenticated]);
 
   const handleCreateTaskBtnClick = () => {
     router.push('/auth/register');
