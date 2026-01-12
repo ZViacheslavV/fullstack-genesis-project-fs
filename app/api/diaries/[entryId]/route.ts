@@ -7,7 +7,7 @@ import { logErrorResponse } from '../../_utils/utils';
 import { api } from '../../api';
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ entryId: string }>;
 };
 
 async function serializeCookies() {
@@ -19,15 +19,19 @@ async function serializeCookies() {
 }
 
 export async function PATCH(request: Request, { params }: Props) {
-  const { id } = await params;
+  const { entryId } = await params;
   const body = await request.json();
 
   try {
     const cookieHeader = await serializeCookies();
 
-    const res = await api.patch(`${API_ENDPOINTS.DIARIES_PATCH_ID}${id}`, body, {
-      headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
-    });
+    const res = await api.patch(
+      `${API_ENDPOINTS.DIARIES_PATCH_ID}${entryId}`,
+      body,
+      {
+        headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
+      }
+    );
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
@@ -40,19 +44,25 @@ export async function PATCH(request: Request, { params }: Props) {
     }
 
     logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE(_: Request, { params }: Props) {
-  const { id } = await params;
+  const { entryId } = await params;
 
   try {
     const cookieHeader = await serializeCookies();
 
-    const res = await api.delete(`${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`, {
-      headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
-    });
+    const res = await api.delete(
+      `${API_ENDPOINTS.DIARIES_DELETE_ID}${entryId}`,
+      {
+        headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
+      }
+    );
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
@@ -65,6 +75,9 @@ export async function DELETE(_: Request, { params }: Props) {
     }
 
     logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 }
