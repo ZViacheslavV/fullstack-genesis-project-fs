@@ -73,6 +73,11 @@
   --opacity-neutral-darkest-40: rgba(0, 0, 0, 0.4);
   --opacity-neutral-darkest-50: rgba(0, 0, 0, 0.5);
   --opacity-neutral-darkest-60: rgba(0, 0, 0, 0.6);
+
+  --color-success: #7fc9a6;
+  --color-success-light: #eaf6f0;
+  --color-success-soft: #cfe9dc;
+  --color-success-dark: #4b9a78;
 }
 
 /* Themes */
@@ -105,7 +110,8 @@ html {
 }
 
 body {
-  font-family: var(--font-family);
+  font-family:
+    var(--font-family), 'Roboto', 'Inter', 'Open Sans', system-ui, sans-serif;
   font-size: var(--fz-14);
   font-weight: var(--fw-regular);
   line-height: 1.5;
