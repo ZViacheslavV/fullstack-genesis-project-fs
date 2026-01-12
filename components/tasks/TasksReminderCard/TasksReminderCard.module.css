@@ -23,6 +23,11 @@
     .taskCard {
         width: 390px;
         height: 498px;
+
+    }
+
+    .taskList {
+        height: 395px;
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-color: var(--color-scheme-accent) transparent;
