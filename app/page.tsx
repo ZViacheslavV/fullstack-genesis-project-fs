@@ -16,15 +16,17 @@ export const metadata: Metadata = {};
 function Home() {
   return (
     <section className={css.dashboard}>
-      <GreetingBlock />
-      <div className={css.dashboard__content}>
-        <div className={css.dashboard__stats}>
-          <DashboardClient />
-        </div>
-        <div className={css.dashboard__tasks}>
-          <TasksReminderCard />
-          {/* <Toaster position="top-right" /> */}
-          <FeelRecommendationCard recommendationText="" />
+      <div className={css.dashboard__inner}>
+        <GreetingBlock />
+        <div className={css.dashboard__content}>
+          <div className={css.dashboard__stats}>
+            <DashboardClient />
+          </div>
+          <div className={css.dashboard__tasks}>
+            <TasksReminderCard />
+            {/* <Toaster position="top-right" /> */}
+            <FeelRecommendationCard recommendationText="" />
+          </div>
         </div>
       </div>
     </section>
