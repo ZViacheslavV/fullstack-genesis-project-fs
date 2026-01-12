@@ -8,14 +8,14 @@ import LoaderStork from '@/components/common/Loader/LoaderStork';
 import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';
 import { useAuthUserStore } from '@/lib/store/authStore';
 
-export default function DashboardClient() {
+export default function DashboardCardClient() {
   const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
     queryFn: isAuthenticated ? getWeeksCurrent : getWeeksDemo,
   });
-  // console.log('RAW weeks response from backend:', data);
+  console.log('RAW weeks response from backend:', data);
 
   // if (isLoading) return <div>Loading...</div>;
   if (isLoading)

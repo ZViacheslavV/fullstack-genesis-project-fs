@@ -98,7 +98,9 @@ function SideBar() {
           <Link
             href="/"
             className={`${css.navItem} ${isActive(pathname, '/') ? css.active : ''}`}
-            onClick={handleProtectedNavClick}
+            onClick={() => {
+              router.push('/auth/login');
+            }}
           >
             <svg width="20" height="20" aria-hidden>
               <use href="/icons.svg#icon-today" />
