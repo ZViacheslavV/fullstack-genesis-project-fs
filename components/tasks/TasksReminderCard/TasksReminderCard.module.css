@@ -13,8 +13,6 @@
     background-color: var(--color-scheme-foreground);
 }
 
-/* === НОВІ СТИЛІ ДЛЯ ОБГОРТКИ === */
-/* Це контейнер, який тримає всі три категорії разом */
 .tasksWrapper {
     display: flex;
     flex-direction: column;
@@ -32,11 +30,8 @@
 
 .overdueTitle {
     color: #FF5757;
-    /* Або інший червоний/акцентний колір вашої теми */
     opacity: 1;
 }
-
-/* =============================== */
 
 @media only screen and (min-width: 768px) {
     .taskCard {
@@ -50,20 +45,14 @@
         height: 498px;
     }
 
-    /* === ЗМІНА ЛОГІКИ СКРОЛУ === */
-    /* Раніше скрол був на .taskList. Тепер ми переносимо його на .tasksWrapper,
-     щоб скролилися всі категорії разом, як єдине ціле. */
     .tasksWrapper {
         height: 395px;
-        /* Висота контенту */
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-color: var(--color-scheme-accent) transparent;
         padding-right: 8px;
-        /* Відступ, щоб скрол не наїжджав на текст */
     }
 
-    /* Скидаємо висоту для окремих списків, щоб вони не різались */
     .taskList {
         height: auto;
         overflow: visible;
@@ -92,7 +81,6 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    /* Тут ми прибрали height та overflow, які були раніше для десктопу */
 }
 
 .taskCardTitle {
