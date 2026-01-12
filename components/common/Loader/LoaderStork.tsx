@@ -233,12 +233,16 @@ const LoaderStork: React.FC<LoaderStorkProps> = ({
     </div>
   );
 
-  if (fullScreen) {
-    return <div className={styles.fullscreen}>{loaderContent}</div>;
+  if (overlay) {
+    return (
+      <div className={styles.fullscreen}>
+        <div className={styles.overlay}>{loaderContent}</div>
+      </div>
+    );
   }
 
-  if (overlay) {
-    return <div className={styles.overlay}>{loaderContent}</div>;
+  if (fullScreen) {
+    return <div className={styles.fullscreen}>{loaderContent}</div>;
   }
 
   return loaderContent;
