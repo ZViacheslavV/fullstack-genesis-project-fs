@@ -44,15 +44,6 @@ export default function DashboardCardClient({ onMomDailyTip }: Props) {
   const mom = weeksInfo.momState;
   const tips = mom.comfortTips;
 
-  /*   useEffect(() => {
-    if (!baby?.momDailyTips) return;
-
-    const index = (new Date().getDay() + 6) % 7;
-    const tip = baby.momDailyTips[index];
-
-    onMomDailyTip?.(tip);
-  }, [baby?.momDailyTips, onMomDailyTip]); */
-
   const tipText =
     tips && tips.length > 0
       ? tips[0].tip
