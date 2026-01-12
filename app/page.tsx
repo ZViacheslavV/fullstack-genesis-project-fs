@@ -16,9 +16,7 @@ export const metadata: Metadata = {};
 function Home() {
   return (
     <section className={css.dashboard}>
-      <div className={css.dashboard__greeting}>
-        <GreetingBlock />
-      </div>
+      <GreetingBlock />
       <div className={css.dashboard__content}>
         <div className={css.dashboard__stats}>
           <DashboardClient />
