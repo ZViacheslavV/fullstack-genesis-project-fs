@@ -32,6 +32,9 @@
 //   );
 // }
 
+'use client';
+import { useParams } from 'next/navigation';
+
 import { notFound } from 'next/navigation';
 import React from 'react';
 
@@ -39,12 +42,12 @@ import BabyJourney from '@/components/journey/BabyJourney/BabyJourney';
 import JourneyDetails from '@/components/journey/JourneyDetails/JourneyDetails';
 import MomyJourney from '@/components/journey/MomyJourney/MomyJourney';
 
-type Props = {
+/* type Props = {
   params: Promise<{ weekNumber: string }>;
-};
+}; */
 
-export default async function JourneyPage({ params }: Props) {
-  const { weekNumber } = await params;
+export default function JourneyPage(/* { params }: Props */) {
+  const { weekNumber } = useParams<{ weekNumber: string }>();
 
   const week = Number(weekNumber);
 
