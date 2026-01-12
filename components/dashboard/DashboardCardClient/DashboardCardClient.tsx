@@ -10,7 +10,7 @@ import { useAuthUserStore } from '@/lib/store/authStore';
 import { useEffect, useState } from 'react';
 
 type Props = {
-  onMomDailyTip?: (tip: string) => void;
+  onMomDailyTip?: (tip: string | undefined) => void;
 };
 
 export default function DashboardCardClient({ onMomDailyTip }: Props) {
@@ -20,6 +20,17 @@ export default function DashboardCardClient({ onMomDailyTip }: Props) {
     queryKey: ['weeks'],
     queryFn: isAuthenticated ? getWeeksCurrent : getWeeksDemo,
   });
+  // console.log('RAW weeks response from backend:', data);
+
+  const tipData = data?.data?.babyState;
+
+  const todayIndex = (new Date().getDay() + 6) % 7;
+  const momDailyTip = tipData?.momDailyTips?.[todayIndex];
+
+  useEffect(() => {
+    onMomDailyTip?.(momDailyTip);
+  }, [momDailyTip, onMomDailyTip]);
+
   // console.log('RAW weeks response from backend:', data);
 
   // if (isLoading) return <div>Loading...</div>;
@@ -32,13 +43,6 @@ export default function DashboardCardClient({ onMomDailyTip }: Props) {
 
   const mom = weeksInfo.momState;
   const tips = mom.comfortTips;
-
-  const todayIndex = (new Date().getDay() + 6) % 7;
-  const momDailyTip = baby.momDailyTips[todayIndex];
-
-  useEffect(() => {
-    onMomDailyTip?.(momDailyTip);
-  }, [momDailyTip, onMomDailyTip]);
 
   /*   useEffect(() => {
     if (!baby?.momDailyTips) return;

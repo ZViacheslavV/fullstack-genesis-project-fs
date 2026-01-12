@@ -1,6 +1,6 @@
 'use client';
 
-import type { Metadata } from 'next';
+// import type { Metadata } from 'next';
 import css from './page.module.css';
 import DashboardCardClient from '@/components/dashboard/DashboardCardClient/DashboardCardClient';
 //import { Toaster } from 'react-hot-toast';
@@ -12,12 +12,13 @@ import { useState } from 'react';
 
 //===========================================================================
 
-export const metadata: Metadata = {};
+// export const metadata: Metadata = {};
 
 //===========================================================================
 
 function Home() {
   const [momDailyTip, setMomDailyTip] = useState<string>('');
+
   return (
     <section className={css.dashboard}>
       <div className={css.dashboard__inner}>
@@ -29,7 +30,7 @@ function Home() {
           <div className={css.dashboard__tasks}>
             <TasksReminderCard />
             {/* <Toaster position="top-right" /> */}
-            <FeelRecommendationCard recommendationText="" />
+            <FeelRecommendationCard recommendationText={momDailyTip} />
           </div>
         </div>
       </div>
