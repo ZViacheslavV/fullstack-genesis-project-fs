@@ -15,15 +15,19 @@ export const metadata: Metadata = {};
 
 function Home() {
   return (
-    <section className={css.hero}>
-      <div>
+    <section className={css.dashboard}>
+      <div className={css.dashboard__greeting}>
         <GreetingBlock />
-        <DashboardClient />
       </div>
-      <div>
-        {<TasksReminderCard />}
-        {/* <Toaster position="top-right" /> */}
-        <FeelRecommendationCard recommendationText="" />
+      <div className={css.dashboard__content}>
+        <div className={css.dashboard__stats}>
+          <DashboardClient />
+        </div>
+        <div className={css.dashboard__tasks}>
+          {<TasksReminderCard />}
+          {/* <Toaster position="top-right" /> */}
+          <FeelRecommendationCard recommendationText="" />
+        </div>
       </div>
     </section>
   );
