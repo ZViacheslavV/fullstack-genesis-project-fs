@@ -24,7 +24,7 @@ function Home() {
           <DashboardClient />
         </div>
         <div className={css.dashboard__tasks}>
-          {<TasksReminderCard />}
+          <TasksReminderCard />
           {/* <Toaster position="top-right" /> */}
           <FeelRecommendationCard recommendationText="" />
         </div>
@@ -32,5 +32,4 @@ function Home() {
     </section>
   );
 }
-
 export default Home;
