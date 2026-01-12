@@ -41,7 +41,9 @@ function TasksReminderCard() {
   const openModal = () => {
     if (isAuthenticated) {
       setIsModalOpen(true);
+      console.log('I`m in');
     } else {
+      console.log('I`m out');
       router.push('/auth/register');
     }
   };
@@ -63,9 +65,7 @@ function TasksReminderCard() {
             </svg>
           </button>
         </div>
-        {/* <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <AddTaskForm afterSubmit={closeModal} />
-        </Modal> */}
+
         <AddTaskModal isOpen={isModalOpen} onClose={closeModal}></AddTaskModal>
 
         {isAuthenticated ? (

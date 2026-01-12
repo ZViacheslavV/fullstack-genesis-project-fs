@@ -1,18 +1,17 @@
 'use client';
 
-import { getWeeks, getWeeksCurrent } from '@/lib/api/clientApi';
+import { getWeeksCurrent, getWeeksDemo } from '@/lib/api/clientApi';
 import StatusBlock from './StatusBlock/StatusBlock';
 import MomTipCard from './MomTipCard/MomTipCard';
-import BabyTodayCard from './BabyTodayCard/BabyTodayCard';
 import { useQuery } from '@tanstack/react-query';
 import LoaderStork from '@/components/common/Loader/LoaderStork';
 
 export default function DashboardClient() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
-    queryFn: getWeeksCurrent,
+    queryFn: getWeeksDemo,
   });
-  console.log('RAW weeks response from backend:', data);
+  // console.log('RAW weeks response from backend:', data);
 
   // if (isLoading) return <div>Loading...</div>;
   if (isLoading)
@@ -20,21 +19,7 @@ export default function DashboardClient() {
   if (error || !data) return <div>Error loading weeks</div>;
 
   const weeksInfo = data.data;
-
   const baby = weeksInfo.babyState;
-  if (!baby) {
-    return <div>Baby data is loading...</div>;
-  }
-
-  const babySizeText = baby.babySize ? `Розмір: ${baby.babySize}` : '0 см';
-
-  const babyWeightText = baby.babyWeight ? `Вага: ${baby.babyWeight}` : `0 г`;
-
-  const babyActivity = baby.babyActivity
-    ? `Активність: ${baby.babyActivity}`
-    : `Ітформація про активність малюка скоро буде доступна`;
-
-  const babyDescription = baby.babyDevelopment;
 
   const mom = weeksInfo.momState;
   const tips = mom.comfortTips;
@@ -53,10 +38,10 @@ export default function DashboardClient() {
 
       <BabyTodayCard
         imageUrl={baby.image}
-        sizeText={babySizeText}
-        weightText={babyWeightText}
-        babyActivity={babyActivity}
-        description={babyDescription}
+        babySize={baby.babySize}
+        babyWeight={baby.babyWeight}
+        babyActivity={baby.babyActivity}
+        description={baby.babyDevelopment}
       />
 
       <MomTipCard text={tipText} />
