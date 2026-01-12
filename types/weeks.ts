@@ -7,6 +7,7 @@ export interface BabyState {
   babyActivity: string;
   babyDevelopment: string;
   interestingFact: string;
+  momDailyTips: string;
 }
 
 // ---------- MOM ----------

@@ -3,11 +3,11 @@
 import { useState } from 'react';
 
 import Button from '@/components/common/Button/Button';
-import DiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal'; 
+import DiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
 import css from './FeelingCheckCard.module.css';
 
 type FeelRecommendationCardProps = {
-  recommendationText: string;
+  recommendationText: string | undefined;
   className?: string;
 
   mode?: 'create' | 'edit';

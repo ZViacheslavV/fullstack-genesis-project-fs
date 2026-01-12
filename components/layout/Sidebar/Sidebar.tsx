@@ -100,6 +100,7 @@ function SideBar() {
             className={`${css.navItem} ${isActive(pathname, '/') ? css.active : ''}`}
             onClick={() => {
               router.push('/'); //! Changed this to without protection state, because we have Demo day on this route. No need protection.
+              close();
             }}
           >
             <svg width="20" height="20" aria-hidden>

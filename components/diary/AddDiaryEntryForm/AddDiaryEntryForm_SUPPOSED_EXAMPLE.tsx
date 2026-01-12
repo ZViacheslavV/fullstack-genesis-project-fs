@@ -1,25 +1,14 @@
-'use client';
+"use client";
+
+import type { DiaryEntry } from "@/types/diary";
+import AddDiaryEntryForm from "./addDiaryEntryForm";
 
 type AddDiaryEntryFormProps = {
   onSuccess: () => void;
-  initialValues?: Record<string, unknown>;
-  mode?: 'create' | 'edit';
+  initialValues?: Partial<DiaryEntry>;
+  mode?: "create" | "edit";
 };
 
-export default function AddDiaryEntryForm({
-  onSuccess,
-  initialValues,
-  mode = 'create',
-}: AddDiaryEntryFormProps) {
-  return (
-    <div>
-      <p>AddDiaryEntryForm placeholder</p>
-      <p>Mode: {mode}</p>
-
-      <button type="button" onClick={onSuccess}>
-        Close modal
-      </button>
-    </div>
-  );
+export default function AddDiaryEntryFormWrapper(props: AddDiaryEntryFormProps) {
+  return <AddDiaryEntryForm {...props} />;
 }
-

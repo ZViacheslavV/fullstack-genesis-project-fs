@@ -1,7 +1,7 @@
 'use client';
 
-// import css from "./GreetingBlock.module.css";
-import { useAuthUserStore } from "@/lib/store/authStore";
+import css from './GreetingBlock.module.css';
+import { useAuthUserStore } from '@/lib/store/authStore';
 
 type UserForTitle = {
   name?: string | null;
@@ -25,7 +25,7 @@ function PageTitle() {
 
   const greeting = `${getGreeting()}, ${userName}!`;
 
-  return <h1 /* className={css.title} */>{greeting}</h1>;
+  return <h1 className={css.title}>{greeting}</h1>;
 }
 
 export default PageTitle;
