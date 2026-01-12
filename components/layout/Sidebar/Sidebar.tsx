@@ -99,7 +99,7 @@ function SideBar() {
             href="/"
             className={`${css.navItem} ${isActive(pathname, '/') ? css.active : ''}`}
             onClick={() => {
-              router.push('/auth/login'); //! Changed this to without protection state, because we have Demo day on this route. No need protection.
+              router.push('/'); //! Changed this to without protection state, because we have Demo day on this route. No need protection.
             }}
           >
             <svg width="20" height="20" aria-hidden>
