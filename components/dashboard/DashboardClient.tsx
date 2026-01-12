@@ -10,7 +10,7 @@ import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';
 export default function DashboardClient() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
-    queryFn: getWeeksDemo,
+    queryFn: getWeeksCurrent,
   });
   // console.log('RAW weeks response from backend:', data);
 
