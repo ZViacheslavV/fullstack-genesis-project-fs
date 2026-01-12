@@ -81,12 +81,14 @@ function RootLayout({
         <TanStackProvider>
           <AuthProvider>
             <Header />
-            <Sidebar />
-            <div className="container">
-              <Breadcrumbs />
-              <main className={css.main}>
-                <div className={css.container}>{children}</div>
-              </main>
+            <div className={css.appLayout}>
+              <Sidebar />
+              <div className="container">
+                <Breadcrumbs />
+                <main className={css.main}>
+                  <div className={css.container}>{children}</div>
+                </main>
+              </div>
             </div>
             <Toaster position="top-right" />
           </AuthProvider>
