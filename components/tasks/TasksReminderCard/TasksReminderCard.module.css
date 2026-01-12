@@ -13,6 +13,160 @@
     background-color: var(--color-scheme-foreground);
 }
 
+/* === НОВІ СТИЛІ ДЛЯ ОБГОРТКИ === */
+/* Це контейнер, який тримає всі три категорії разом */
+.tasksWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sectionTitle {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
+    margin-bottom: 4px;
+    color: var(--color-scheme-text);
+}
+
+.overdueTitle {
+    color: #FF5757;
+    /* Або інший червоний/акцентний колір вашої теми */
+    opacity: 1;
+}
+
+/* =============================== */
+
+@media only screen and (min-width: 768px) {
+    .taskCard {
+        width: 704px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .taskCard {
+        width: 390px;
+        height: 498px;
+    }
+
+    /* === ЗМІНА ЛОГІКИ СКРОЛУ === */
+    /* Раніше скрол був на .taskList. Тепер ми переносимо його на .tasksWrapper,
+     щоб скролилися всі категорії разом, як єдине ціле. */
+    .tasksWrapper {
+        height: 395px;
+        /* Висота контенту */
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-color: var(--color-scheme-accent) transparent;
+        padding-right: 8px;
+        /* Відступ, щоб скрол не наїжджав на текст */
+    }
+
+    /* Скидаємо висоту для окремих списків, щоб вони не різались */
+    .taskList {
+        height: auto;
+        overflow: visible;
+    }
+}
+
+.addTaskBtn {
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addTaskBtnIcon {
+    transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) ease-in-out;
+}
+
+.addTaskBtnIcon:hover,
+.addTaskBtnIcon:focus {
+    transform: scale(1.1);
+}
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* Тут ми прибрали height та overflow, які були раніше для десктопу */
+}
+
+.taskCardTitle {
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+}
+
+.subTitleTaskList {
+    font-weight: 700;
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+}
+
+
+
+
+
+
+
+
+/* 
+
+.taskCardHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.taskCard {
+    border-radius: 32px;
+    width: 335px;
+    padding: 24px;
+    background-color: var(--color-scheme-foreground);
+} */
+
+/*  */
+
+/* .tasksWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.sectionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sectionTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #888;
+    margin: 0;
+    padding-left: 10px;
+} */
+
+/*  */
+
+
+
+
+
+
+/* 
+
 @media only screen and (min-width: 768px) {
     .taskCard {
         width: 704px;
@@ -31,8 +185,16 @@
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-color: var(--color-scheme-accent) transparent;
-    }
-}
+    } */
+
+/* 
+    .tasksWrapper {
+        height: 395px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-color: var(--color-scheme-accent) transparent;
+    } */
+/* }
 
 .addTaskBtn {
     background-color: transparent;
@@ -72,4 +234,4 @@
     font-size: 16px;
     line-height: 160%;
     color: var(--color-scheme-text);
-}
+} */
