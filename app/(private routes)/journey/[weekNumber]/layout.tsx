@@ -5,12 +5,12 @@ type Props = {
   params: { weekNumber: string };
 };
 
-export default function JourneyLayout({ children, params }: Props) {
-  const week = Number(params.weekNumber);
+export default async function JourneyLayout({ children, params }: Props) {
+  const week = await Number(params.weekNumber);
 
-  if (Number.isNaN(week)) {
+  /*   if (Number.isNaN(week)) {
     notFound();
-  }
+  } */
 
   return <section>{children}</section>;
 }

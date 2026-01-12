@@ -43,8 +43,8 @@ type Props = {
   params: Promise<{ weekNumber: string }>;
 };
 
-export default function JourneyPage({ params }: Props) {
-  const { weekNumber } = React.use(params);
+export default async function JourneyPage({ params }: Props) {
+  const { weekNumber } = await params;
 
   const week = Number(weekNumber);
 
