@@ -94,57 +94,64 @@ function SideBar() {
           </button>
         </div>
 
-        <nav className={css.nav}>
-          <Link
-            href="/"
-            className={`${css.navItem} ${isActive(pathname, '/') ? css.active : ''}`}
-            onClick={() => {
-              router.push('/'); //! Changed this to without protection state, because we have Demo day on this route. No need protection.
-              close();
-            }}
-          >
-            <svg width="20" height="20" aria-hidden>
-              <use href="/icons.svg#icon-today" />
-            </svg>
-            <span>Мій день</span>
-          </Link>
-
-          <Link
-            href={`/journey/${weekNumber}`}
-            className={`${css.navItem} ${
-              isActive(pathname, '/journey') ? css.active : ''
-            }`}
-            onClick={handleProtectedNavClick}
-          >
-            <svg width="20" height="20" aria-hidden>
-              <use href="/icons.svg#icon-conversion-path" />
-            </svg>
-            <span>Подорож</span>
-          </Link>
-
-          <Link
-            href="/diary"
-            className={`${css.navItem} ${isActive(pathname, '/diary') ? css.active : ''}`}
-            onClick={handleProtectedNavClick}
-          >
-            <svg width="20" height="20" aria-hidden>
-              <use href="/icons.svg#icon-book" />
-            </svg>
-            <span>Щоденник</span>
-          </Link>
-
-          <Link
-            href="/profile"
-            className={`${css.navItem} ${
-              isActive(pathname, '/profile') ? css.active : ''
-            }`}
-            onClick={handleProtectedNavClick}
-          >
-            <svg width="20" height="20" aria-hidden>
-              <use href="/icons.svg#icon-account-circle" />
-            </svg>
-            <span>Профіль</span>
-          </Link>
+        <nav aria-label="Main navigation" className={css.nav}>
+          <ul className={css.navList}>
+            <li>
+              <Link
+                href="/"
+                className={`${css.navItem} ${isActive(pathname, '/') ? css.active : ''}`}
+                onClick={() => {
+                  router.push('/'); //! Changed this to without protection state, because we have Demo day on this route. No need protection.
+                  close();
+                }}
+              >
+                <svg width="20" height="20" aria-hidden>
+                  <use href="/icons.svg#icon-today" />
+                </svg>
+                <span>Мій день</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/journey/${weekNumber}`}
+                className={`${css.navItem} ${
+                  isActive(pathname, '/journey') ? css.active : ''
+                }`}
+                onClick={handleProtectedNavClick}
+              >
+                <svg width="20" height="20" aria-hidden>
+                  <use href="/icons.svg#icon-conversion-path" />
+                </svg>
+                <span>Подорож</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/diary"
+                className={`${css.navItem} ${isActive(pathname, '/diary') ? css.active : ''}`}
+                onClick={handleProtectedNavClick}
+              >
+                <svg width="20" height="20" aria-hidden>
+                  <use href="/icons.svg#icon-book" />
+                </svg>
+                <span>Щоденник</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/profile"
+                className={`${css.navItem} ${
+                  isActive(pathname, '/profile') ? css.active : ''
+                }`}
+                onClick={handleProtectedNavClick}
+              >
+                <svg width="20" height="20" aria-hidden>
+                  <use href="/icons.svg#icon-account-circle" />
+                </svg>
+                <span>Профіль</span>
+              </Link>
+            </li>
+          </ul>
         </nav>
 
         <div className={css.divider} />
