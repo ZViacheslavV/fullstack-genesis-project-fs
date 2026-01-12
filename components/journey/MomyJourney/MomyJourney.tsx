@@ -14,7 +14,7 @@ const MomyJourney = async ({ weekNumber }: Props) => {
 
   return (
     <>
-      <FeelingCheckCard />
+      <FeelingCheckCard recommendationText="" />
       <ComfortTips comfortTips={data.comfortTips as ComfortTipsProps[]} />
       <TasksReminderCard />
     </>
