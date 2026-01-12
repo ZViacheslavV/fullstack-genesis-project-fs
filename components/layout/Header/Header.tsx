@@ -1,32 +1,43 @@
 'use client';
 
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import css from './Header.module.css';
 
 import { useSidebarStore } from '@/lib/store/sidebarStore';
-import { usePathname } from 'next/navigation';
-
-//===========================================================================
 
 function Header() {
   const pathname = usePathname();
   const toggle = useSidebarStore((s) => s.toggle);
 
   const isAuthRoute = pathname.startsWith('/auth');
-  return <header className={css.header}>
+  if (isAuthRoute) return null;
 
-<div
+  return (
+    <header className={css.header}>
+      <Link href="/" className={css.logo} aria-label="Go to My Day">
+        <Image
+          src="/company-logo.svg"
+          alt="Company logo"
+          width={84}
+          height={36}
+          priority
+        />
+      </Link>
+
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label="Open menu"
+        className={css.burgerButton}
       >
-       {!isAuthRoute && (
-          <button type="button" onClick={toggle} aria-label="Open menu">
-            <svg width="32" height="32" aria-hidden>
-              <use href="/icons.svg#icon-burger" />
-            </svg>
-          </button>
-        )}
-
-      </div>
-
-  </header>;
+        <svg width="32" height="32" aria-hidden>
+          <use href="/icons.svg#icon-burger" />
+        </svg>
+      </button>
+    </header>
+  );
 }
 
 export default Header;

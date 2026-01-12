@@ -20,7 +20,7 @@ export default function BabyJourney({ weekNumber }: Props) {
     queryKey: ['baby', weekNumber],
     queryFn: () => getBabyWeeks(weekNumber),
     select: (res) => res.data.babyState,
-    enabled: !!weekNumber,
+    enabled: true,
     refetchOnMount: false,
   });
 

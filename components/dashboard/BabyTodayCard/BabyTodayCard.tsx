@@ -1,4 +1,4 @@
-import css from "./BabyTodayCard.module.css";
+import css from './BabyTodayCard.module.css';
 
 type BabyTodayCardProps = {
   imageUrl: string;
@@ -21,23 +21,24 @@ const BabyTodayCard = ({
 
       <div className={css.top}>
         <div className={css.imageWrapper}>
+          {/* //TODO: need Image */}
           <img src={imageUrl} alt="Baby illustration" />
         </div>
-<div className={css.params}>
-        <p className={css.row}>
-          <span className={css.label}>Розмір: </span>
-          <span className={css.value}>{babySize} см</span>
-        </p>
+        <div className={css.params}>
+          <p className={css.row}>
+            <span className={css.label}>Розмір: </span>
+            <span className={css.value}>{babySize} см</span>
+          </p>
 
-        <p className={css.row}>
-          <span className={css.label}>Вага: </span>
-          <span className={css.value}>{babyWeight} грамів</span>
-        </p>
+          <p className={css.row}>
+            <span className={css.label}>Вага: </span>
+            <span className={css.value}>{babyWeight} грамів</span>
+          </p>
 
-        <p className={css.row}>
-          <span className={css.label}>Активність: </span>
-          <span className={css.value}>{babyActivity}</span>
-        </p>
+          <p className={css.row}>
+            <span className={css.label}>Активність: </span>
+            <span className={css.value}>{babyActivity}</span>
+          </p>
         </div>
       </div>
 
