@@ -62,8 +62,10 @@
 
 .nav {
   padding: 0px 16px;
+}
+
+.navList {
   display: grid;
-  gap: 8px;
   align-content: start;
 }
 

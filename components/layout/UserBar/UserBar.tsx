@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import Toast from '@/components/common/Toast/Toast';
 import { logout } from '@/lib/api/clientApi';
 import { useAuthUserStore } from '@/lib/store/authStore';
 import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
@@ -30,7 +31,15 @@ function UserBar() {
       setIsModalOpen(false);
       router.replace('/');
     } catch {
-      toast.error('Logout error');
+      toast.custom(
+        () => (
+          <Toast
+            type="error"
+            message="Не вдалося вийти з акаунта. Спробуйте ще раз."
+          />
+        ),
+        { duration: 5000 }
+      );
     } finally {
       setIsLoading(false);
     }
