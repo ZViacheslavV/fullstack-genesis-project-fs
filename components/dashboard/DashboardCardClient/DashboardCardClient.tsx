@@ -34,8 +34,9 @@ export default function DashboardCardClient({ onMomDailyTip }: Props) {
   // console.log('RAW weeks response from backend:', data);
 
   // if (isLoading) return <div>Loading...</div>;
-  if (isLoading)
-    return <LoaderStork fullScreen={false} size="medium" overlay={true} />;
+  // if (isLoading)
+  //   return <LoaderStork fullScreen={false} size="medium" overlay={true} />;
+  if (isLoading) return <LoaderStork overlay size="medium" />;
   if (error || !data) return <div>Error loading weeks</div>;
 
   const weeksInfo = data.data;

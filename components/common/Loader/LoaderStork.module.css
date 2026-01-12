@@ -1,25 +1,25 @@
 /* Контейнер для повного екрану */
+
 .fullscreen {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(5px);
+
+  /* напівпрозорий фон */
+  background-color: rgba(255, 255, 255, 0.7);
+
+  /* блюр ВСЬОГО сайту під лоадером */
+  backdrop-filter: blur(20px) saturate(1.1);
+  -webkit-backdrop-filter: blur(15px) saturate(1.1);
+
   z-index: 9999;
 }
 
 .overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  /* Без фону, без рамки */
+  position: relative;
+  z-index: 1;
   background: transparent;
 }
 
@@ -46,7 +46,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 /* SVG з лелекою */
@@ -58,6 +58,7 @@
 }
 
 /* Контейнер для тексту */
+
 .textContainer {
   display: flex;
   align-items: baseline;
@@ -70,8 +71,8 @@
     -apple-system,
     sans-serif;
 
-  /* Mobile default */
   font-size: 1rem;
+  margin-top: -2rem;
 }
 
 /* Основний текст */
@@ -89,7 +90,7 @@
 .dot {
   opacity: 0;
   animation: dotAnimation 1.5s infinite;
-  color: #3b82f6;
+  color: #0062ff;
   padding: 5px;
 }
 
@@ -152,7 +153,7 @@
   }
 
   .wrapper {
-    gap: 2.5rem;
+    gap: 1rem;
   }
 }
 
@@ -172,6 +173,6 @@
   }
 
   .wrapper {
-    gap: 3rem;
+    gap: 1rem;
   }
 }
