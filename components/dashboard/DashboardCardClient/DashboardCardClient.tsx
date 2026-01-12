@@ -1,8 +1,8 @@
 'use client';
 
 import { getWeeksCurrent, getWeeksDemo } from '@/lib/api/clientApi';
-import StatusBlock from './StatusBlock/StatusBlock';
-import MomTipCard from './MomTipCard/MomTipCard';
+import StatusBlock from '../StatusBlock/StatusBlock';
+import MomTipCard from '../MomTipCard/MomTipCard';
 import { useQuery } from '@tanstack/react-query';
 import LoaderStork from '@/components/common/Loader/LoaderStork';
 import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';

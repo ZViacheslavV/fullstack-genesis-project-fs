@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import css from './page.module.css';
-import DashboardClient from '@/components/dashboard/DashboardClient';
+import DashboardClient from '@/components/dashboard/DashboardCardClient/DashboardCardClient';
 //import { Toaster } from 'react-hot-toast';
 import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
 // import moduleName from 'module';
