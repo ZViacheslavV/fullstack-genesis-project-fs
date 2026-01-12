@@ -5,6 +5,7 @@ import StatusBlock from './StatusBlock/StatusBlock';
 import MomTipCard from './MomTipCard/MomTipCard';
 import { useQuery } from '@tanstack/react-query';
 import LoaderStork from '@/components/common/Loader/LoaderStork';
+import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';
 
 export default function DashboardClient() {
   const { data, isLoading, error } = useQuery({
