@@ -16,7 +16,7 @@ type Props = {
 export default function DashboardCardClient({ onMomDailyTip }: Props) {
   const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
 
-  const [modDailyTip, setMomDailyTip] = useState<string>('');
+  // const [modDailyTip, setMomDailyTip] = useState<string>('');
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
@@ -34,6 +34,13 @@ export default function DashboardCardClient({ onMomDailyTip }: Props) {
 
   const mom = weeksInfo.momState;
   const tips = mom.comfortTips;
+
+  const todayIndex = (new Date().getDay() + 6) % 7;
+  const momDailyTip = baby.momDailyTips[todayIndex];
+
+  useEffect(() => {
+    onMomDailyTip?.(momDailyTip);
+  }, [momDailyTip, onMomDailyTip]);
 
   /*   useEffect(() => {
     if (!baby?.momDailyTips) return;
