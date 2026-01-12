@@ -1,11 +1,12 @@
 .dashboard {
+  @media only screen and (min-width: 1440px) {
+    margin-left: 300px;
+  }
+}
+
+.dashboard_inner {
   display: flex;
   flex-direction: column;
-
-  @media only screen and (min-width: 768px) {
-    max-width: 1128px;
-    margin: 0 auto;
-  }
 }
 
 .dashboard__content {
