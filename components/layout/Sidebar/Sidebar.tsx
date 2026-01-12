@@ -12,6 +12,7 @@ import AuthBar from '@/components/layout/AuthBar/AuthBar';
 import UserBar from '@/components/layout/UserBar/UserBar';
 
 import css from './Sidebar.module.css';
+import { useWeekStore } from '@/lib/store/weekStore';
 
 function isActive(pathname: string, href: string) {
   if (href === '/') return pathname === '/';
@@ -23,6 +24,7 @@ function SideBar() {
   const pathname = usePathname();
 
   const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
+  const weekNumber = useWeekStore((s) => s.weekNumb);
 
   const isOpen = useSidebarStore((s) => s.isOpen);
   const close = useSidebarStore((s) => s.close);
@@ -69,7 +71,7 @@ function SideBar() {
 
       <aside className={`${css.root} ${isOpen ? css.open : ''}`}>
         <div className={css.top}>
-          <Link className={css.logoLink} href="/" onClick={close} >
+          <Link className={css.logoLink} href="/" onClick={close}>
             <Image
               src="/company-logo.svg"
               alt="Logo"
@@ -105,7 +107,7 @@ function SideBar() {
           </Link>
 
           <Link
-            href="/journey/${weekNumber}" 
+            href={`/journey/${weekNumber}`}
             className={`${css.navItem} ${
               isActive(pathname, '/journey') ? css.active : ''
             }`}
