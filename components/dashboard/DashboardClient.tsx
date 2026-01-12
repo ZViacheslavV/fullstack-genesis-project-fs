@@ -1,18 +1,17 @@
 'use client';
 
-import { getWeeks, getWeeksCurrent } from '@/lib/api/clientApi';
+import { getWeeksCurrent, getWeeksDemo } from '@/lib/api/clientApi';
 import StatusBlock from './StatusBlock/StatusBlock';
 import MomTipCard from './MomTipCard/MomTipCard';
 import { useQuery } from '@tanstack/react-query';
 import BabyTodayCard from './BabyTodayCard/BabyTodayCard';
 
-
 export default function DashboardClient() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
-    queryFn: getWeeksCurrent,
+    queryFn: getWeeksDemo,
   });
-  console.log('RAW weeks response from backend:', data);
+  // console.log('RAW weeks response from backend:', data);
 
   if (isLoading) return <div>Loading...</div>;
   if (error || !data) return <div>Error loading weeks</div>;
@@ -35,13 +34,13 @@ export default function DashboardClient() {
         daysLeft={weeksInfo.daysLeftToBirth}
       />
 
-<BabyTodayCard
-  imageUrl={baby.image}
-  babySize={baby.babySize}
-  babyWeight={baby.babyWeight}
-  babyActivity={baby.babyActivity}
-  description={baby.babyDevelopment}
-/>
+      <BabyTodayCard
+        imageUrl={baby.image}
+        babySize={baby.babySize}
+        babyWeight={baby.babyWeight}
+        babyActivity={baby.babyActivity}
+        description={baby.babyDevelopment}
+      />
 
       <MomTipCard text={tipText} />
     </>
