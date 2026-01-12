@@ -3,12 +3,6 @@
   flex-direction: column;
 }
 
-.dashboard__greeting {
-  @media only screen and (min-width: 1440px) {
-    margin-left: 125px;
-  }
-}
-
 .dashboard__content {
   display: flex;
   flex-direction: column;
