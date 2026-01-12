@@ -16,13 +16,11 @@ type Props = {
 export default function DashboardCardClient({ onMomDailyTip }: Props) {
   const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
 
-  // const [modDailyTip, setMomDailyTip] = useState<string>('');
-
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
     queryFn: isAuthenticated ? getWeeksCurrent : getWeeksDemo,
   });
-  console.log('RAW weeks response from backend:', data);
+  // console.log('RAW weeks response from backend:', data);
 
   // if (isLoading) return <div>Loading...</div>;
   if (isLoading)
