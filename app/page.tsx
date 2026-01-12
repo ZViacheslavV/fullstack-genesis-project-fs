@@ -1,4 +1,4 @@
-'use client';
+'use client'; //TODO This is  Dashboard MVP of main page, needs many improvements
 
 // import type { Metadata } from 'next';
 import css from './page.module.css';
@@ -17,7 +17,7 @@ import { useState } from 'react';
 //===========================================================================
 
 function Home() {
-  const [momDailyTip, setMomDailyTip] = useState<string>('');
+  const [momDailyTip, setMomDailyTip] = useState<string | undefined>('');
 
   return (
     <section className={css.dashboard}>
