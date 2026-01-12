@@ -1,0 +1,49 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 24px;
+  margin-bottom: 16px;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link,
+.current {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+}
+
+.link {
+  color: var(--color-scheme-text);
+}
+
+.current {
+  color: var(--color-neutral);
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-90deg);
+}
+
+.arrow svg {
+  display: block;
+}
+
+@media only screen and (min-width: 1440px) {
+  .link,
+  .current {
+    font-size: 14px;
+  }
+}
