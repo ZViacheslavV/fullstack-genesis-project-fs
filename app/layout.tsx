@@ -80,9 +80,9 @@ function RootLayout({
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-            <Header />
             <Sidebar />
             <div className="container">
+              <Header />
               <Breadcrumbs />
               <main /* className={css.main} */>
                 <div /* className={css.container} */>{children}</div>
