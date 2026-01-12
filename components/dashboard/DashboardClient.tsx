@@ -6,11 +6,14 @@ import MomTipCard from './MomTipCard/MomTipCard';
 import { useQuery } from '@tanstack/react-query';
 import LoaderStork from '@/components/common/Loader/LoaderStork';
 import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';
+import { useAuthUserStore } from '@/lib/store/authStore';
 
 export default function DashboardClient() {
+  const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
-    queryFn: getWeeksCurrent,
+    queryFn: isAuthenticated ? getWeeksCurrent : getWeeksDemo,
   });
   // console.log('RAW weeks response from backend:', data);
 
