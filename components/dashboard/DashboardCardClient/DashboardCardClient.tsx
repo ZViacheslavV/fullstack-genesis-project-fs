@@ -7,9 +7,16 @@ import { useQuery } from '@tanstack/react-query';
 import LoaderStork from '@/components/common/Loader/LoaderStork';
 import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';
 import { useAuthUserStore } from '@/lib/store/authStore';
+import { useEffect, useState } from 'react';
 
-export default function DashboardCardClient() {
+type Props = {
+  onMomDailyTip?: (tip: string) => void;
+};
+
+export default function DashboardCardClient({ onMomDailyTip }: Props) {
   const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
+
+  const [modDailyTip, setMomDailyTip] = useState<string>('');
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
@@ -27,6 +34,15 @@ export default function DashboardCardClient() {
 
   const mom = weeksInfo.momState;
   const tips = mom.comfortTips;
+
+  /*   useEffect(() => {
+    if (!baby?.momDailyTips) return;
+
+    const index = (new Date().getDay() + 6) % 7;
+    const tip = baby.momDailyTips[index];
+
+    onMomDailyTip?.(tip);
+  }, [baby?.momDailyTips, onMomDailyTip]); */
 
   const tipText =
     tips && tips.length > 0
