@@ -1,24 +1,34 @@
-import FeelingCheckCard from '@/components/dashboard/FeelingCheckCard/FeelingCheckCard';
+'use client';
+
+// import FeelingCheckCard from '@/components/dashboard/FeelingCheckCard/FeelingCheckCard';
 import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
 import ComfortTips, {
   ComfortTipsProps,
 } from '@/components/journey/ComfortTips/ComfortTips';
-import { getJourneyData } from '@/lib/api/clientApi';
+import { getMomWeeks } from '@/lib/api/clientApi';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   weekNumber: number;
 };
 
-const MomyJourney = async ({ weekNumber }: Props) => {
-  const data = await getJourneyData(weekNumber, 'momy');
+export default function MomyJourney({ weekNumber }: Props) {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['mom', weekNumber],
+    queryFn: () => getMomWeeks(weekNumber),
+    enabled: !!weekNumber,
+  });
+
+  if (isLoading) return null;
+  if (isError || !data) return null;
+
+  const mom = data.data.momState;
 
   return (
     <>
-      <FeelingCheckCard />
-      <ComfortTips comfortTips={data.comfortTips as ComfortTipsProps[]} />
+      {/* <FeelingCheckCard /> */}
+      <ComfortTips comfortTips={mom.comfortTips as ComfortTipsProps[]} />
       <TasksReminderCard />
     </>
   );
-};
-
-export default MomyJourney;
+}
