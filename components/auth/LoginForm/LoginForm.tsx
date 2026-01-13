@@ -60,9 +60,7 @@ function LoginForm() {
       console.error('Login error:', err);
 
       toast.custom(
-        () => (
-          <Toast type="error" message="Пошта або пароль введені невірно." />
-        ),
+        <Toast type="error" message="Пошта або пароль введені невірно." />,
         { duration: 5000 }
       );
     } finally {

@@ -7,7 +7,7 @@ import ComfortTips, {
 } from '@/components/journey/ComfortTips/ComfortTips';
 import { getMomWeeks } from '@/lib/api/clientApi';
 import { useQuery } from '@tanstack/react-query';
-import { MomState, WeeksApiResponse } from '@/types/weeks';
+import { MomState, MomWeeksApiResponse } from '@/types/weeks';
 
 type Props = {
   weekNumber: number;
@@ -18,10 +18,10 @@ export default function MomyJourney({ weekNumber }: Props) {
     data: mom,
     isLoading,
     isError,
-  } = useQuery<WeeksApiResponse, Error, MomState>({
+  } = useQuery<MomWeeksApiResponse, Error, MomState>({
     queryKey: ['mom', weekNumber],
     queryFn: () => getMomWeeks(weekNumber),
-    select: (res) => res.data.momState,
+    select: (res) => res.data,
     enabled: true,
     refetchOnMount: false,
   });

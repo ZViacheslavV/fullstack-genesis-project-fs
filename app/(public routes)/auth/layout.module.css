@@ -20,6 +20,26 @@
   display: none;
 }
 
+.title {
+  text-align: center;
+  width: 300px;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--color-scheme-text);
+
+  margin-bottom: 32px;
+}
+
+@media only screen and (min-width: 768px) {
+  .title {
+    width: 480px;
+  }
+}
+
 @media (min-width: 1440px) {
   .page {
     display: grid;
@@ -47,5 +67,9 @@
   .illustration {
     object-fit: cover;
     object-position: center;
+  }
+
+  .title {
+    font-size: 48px;
   }
 }

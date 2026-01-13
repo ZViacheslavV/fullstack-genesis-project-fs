@@ -1,16 +1,22 @@
-import { notFound } from 'next/navigation';
+import React from 'react';
+
+import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
+import WeekSelector from '@/components/journey/WeekSelector/WeekSelector';
+import Breadcrumbs from '@/components/layout/Breadcrumbs/Breadcrumbs';
+import Header from '@/components/layout/Header/Header';
 
 type Props = {
   children: React.ReactNode;
   params: { weekNumber: string };
 };
 
-export default async function JourneyLayout({ children, params }: Props) {
-  const week = await Number(params.weekNumber);
-
-  /*   if (Number.isNaN(week)) {
-    notFound();
-  } */
-
-  return <section>{children}</section>;
+export default function JourneyLayout({ children }: Props) {
+  return (
+    <section>
+      <Header />
+      <GreetingBlock />
+      <WeekSelector />
+      {children}
+    </section>
+  );
 }

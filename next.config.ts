@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'aliiev-lomach.com' },
       { protocol: 'https', hostname: 'ac.goit.global' },
       { protocol: 'https', hostname: 'res.cloudinary.com' },
+      { protocol: 'https', hostname: 'ftp.goit.study' },
     ],
   },
 
