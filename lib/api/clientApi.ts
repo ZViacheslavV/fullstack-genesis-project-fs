@@ -136,30 +136,57 @@ type WeeksInfo = {
   momState: any;
 };
 
-export const getDemoWeeksInfo = async () => {
+// export const getDemoWeeksInfo = async () => {
+//   const { data } = await nextServer.get<ApiResponse<WeeksInfo>>(
+//     `${API_ENDPOINTS.WEEKS}/demo`
+//   );
+//   return data.data;
+// };
+
+// export const getCurrentWeekInfo = async () => {
+//   const { data } = await nextServer.get<ApiResponse<WeeksInfo>>(
+//     `${API_ENDPOINTS.WEEKS}`
+//   );
+//   return data.data;
+// };
+
+// export const getBabyByWeek = async (weekNumber: number) => {
+//   const { data } = await nextServer.get<ApiResponse<any>>(
+//     `${API_ENDPOINTS.WEEKS}/baby/${weekNumber}`
+//   );
+//   return data.data;
+// };
+
+// export const getMomByWeek = async (weekNumber: number) => {
+//   const { data } = await nextServer.get<ApiResponse<any>>(
+//     `${API_ENDPOINTS.WEEKS}/mom/${weekNumber}`
+//   );
+//   return data.data;
+// };
+export const getDemoWeeksInfo = async (): Promise<WeeksInfo> => {
   const { data } = await nextServer.get<ApiResponse<WeeksInfo>>(
-    `${API_ENDPOINTS.WEEKS}/demo`
+    API_ENDPOINTS.WEEKS_DEMO
   );
   return data.data;
 };
 
-export const getCurrentWeekInfo = async () => {
+export const getCurrentWeekInfo = async (): Promise<WeeksInfo> => {
   const { data } = await nextServer.get<ApiResponse<WeeksInfo>>(
-    `${API_ENDPOINTS.WEEKS}`
+    API_ENDPOINTS.WEEKS_GET
   );
   return data.data;
 };
 
 export const getBabyByWeek = async (weekNumber: number) => {
   const { data } = await nextServer.get<ApiResponse<any>>(
-    `${API_ENDPOINTS.WEEKS}/baby/${weekNumber}`
+    `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
   );
   return data.data;
 };
 
 export const getMomByWeek = async (weekNumber: number) => {
   const { data } = await nextServer.get<ApiResponse<any>>(
-    `${API_ENDPOINTS.WEEKS}/mom/${weekNumber}`
+    `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
   );
   return data.data;
 };

@@ -48,35 +48,34 @@
 //     </>
 //   );
 // }
-
 'use client';
-import { useParams } from 'next/navigation';
 
+import React, { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
-import React from 'react';
 
 import BabyJourney from '@/components/journey/BabyJourney/BabyJourney';
 import JourneyDetails from '@/components/journey/JourneyDetails/JourneyDetails';
 import MomyJourney from '@/components/journey/MomyJourney/MomyJourney';
 
-/* type Props = {
-  params: Promise<{ weekNumber: string }>;
-}; */
+import { useWeekStore } from '@/lib/store/weekStore';
 
-export default function JourneyPage(/* { params }: Props */) {
+export default function JourneyPage() {
   const { weekNumber } = useParams<{ weekNumber: string }>();
+  const setCurWeek = useWeekStore((s) => s.setCurWeek);
 
   const week = Number(weekNumber);
 
-  if (!weekNumber || Number.isNaN(week)) {
+  if (!weekNumber || !Number.isFinite(week) || week < 1) {
     notFound();
   }
 
+  useEffect(() => {
+    setCurWeek(week);
+  }, [week, setCurWeek]);
+
   return (
     <>
-      <h1>Journey page</h1>
-      <div>{week}</div>
-
       <JourneyDetails
         baby={<BabyJourney weekNumber={week} />}
         mom={<MomyJourney weekNumber={week} />}
