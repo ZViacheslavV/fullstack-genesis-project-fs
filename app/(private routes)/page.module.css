@@ -18,6 +18,7 @@
 
   @media only screen and (min-width: 768px) {
     max-width: 768px;
+    padding: 0;
   }
 
   @media only screen and (min-width: 1440px) {
@@ -38,5 +39,11 @@
   @media only screen and (min-width: 1440px) {
     max-width: 390px;
     align-items: start;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    padding: 0;
   }
 }
