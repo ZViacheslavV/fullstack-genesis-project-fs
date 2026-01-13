@@ -5,17 +5,9 @@
 }
 
 .dashboard {
-  /* @media only screen and (min-width: 1440px) {
-    margin-left: 300px;
-  } */
   display: flex;
   flex-direction: column;
 }
-
-/* .dashboard_inner {
-  display: flex;
-  flex-direction: column;
-} */
 
 .dashboard__content {
   display: flex;

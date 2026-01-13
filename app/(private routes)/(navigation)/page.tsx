@@ -21,7 +21,6 @@ function Home() {
 
   return (
     <section className={css.dashboard}>
-      {/* <div className={css.dashboard__inner}> */}
       <GreetingBlock />
       <div className={css.dashboard__content}>
         <div className={css.dashboard__stats}>
@@ -32,7 +31,6 @@ function Home() {
           {/* <Toaster position="top-right" /> */}
           <FeelRecommendationCard recommendationText={momDailyTip} />
         </div>
-        {/* </div> */}
       </div>
     </section>
   );
