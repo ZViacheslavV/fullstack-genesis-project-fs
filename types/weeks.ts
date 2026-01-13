@@ -44,3 +44,15 @@ export interface WeeksApiResponse {
   message: string;
   data: WeeksData;
 }
+
+export interface BabyWeeksApiResponse {
+  status: number;
+  message: string;
+  data: BabyState;
+}
+
+export interface MomWeeksApiResponse {
+  status: number;
+  message: string;
+  data: MomState;
+}
