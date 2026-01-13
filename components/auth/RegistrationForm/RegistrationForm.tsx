@@ -57,12 +57,10 @@ function RegistrationForm() {
       setUser(res.data as User);
 
       toast.custom(
-        () => (
-          <Toast
-            type="success"
-            message="Вітаємо з успішною реєстрацією у додатку для майбутніх мам!"
-          />
-        ),
+        <Toast
+          type="success"
+          message="Вітаємо з успішною реєстрацією у додатку для майбутніх мам!"
+        />,
         { duration: 5000 }
       );
 
@@ -71,12 +69,10 @@ function RegistrationForm() {
       console.error('Register error:', err);
 
       toast.custom(
-        () => (
-          <Toast
-            type="error"
-            message="Не вдалося зареєструватися. Спробуйте ще раз."
-          />
-        ),
+        <Toast
+          type="error"
+          message="Не вдалося зареєструватися. Спробуйте ще раз."
+        />,
         { duration: 5000 }
       );
     } finally {

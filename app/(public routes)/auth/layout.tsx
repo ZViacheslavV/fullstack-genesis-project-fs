@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { Toaster } from 'react-hot-toast';
 
 import css from './layout.module.css';
 
@@ -54,6 +55,8 @@ export default function AuthLayout({
           className={css.illustration}
         />
       </div>
+
+      <Toaster position="top-right" />
     </div>
   );
 }
