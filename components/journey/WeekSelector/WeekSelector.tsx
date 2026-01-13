@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useCallback, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 
@@ -16,21 +16,16 @@ function is401(err: unknown) {
 
 export default function WeekSelector() {
   const router = useRouter();
-  const pathname = usePathname();
+  const { weekNumber } = useParams<{ weekNumber?: string }>();
 
   const weekFromStore = useWeekStore((s) => s.weekNumb);
   const setCurWeek = useWeekStore((s) => s.setCurWeek);
 
   const activeWeek = useMemo(() => {
-    const parts = pathname.split('/').filter(Boolean);
-    const journeyIdx = parts.indexOf('journey');
-    const weekStr = journeyIdx >= 0 ? parts[journeyIdx + 1] : undefined;
-
-    const n = Number(weekStr);
-
+    const n = Number(weekNumber);
     if (!Number.isFinite(n) || n < 1) return weekFromStore || 1;
     return n;
-  }, [pathname, weekFromStore]);
+  }, [weekNumber, weekFromStore]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['weeks', 'current-or-demo'],
@@ -44,14 +39,15 @@ export default function WeekSelector() {
     },
   });
 
+ 
   useEffect(() => {
     setCurWeek(activeWeek);
   }, [activeWeek, setCurWeek]);
 
   const goToWeek = useCallback(
-    (newWeek: number) => {
-      setCurWeek(newWeek);
-      router.push(`/journey/${newWeek}`);
+    (week: number) => {
+      setCurWeek(week);
+      router.push(`/journey/${week}`);
     },
     [router, setCurWeek]
   );
@@ -59,8 +55,8 @@ export default function WeekSelector() {
   if (isLoading) return <div>Loading weeks...</div>;
   if (isError || !data) return null;
 
+ 
   const apiWeekNumber = Number(data.weekNumber);
-
   const safeCurrentWeek =
     Number.isFinite(apiWeekNumber) && apiWeekNumber > 1 ? apiWeekNumber : 42;
 
@@ -70,8 +66,17 @@ export default function WeekSelector() {
   return (
     <div className={styles.wrapper}>
       {weeks.map((week) => {
-        const isDisabled = week > safeCurrentWeek;
         const isActive = week === activeWeek;
+        const isPast = week < activeWeek;
+        const isDisabled = week > safeCurrentWeek;
+
+        const className = [
+          styles.week,
+          isActive && styles.active,
+          isPast && styles.past,
+        ]
+          .filter(Boolean)
+          .join(' ');
 
         return (
           <button
@@ -79,12 +84,14 @@ export default function WeekSelector() {
             type="button"
             disabled={isDisabled}
             onClick={() => goToWeek(week)}
-            className={`${styles.week} ${isActive ? styles.active : ''}`}
+            className={className}
           >
-            {week}
+            <span className={styles.weekNumber}>{week}</span>
+            <span className={styles.weekLabel}>Тиждень</span>
           </button>
         );
       })}
     </div>
   );
 }
+

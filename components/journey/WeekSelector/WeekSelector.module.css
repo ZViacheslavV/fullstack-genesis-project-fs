@@ -1,20 +1,96 @@
 .wrapper {
   display: flex;
-  gap: 8px;
-  padding: 16px;
+  gap: 16px;
+  max-width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .week {
-  padding: 8px 12px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
+  flex: 0 0 auto;
+  width: 97px;
+  height: 101px;
+  border-radius: 32px;
+  padding: 16px;
+  border: 0;
+  background: #f2f2f2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
+.weekNumber {
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.weekLabel {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.active .weekNumber {
+  color: rgba(0, 0, 0, 0.95);
+}
+
+.active .weekLabel {
+  color: rgba(0, 0, 0, 0.95);
+}
+
+.week:hover:not(:disabled) {
+  background: #ffcbd3;
+}
 .active {
-  background: #ffccd5;
-  border-color: #ff6b81;
-  font-weight: 600;
+  border: 4px solid rgba(0, 0, 0, 0.15);
+  border-radius: 32px;
+  padding: 16px;
+  width: 97px;
+  height: 101px;
+  background: #ffcbd3;
+}
+
+.week:disabled {
+  border: 0px solid rgba(0, 0, 0, 0.15);
+  border-radius: 32px;
+  padding: 16px;
+  width: 97px;
+  height: 101px;
+  background: #f2f2f2;
+  opacity: 0.45;
+}
+
+.week:disabled .weekNumber,
+.week:disabled .weekLabel {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.past {
+  background: #fff4f6;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.past .weekNumber {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.past .weekLabel {
+  color: rgba(0, 0, 0, 0.75);
 }
