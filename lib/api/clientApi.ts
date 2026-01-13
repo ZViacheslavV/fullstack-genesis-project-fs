@@ -2,23 +2,27 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
-import { BabyWeeksApiResponse, MomWeeksApiResponse, WeeksApiResponse } from '@/types/weeks';
+import {
+  BabyWeeksApiResponse,
+  MomWeeksApiResponse,
+  WeeksApiResponse,
+} from '@/types/weeks';
 
-import { Baby, JourneyType, Momy } from '@/types/journey';
+// import { Baby, JourneyType, Momy } from '@/types/journey';
 
 //-----------------JOURNEY------------------------------------------------------
-type JourneyResponse<T extends JourneyType> = T extends 'baby' ? Baby : Momy;
+// type JourneyResponse<T extends JourneyType> = T extends 'baby' ? Baby : Momy;
 
-export async function getJourneyData<T extends JourneyType>(
-  weekNumber: number,
-  type: T
-): Promise<JourneyResponse<T>> {
-  const { data } = await nextServer.get<JourneyResponse<T>>(
-    `/weeks/${type}/${weekNumber}`
-  );
+// export async function getJourneyData<T extends JourneyType>(
+//   weekNumber: number,
+//   type: T
+// ): Promise<JourneyResponse<T>> {
+//   const { data } = await nextServer.get<JourneyResponse<T>>(
+//     `/weeks/${type}/${weekNumber}`
+//   );
 
-  return data;
-}
+//   return data;
+// }
 // ============================  SESSION  =============================
 interface CheckSessionRequest {
   success: boolean;
@@ -200,16 +204,14 @@ export const updateMe = async (userData: UpdateProfile) => {
 export const updateAvatar = async (file: File) => {
   const formData = new FormData();
   formData.append('avatar', file);
-console.log(formData)
+  console.log(formData);
   const { data } = await nextServer.patch<User>(
-   `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
-    formData,
+    `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
+    formData
   );
 
   return data;
 };
-
-
 
 // ============================  TASKS  =============================
 
