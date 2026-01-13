@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-import { User } from '../../../../types/user';
+import { User } from '../../../../../types/user';
 import { getMe } from '@/lib/api/clientApi';
 
 import OnboardingForm from '@/components/profile/OnboardingForm/OnboardingForm';
