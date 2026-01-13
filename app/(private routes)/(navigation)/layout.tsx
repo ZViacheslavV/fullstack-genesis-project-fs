@@ -10,11 +10,13 @@ import css from './page.module.css';
 function PrivateLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
-      <Sidebar />
-      <div className={css.container}>
-        <Header />
-        <Breadcrumbs />
-        <main>{children}</main>
+      <div className={css.navLayout}>
+        <Sidebar />
+        <div className={css.container}>
+          <Header />
+          <Breadcrumbs />
+          <main>{children}</main>
+        </div>
       </div>
     </AuthProvider>
   );

@@ -1,13 +1,21 @@
-.dashboard {
+.navLayout {
   @media only screen and (min-width: 1440px) {
-    margin-left: 300px;
+    margin-left: 312px;
   }
 }
 
-.dashboard_inner {
+.dashboard {
+  /* @media only screen and (min-width: 1440px) {
+    margin-left: 300px;
+  } */
   display: flex;
   flex-direction: column;
 }
+
+/* .dashboard_inner {
+  display: flex;
+  flex-direction: column;
+} */
 
 .dashboard__content {
   display: flex;

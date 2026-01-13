@@ -21,18 +21,18 @@ function Home() {
 
   return (
     <section className={css.dashboard}>
-      <div className={css.dashboard__inner}>
-        <GreetingBlock />
-        <div className={css.dashboard__content}>
-          <div className={css.dashboard__stats}>
-            <DashboardCardClient onMomDailyTip={setMomDailyTip} />
-          </div>
-          <div className={css.dashboard__tasks}>
-            <TasksReminderCard />
-            {/* <Toaster position="top-right" /> */}
-            <FeelRecommendationCard recommendationText={momDailyTip} />
-          </div>
+      {/* <div className={css.dashboard__inner}> */}
+      <GreetingBlock />
+      <div className={css.dashboard__content}>
+        <div className={css.dashboard__stats}>
+          <DashboardCardClient onMomDailyTip={setMomDailyTip} />
         </div>
+        <div className={css.dashboard__tasks}>
+          <TasksReminderCard />
+          {/* <Toaster position="top-right" /> */}
+          <FeelRecommendationCard recommendationText={momDailyTip} />
+        </div>
+        {/* </div> */}
       </div>
     </section>
   );
