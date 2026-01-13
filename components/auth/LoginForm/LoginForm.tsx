@@ -1,20 +1,26 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { useId } from 'react';
 import * as Yup from 'yup';
+import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
+import { loginRequest, loginUser } from '@/lib/api/clientApi';
+import { useAuthUserStore } from '@/lib/store/authStore';
+import type { User } from '@/types/user';
+
+import Toast from '@/components/common/Toast/Toast';
+import Button from '@/components/common/Button/Button';
 import css from '../RegistrationForm/RegistrationForm.module.css';
 
 //===============================================================
 
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
-
-const initialValues: LoginFormValues = {
+const initialValues: loginRequest = {
   email: '',
   password: '',
 };
@@ -36,13 +42,32 @@ const LoginFormSchema = Yup.object().shape({
 
 function LoginForm() {
   const fieldId = useId();
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (
-    values: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
+  const setUser = useAuthUserStore((s) => s.setUser);
+
+  const handleSubmit = async (
+    values: loginRequest,
+    actions: FormikHelpers<loginRequest>
   ) => {
-    console.log('Login data:', values);
-    actions.resetForm();
+    try {
+      const res = await loginUser(values);
+
+      setUser(res.data as User);
+      router.push('/');
+    } catch (err) {
+      console.error('Login error:', err);
+
+      toast.custom(
+        () => (
+          <Toast type="error" message="Пошта або пароль введені невірно." />
+        ),
+        { duration: 5000 }
+      );
+    } finally {
+      actions.setSubmitting(false);
+    }
   };
 
   return (
@@ -86,16 +111,32 @@ function LoginForm() {
 
           {/* Password */}
           <div className={css.fieldGroup}>
-            <Field
-              className={`${css.field} ${
-                touched.password && errors.password ? css.fieldInvalid : ''
-              } ${touched.password && !errors.password ? css.fieldValid : ''}`}
-              type="password"
-              name="password"
-              id={`${fieldId}-password`}
-              placeholder="Пароль"
-              autoComplete="new-password"
-            />
+            <div className={css.passwordWrapper}>
+              <Field
+                className={`${css.field} ${
+                  touched.password && errors.password ? css.fieldInvalid : ''
+                } ${touched.password && !errors.password ? css.fieldValid : ''}`}
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                id={`${fieldId}-password`}
+                placeholder="••••••••"
+                autoComplete="new-password"
+              />
+
+              <button
+                type="button"
+                className={css.passwordToggle}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Сховати пароль' : 'Показати пароль'}
+                tabIndex={-1}
+              >
+                {showPassword ? (
+                  <EyeOff className={css.passwordIcon} />
+                ) : (
+                  <Eye className={css.passwordIcon} />
+                )}
+              </button>
+            </div>
 
             <div className={css.errorSlot} aria-live="polite">
               <ErrorMessage name="password">
@@ -109,9 +150,14 @@ function LoginForm() {
             </div>
           </div>
 
-          <button className={css.btn} type="submit" disabled={isSubmitting}>
-            Увійти
-          </button>
+          <Button
+            variant="normal"
+            size="md"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Входимо…' : 'Увійти'}
+          </Button>
 
           <p className={css.helper}>
             Немає аккаунту?

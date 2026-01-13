@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-// import { logout } from '@/lib/api/clientApi';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
+import Toast from '@/components/common/Toast/Toast';
+import { logout } from '@/lib/api/clientApi';
 import { useAuthUserStore } from '@/lib/store/authStore';
 import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
 
@@ -22,20 +23,25 @@ function UserBar() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogoutConfirm = async () => {
+    setIsLoading(true);
+
     try {
-      setIsLoading(true);
-
-      // await logout();
-
+      await logout();
       clearIsAuthenticated();
-
-      router.push('/');
-    } catch (error) {
-      console.error('Logout error:', error);
-      // toast?
+      setIsModalOpen(false);
+      router.replace('/');
+    } catch {
+      toast.custom(
+        () => (
+          <Toast
+            type="error"
+            message="Не вдалося вийти з акаунта. Спробуйте ще раз."
+          />
+        ),
+        { duration: 5000 }
+      );
     } finally {
       setIsLoading(false);
-      setIsModalOpen(false);
     }
   };
 
@@ -44,15 +50,18 @@ function UserBar() {
       <div className={css.userInfo}>
         <Image
           className={css.avatar}
-          src={user.photo as string}
+          src={
+            user?.photo ||
+            'https://ac.goit.global/fullstack/react/default-avatar.jpg'
+          }
           alt="User avatar"
           width={40}
           height={40}
         />
 
         <div>
-          <p className={css.name}>{user.name}</p>
-          <p className={css.email}>{user.email}</p>
+          <p className={css.name}>{user?.name}</p>
+          <p className={css.email}>{user?.email}</p>
         </div>
       </div>
 
@@ -68,15 +77,15 @@ function UserBar() {
         </svg>
       </button>
 
-      {/*      {isModalOpen && (
-  <ConfirmationModal
-    title="Ви впевнені, що хочете вийти?"
-    confirmButtonText="Так"
-    cancelButtonText="Ні"
-    onConfirm={handleLogoutConfirm}
-    onCancel={() => setIsModalOpen(false)}
-  />
-)} */}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        title="Ви точно хочете вийти?"
+        confirmButtonText="Так"
+        cancelButtonText="Ні"
+        onConfirm={handleLogoutConfirm}
+        onCancel={() => setIsModalOpen(false)}
+        isLoading={isLoading}
+      />
     </section>
   );
 }

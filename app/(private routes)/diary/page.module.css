@@ -1,0 +1,48 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== DESKTOP (1440px і більше) ===== */
+@media (min-width: 1440px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
+  }
+
+  .details {
+    display: block;
+    background: #fff5f6;
+    border-radius: 20px;
+    padding: 24px;
+    min-height: 520px;
+  }
+}
+
+/* ===== TABLET + MOBILE (до 1439px) ===== */
+@media (max-width: 1439px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Приховуємо праву колонку */
+  .details {
+    display: none !important;
+  }
+}
+
+/* LOADER + INFO TEXT */
+.loader {
+  display: grid;
+  place-items: center;
+  padding: 40px 0;
+}
+
+.infoText {
+  text-align: center;
+  color: #888;
+}

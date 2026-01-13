@@ -2,12 +2,10 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { format } from 'date-fns';
-
 import css from './AddTaskForm.module.css';
-import { useId, useState } from 'react';
+import { useId } from 'react';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { TaskFormData } from '@/types/task';
 import { createTask } from '@/lib/api/clientApi';
 import toast from 'react-hot-toast';
@@ -46,13 +44,11 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
   const fieldId = useId();
 
   const queryClient = useQueryClient();
-  // const [draftTask, setDraftTask] = useState(initialValues);
   const { draft, setDraft, clearDraft } = useTaskStore();
   const initialValues: TaskFormValues = {
     name: draft.name || '',
     date: draft.date || todayString,
   };
-  // const router = useRouter();
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (TaskFormData: TaskFormData) =>
@@ -67,7 +63,6 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
       if (afterSubmit) {
         afterSubmit();
       }
-      // router.push('/');
     },
     onError: () => toast('Sorry, something went wrong, please try again'),
   });
@@ -78,6 +73,7 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
   ) => {
     mutate(values, {
       onSuccess: () => {
+        clearDraft();
         actions.resetForm({
           values: { name: '', date: todayString },
         });
@@ -92,7 +88,7 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
       validationSchema={TaskFormSchema}
       enableReinitialize
     >
-      {({ values, handleChange }) => {
+      {({ values, handleChange, errors, touched }) => {
         const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
           setDraft({ ...values, name: e.target.value });
@@ -115,9 +111,15 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
                     id={`${fieldId}-name`}
                     placeholder="Введіть назву..."
                     onChange={handleNameChange}
-                    className={css.input}
+                    className={`${css.input} ${
+                      errors.name && touched.name ? css.inputError : ''
+                    }`}
                   />
-                  <ErrorMessage name="name" component="span" />
+                  <ErrorMessage
+                    name="name"
+                    component="span"
+                    className={css.error}
+                  />
                 </div>
                 <div className={css.addTaskInput}>
                   <label htmlFor={`${fieldId}-date`}>Дата</label>
@@ -130,12 +132,16 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
                     className={css.input}
                     wrapperClassName="date-picker-wrapper"
                   />
-                  <ErrorMessage name="date" component="span" />
+                  <ErrorMessage
+                    name="date"
+                    component="span"
+                    className={css.error}
+                  />
                 </div>
               </div>
             </fieldset>
             <Button className={css.saveBtn} type="submit">
-              Зберегти
+              {isPending ? 'Збереження' : 'Зберегти'}
             </Button>
           </Form>
         );

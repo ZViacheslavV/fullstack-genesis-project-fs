@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { Lato, Comfortaa } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
 
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import Header from '@/components/layout/Header/Header';
 import Sidebar from '@/components/layout/Sidebar/Sidebar';
+import Breadcrumbs from '@/components/layout/Breadcrumbs/Breadcrumbs';
 
 import './globals.css';
 import css from './layout.module.css';
@@ -19,7 +21,7 @@ const lato = Lato({
 });
 
 const comfortaa = Comfortaa({
-  subsets: ['latin', 'latin-ext'],
+  subsets: ['latin', 'latin-ext', 'cyrillic', 'cyrillic-ext'],
   weight: ['700'],
   variable: '--second-family',
   display: 'swap',
@@ -44,7 +46,7 @@ export const metadata: Metadata = {
     siteName: 'Лелека',
     images: [
       {
-        url: '/public/leleka-og-meta.jpg',
+        url: '/leleka-og-meta.jpg',
         width: 1200,
         height: 630,
         alt: 'Лелека — додаток для майбутніх мам',
@@ -60,7 +62,7 @@ export const metadata: Metadata = {
     title: 'Лелека | Додаток для майбутніх мам',
     description:
       'Відстежуйте тижні вагітності, отримуйте поради, керуйте завданнями та ведіть щоденник.',
-    images: ['/public/leleka-og-meta.jpg'],
+    images: ['/leleka-og-meta.jpg'],
   },
 };
 
@@ -78,16 +80,15 @@ function RootLayout({
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-            <Header />
             <Sidebar />
             <div className="container">
-              <main className={css.main}>
-                <div className={css.container}>
-                  {children}
-                  {/* {modal} */}
-                </div>
+              <Header />
+              <Breadcrumbs />
+              <main /* className={css.main} */>
+                <div /* className={css.container} */>{children}</div>
               </main>
             </div>
+            <Toaster position="top-right" />
           </AuthProvider>
         </TanStackProvider>
       </body>

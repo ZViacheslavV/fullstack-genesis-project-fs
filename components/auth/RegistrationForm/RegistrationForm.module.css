@@ -34,7 +34,7 @@
 
   border: 2px solid var(--opacity-transparent);
   border-radius: 12px;
-  padding: 8px 12px;
+  padding: 8px 44px 8px 12px;
 
   background: var(--opacity-neutral-darkest-5);
   color: var(--color-scheme-text);
@@ -142,6 +142,44 @@
 .link:hover::after,
 .link:focus-visible::after {
   transform: scaleX(1);
+}
+
+/* Password toggle */
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  color: var(--color-neutral);
+
+  transition: color 160ms ease;
+}
+
+.passwordToggle:hover {
+  color: var(--color-neutral-darkest);
+}
+
+.passwordIcon {
+  width: 18px;
+  height: 18px;
 }
 
 /* ===== tablet ===== */

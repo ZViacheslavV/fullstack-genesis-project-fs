@@ -25,29 +25,28 @@
 //     </section>
 //   );
 // }
+// app/journey/[weekNumber]/layout.tsx
+import React from 'react';
+
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
 import WeekSelector from '@/components/journey/WeekSelector/WeekSelector';
 import Breadcrumbs from '@/components/layout/Breadcrumbs/Breadcrumbs';
 import Header from '@/components/layout/Header/Header';
-import Tabs from '@/components/journey/Tabs/Tabs';
 
 type Props = {
-  journey: React.ReactNode;
-  params: Promise<{ weekNumber: string }>;
+  children: React.ReactNode;
+  params: { weekNumber: string };
 };
 
-export default async function JourneyLayout({ journey, params }: Props) {
-  const { weekNumber } = await params;
-  const week = Number(weekNumber);
-
+export default function JourneyLayout({ children }: Props) {
   return (
     <section>
       <Header />
       <Breadcrumbs />
       <GreetingBlock />
       <WeekSelector />
-      <Tabs weekNumber={week} />
-      {journey}
+      {children}
     </section>
   );
 }
+

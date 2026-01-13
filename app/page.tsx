@@ -1,41 +1,40 @@
-import type { Metadata } from 'next';
+'use client'; //TODO This is  Dashboard MVP of main page, needs many improvements
+
+// import type { Metadata } from 'next';
 import css from './page.module.css';
-import StatusBlock from '@/components/dashboard/StatusBlock/StatusBlock';
-import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';
-import MomTipCard from '@/components/dashboard/MomTipCard/MomTipCard';
-import { Toaster } from 'react-hot-toast';
+import DashboardCardClient from '@/components/dashboard/DashboardCardClient/DashboardCardClient';
+//import { Toaster } from 'react-hot-toast';
 import TasksReminderCard from '@/components/tasks/TasksReminderCard/TasksReminderCard';
+// import moduleName from 'module';
+import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
+import FeelRecommendationCard from '@/components/dashboard/FeelingCheckCard/FeelingCheckCard';
+import { useState } from 'react';
 
 //===========================================================================
 
-export const metadata: Metadata = {};
+// export const metadata: Metadata = {};
 
 //===========================================================================
 
 function Home() {
-  const tipText =
-  'Не забувайте про зволоження шкіри живота та стегон спеціальними олійками, щоб попередити появу розтяжок.';
+  const [momDailyTip, setMomDailyTip] = useState<string | undefined>('');
 
   return (
-    <section className={css.hero}>
-      <div>
-        {/*<GreetingBlock />*/}
-        { <StatusBlock currentWeek={14} daysLeft={165} /> }
-        { <BabyTodayCard
-  imageUrl="/images/avocado.png"
-  sizeText="Ваш малюк зараз розміром з авокадо"
-  description="Його кісточки починають тверднути, а рухи стають більш скоординованими."
-/>
-}
-        <MomTipCard text={tipText} /> 
-      </div>
-      <div>
-        {<TasksReminderCard />}
-        <Toaster position="top-right" />
-        {/*<FeelingCheckCard/>*/}
+    <section className={css.dashboard}>
+      <div className={css.dashboard__inner}>
+        <GreetingBlock />
+        <div className={css.dashboard__content}>
+          <div className={css.dashboard__stats}>
+            <DashboardCardClient onMomDailyTip={setMomDailyTip} />
+          </div>
+          <div className={css.dashboard__tasks}>
+            <TasksReminderCard />
+            {/* <Toaster position="top-right" /> */}
+            <FeelRecommendationCard recommendationText={momDailyTip} />
+          </div>
+        </div>
       </div>
     </section>
   );
 }
-
 export default Home;
