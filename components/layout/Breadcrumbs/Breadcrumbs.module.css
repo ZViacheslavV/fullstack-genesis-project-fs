@@ -1,9 +1,21 @@
+.breadcrumbsWrapper {
+  @media only screen and (min-width: 1440px) {
+    margin-left: 300px;
+  }
+}
+
 .breadcrumbs {
   display: flex;
   align-items: center;
   gap: 8px;
   padding-top: 24px;
   margin-bottom: 16px;
+
+  @media only screen and (min-width: 1440px) {
+    max-width: 1128px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .item {

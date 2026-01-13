@@ -13,6 +13,26 @@
     background-color: var(--color-scheme-foreground);
 }
 
+.tasksWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sectionTitle {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
+    margin-bottom: 4px;
+    color: var(--color-scheme-text);
+}
+
+.overdueTitle {
+    color: #FF5757;
+    opacity: 1;
+}
+
 @media only screen and (min-width: 768px) {
     .taskCard {
         width: 704px;
@@ -23,9 +43,19 @@
     .taskCard {
         width: 390px;
         height: 498px;
+    }
+
+    .tasksWrapper {
+        height: 395px;
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-color: var(--color-scheme-accent) transparent;
+        padding-right: 8px;
+    }
+
+    .taskList {
+        height: auto;
+        overflow: visible;
     }
 }
 
@@ -39,7 +69,7 @@
 }
 
 .addTaskBtnIcon {
-    transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) ease-in-out;
+    transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) ease-in-out;
 }
 
 .addTaskBtnIcon:hover,

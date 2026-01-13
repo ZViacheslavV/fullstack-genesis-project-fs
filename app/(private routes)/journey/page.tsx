@@ -1,5 +1,5 @@
-export default function Journey() {
-  return <div>Hello!</div>;
-}
+const JourneyPage = () => {
+  return <h1>JourneyPageMainRedirect</h1>;
+};
 
-///dont render
+export default JourneyPage;

@@ -36,7 +36,7 @@
   background: var(--btn-bg);
   color: var(--btn-text);
 
-  font-family: var(--second-family, "Comfortaa", sans-serif);
+  font-family: var(--second-family, 'Comfortaa', sans-serif);
   font-weight: var(--fw-medium, 500);
   font-size: var(--btn-font-size);
   line-height: var(--btn-line-height);
@@ -44,6 +44,7 @@
   white-space: nowrap;
 
   cursor: pointer;
+  text-decoration: none;
 
   transition:
     background-color 150ms ease,
@@ -84,10 +85,10 @@
 
 .cancel,
 .logout {
-  --btn-bg: var(--opacity-neutral-darkest-5, rgba(0,0,0,0.05));
+  --btn-bg: var(--opacity-neutral-darkest-5, rgba(0, 0, 0, 0.05));
   --btn-bg-hover: var(--opacity-neutral-darkest-10, rgba(0, 0, 0, 0.1));
   --btn-bg-active: var(--opacity-neutral-darkest-10, rgba(0, 0, 0, 0.1));
-  --btn-border: var(--opacity-neutral-darkest-15, rgba(0,0,0,0.15));
+  --btn-border: var(--opacity-neutral-darkest-15, rgba(0, 0, 0, 0.15));
 }
 
 .delete {
@@ -166,8 +167,3 @@
     --btn-font-size: 14px;
   }
 }
-
-
-
-
-

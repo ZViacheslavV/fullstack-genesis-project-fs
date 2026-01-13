@@ -14,6 +14,7 @@ import { loginRequest, loginUser } from '@/lib/api/clientApi';
 import { useAuthUserStore } from '@/lib/store/authStore';
 import type { User } from '@/types/user';
 
+import Toast from '@/components/common/Toast/Toast';
 import Button from '@/components/common/Button/Button';
 import css from '../RegistrationForm/RegistrationForm.module.css';
 
@@ -58,7 +59,10 @@ function LoginForm() {
     } catch (err) {
       console.error('Login error:', err);
 
-      toast.error('Пошта або пароль введені невірно.');
+      toast.custom(
+        <Toast type="error" message="Пошта або пароль введені невірно." />,
+        { duration: 5000 }
+      );
     } finally {
       actions.setSubmitting(false);
     }

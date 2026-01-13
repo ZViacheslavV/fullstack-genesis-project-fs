@@ -1,0 +1,8 @@
+.authList {
+  display: grid;
+  gap: 16px;
+}
+
+.link {
+  width: 100%;
+}

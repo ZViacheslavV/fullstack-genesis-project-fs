@@ -14,6 +14,7 @@ import { registerUser, RegisterRequest } from '@/lib/api/clientApi';
 import { useAuthUserStore } from '@/lib/store/authStore';
 import type { User } from '@/types/user';
 
+import Toast from '@/components/common/Toast/Toast';
 import Button from '@/components/common/Button/Button';
 import css from './RegistrationForm.module.css';
 
@@ -55,15 +56,25 @@ function RegistrationForm() {
       const res = await registerUser(values);
       setUser(res.data as User);
 
-      toast.success(
-        'Вітаємо з успішною реєстрацією у додатку для майбутніх мам!'
+      toast.custom(
+        <Toast
+          type="success"
+          message="Вітаємо з успішною реєстрацією у додатку для майбутніх мам!"
+        />,
+        { duration: 5000 }
       );
-      actions.resetForm();
 
       router.push('/profile/edit');
     } catch (err) {
       console.error('Register error:', err);
-      toast.error('Не вдалося зареєструватися. Спробуйте ще раз.');
+
+      toast.custom(
+        <Toast
+          type="error"
+          message="Не вдалося зареєструватися. Спробуйте ще раз."
+        />,
+        { duration: 5000 }
+      );
     } finally {
       actions.setSubmitting(false);
     }
