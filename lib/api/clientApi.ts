@@ -2,23 +2,27 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
-import { WeeksApiResponse } from '@/types/weeks';
+import {
+  BabyWeeksApiResponse,
+  MomWeeksApiResponse,
+  WeeksApiResponse,
+} from '@/types/weeks';
 
-import { Baby, JourneyType, Momy } from '@/types/journey';
+// import { Baby, JourneyType, Momy } from '@/types/journey';
 
 //-----------------JOURNEY------------------------------------------------------
-type JourneyResponse<T extends JourneyType> = T extends 'baby' ? Baby : Momy;
+// type JourneyResponse<T extends JourneyType> = T extends 'baby' ? Baby : Momy;
 
-export async function getJourneyData<T extends JourneyType>(
-  weekNumber: number,
-  type: T
-): Promise<JourneyResponse<T>> {
-  const { data } = await nextServer.get<JourneyResponse<T>>(
-    `/weeks/${type}/${weekNumber}`
-  );
+// export async function getJourneyData<T extends JourneyType>(
+//   weekNumber: number,
+//   type: T
+// ): Promise<JourneyResponse<T>> {
+//   const { data } = await nextServer.get<JourneyResponse<T>>(
+//     `/weeks/${type}/${weekNumber}`
+//   );
 
-  return data;
-}
+//   return data;
+// }
 // ============================  SESSION  =============================
 interface CheckSessionRequest {
   success: boolean;
@@ -217,8 +221,8 @@ export const getWeeksCurrent = async (): Promise<WeeksApiResponse> => {
 
 export const getBabyWeeks = async (
   weekNumber: number | string
-): Promise<WeeksApiResponse> => {
-  const { data } = await nextServer.get<WeeksApiResponse>(
+): Promise<BabyWeeksApiResponse> => {
+  const { data } = await nextServer.get<BabyWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
   );
 
@@ -227,8 +231,8 @@ export const getBabyWeeks = async (
 
 export const getMomWeeks = async (
   weekNumber: number | string
-): Promise<WeeksApiResponse> => {
-  const { data } = await nextServer.get<WeeksApiResponse>(
+): Promise<MomWeeksApiResponse> => {
+  const { data } = await nextServer.get<MomWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
   );
 
