@@ -20,25 +20,29 @@ type Props = {
 };
 
 const ICONS_MAP: Record<ComfortCategory, string> = {
-  [ComfortCategory.Food]: 'icon-food',
-  [ComfortCategory.Activity]: 'icon-activity',
-  [ComfortCategory.Rest]: 'icon-rest',
+  [ComfortCategory.Food]: 'icon-fork-spoon',
+  [ComfortCategory.Activity]: 'icon-fitness-center',
+  [ComfortCategory.Rest]: 'icon-chair',
 };
 
 function ComfortTips({ comfortTips }: Props) {
   return (
-    <div className={css.container}>
+    <div className={css.container_tips}>
       <h2 className={css.title}>Поради для вашого комфорту</h2>
-      <ul>
+      <ul className={css.item}>
         {comfortTips.map((item, index) => (
-          <li key={index} className={css.item}>
-            <svg className={css.svg} width={24} height={24} aria-hidden>
-              <use href={`/sprite.svg#${ICONS_MAP[item.category]}`} />
-            </svg>
-            <div>
+          <li key={index}>
+            <div className={css.container_wrap}>
+              <div className={css.container_svg}>
+                <svg width={24} height={24}>
+                  <use href={`/icons.svg#${ICONS_MAP[item.category]}`} />
+                </svg>
+              </div>
+
               <h3 className={css.item_title}>{item.category}</h3>
-              <p className={css.item_text}>{item.tip}</p>
             </div>
+
+            <p className={css.item_text}>{item.tip}</p>
           </li>
         ))}
       </ul>

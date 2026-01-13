@@ -1,0 +1,6 @@
+.container_mom {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px 32px 24px;
+}

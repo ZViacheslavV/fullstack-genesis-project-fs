@@ -45,13 +45,17 @@ export default function BabyJourney({ weekNumber }: Props) {
         </figcaption>
       </div>
 
-      <p className={css.text}>{baby.babyDevelopment}</p>
-      <p className={css.text}>{baby.babyActivity}</p>
+      <div className={css.container_text}>
+        <p className={css.text}>{baby.babyDevelopment}</p>
+        <p className={css.text}>{baby.babyActivity}</p>
+      </div>
 
       <div className={css.container_fact}>
-        <svg className={css.svg} width={24} height={24}>
-          <use href="/icons.svg#info" />
-        </svg>
+        <div className={css.container_fact_svg}>
+          <svg width={24} height={24}>
+            <use href="/icons.svg#icon-star-shine" />
+          </svg>
+        </div>
         <h2 className={css.fact_title}>Цікавий факт тижня</h2>
         <p className={css.text}>{baby.interestingFact}</p>
       </div>

@@ -1,9 +1,10 @@
-.container {
+.container_tips {
   border: 0px solid var(--color-scheme-border);
   border-radius: 32px;
   padding: 24px;
   width: 311px;
-  height: 419px;
+  /* min-height: 200px; */
+  background: var(--color-scheme-foreground);
 }
 
 .title {
@@ -16,9 +17,27 @@
 }
 
 .item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.svg {
+.container_wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.container_svg {
+  fill: var(--color-scheme-2-text);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .item_title {
@@ -35,4 +54,5 @@
   font-size: 14px;
   line-height: 1.5;
   color: var(--color-scheme-text);
+  margin-left: 32px;
 }

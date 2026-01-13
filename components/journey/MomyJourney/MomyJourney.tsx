@@ -8,6 +8,7 @@ import ComfortTips, {
 import { getMomWeeks } from '@/lib/api/clientApi';
 import { useQuery } from '@tanstack/react-query';
 import { MomState, MomWeeksApiResponse } from '@/types/weeks';
+import css from './momyJourney.module.css';
 
 type Props = {
   weekNumber: number;
@@ -31,9 +32,11 @@ export default function MomyJourney({ weekNumber }: Props) {
 
   return (
     <>
-      <FeelingCheckCard recommendationText="" />
-      <ComfortTips comfortTips={mom.comfortTips as ComfortTipsProps[]} />
-      <TasksReminderCard />
+      <div className={css.container_mom}>
+        <FeelingCheckCard recommendationText="" />
+        <ComfortTips comfortTips={mom.comfortTips as ComfortTipsProps[]} />
+        <TasksReminderCard />
+      </div>
     </>
   );
 }
