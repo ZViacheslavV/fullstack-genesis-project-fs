@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import styles from './WeekSelector.module.css';
 import { getCurrentWeekInfo } from '@/lib/api/clientApi';
 
-type Tab = 'baby' | 'mom';
+type Tab = 'baby' | 'momy';
 
 export default function WeekSelector() {
   const router = useRouter();
@@ -16,14 +16,14 @@ export default function WeekSelector() {
   const parts = useMemo(() => pathname.split('/').filter(Boolean), [pathname]);
 
   const activeWeek = useMemo(() => {
-    const weekStr = parts[1]; // "1"
+    const weekStr = parts[1];
     const n = Number(weekStr);
     return Number.isFinite(n) && n >= 1 ? n : 1;
   }, [parts]);
 
   const activeTab: Tab = useMemo(() => {
     const tab = parts[2];
-    return tab === 'mom' ? 'mom' : 'baby';
+    return tab === 'momy' ? 'momy' : 'baby';
   }, [parts]);
 
   const { data, isLoading, isError } = useQuery({

@@ -7,6 +7,7 @@
 // export default function JourneyPage({ weekNumber }: JourneyPageProps) {
 //   redirect(`/journey/${weekNumber}/baby`);
 // }
+
 import WeekSelector from '@/components/journey/WeekSelector/WeekSelector';
 
 export default function JourneyPage() {
