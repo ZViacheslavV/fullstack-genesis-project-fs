@@ -43,4 +43,8 @@
   .picker {
     padding-bottom: 32px;
   }
+  .card {
+    height: 138px;
+    margin-top: 24px;
+  }
 }
