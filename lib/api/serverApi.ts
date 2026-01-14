@@ -3,6 +3,7 @@ import { API_ENDPOINTS, nextServer } from './api';
 
 import type { User } from '@/types/user';
 import { Task } from '@/types/task';
+import { WeeksApiResponse } from '@/types/weeks';
 
 //===========================================================================
 
@@ -34,6 +35,7 @@ export const getServerMe = async () => {
 
 // ---------------- TASKS --------------------------------------------------
 export const getServerTasks = async () => {
+  console.log('🟢 SERVER fetch tasks'); //TODO del console.log
   const headers = await cookieHeaders();
   const { data } = await nextServer.get<Task[]>(`${API_ENDPOINTS.TASKS_GET}`, {
     headers,
@@ -44,3 +46,38 @@ export const getServerTasks = async () => {
 // ---------------- DIARIES --------------------------------------------------
 export const fetchDiaries = async () => {};
 export const fetchDiaryById = async () => {};
+
+// ---------------- WEEKS --------------------------------------------------
+
+/* export const getWeeksCurrentServer = async (cookies?: HeadersInit) => {
+  return fetch(`${API_URL}/weeks/current`, {
+    headers: cookies,
+    cache: 'no-store',
+  }).then((r) => r.json());
+}; */
+
+/* export const getWeeksDemoServer = async () => {
+  return fetch(`${API_URL}/weeks/demo`, {
+    cache: 'force-cache',
+  }).then((r) => r.json());
+};
+ */
+export const getWeeksCurrentServer = async () => {
+  console.log('🟢 SERVER fetch weeks'); //TODO del console.log
+  const headers = await cookieHeaders();
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    API_ENDPOINTS.WEEKS_GET,
+    { headers }
+  );
+  return data;
+};
+
+export const getWeeksDemoServer = async () => {
+  console.log('🟢 SERVER fetch weeks DEMO'); //TODO del console.log
+  const headers = await cookieHeaders();
+  const { data } = await nextServer.get<WeeksApiResponse>(
+    API_ENDPOINTS.WEEKS_DEMO,
+    { headers }
+  );
+  return data;
+};

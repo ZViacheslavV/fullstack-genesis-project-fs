@@ -13,7 +13,11 @@ import AddTaskModal from '../AddTaskModal/AddTaskModal';
 import { isSameDay, addDays, isAfter, startOfDay, isBefore } from 'date-fns';
 import Toast from '@/components/common/Toast/Toast';
 
-function TasksReminderCard() {
+type Props = {
+  hasAuth: boolean;
+};
+
+function TasksReminderCard({ hasAuth }: Props) {
   const { isAuthenticated } = useAuthUserStore();
   const router = useRouter();
 
@@ -22,7 +26,7 @@ function TasksReminderCard() {
     queryFn: () => getTasks(),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
-    enabled: !!isAuthenticated,
+    enabled: hasAuth /* !!isAuthenticated */,
   });
 
   useEffect(() => {
