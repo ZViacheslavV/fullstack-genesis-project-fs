@@ -1,11 +1,6 @@
-.diaryModal {
-    max-width:334px;
-    width: 100%;
-}
-
 .formWrap {
     width: 100%;
-    max-width: 100%;
+    max-width: 520px;
     margin: 0 auto;
     font-size: 12px;
 }
@@ -23,7 +18,7 @@
 }
 
 .label {
-    display: flex;
+    display: block;
     font-size: 14px;
     line-height: 1.5;
     color: var(--color-scheme-text);
@@ -39,7 +34,7 @@
 }
 
 .error {
-    font-size: 12px;
+    font-size: inherit;
     color: #d43b3b;
     margin: 0;
 }
@@ -51,7 +46,7 @@
     border: 1px solid #ededed;
     background: #f3f3f3;
     outline: none;
-    font-size: 12px;
+    font-size: inherit;
 }
 
 .input {
@@ -211,11 +206,8 @@
 }
 
 @media (min-width: 768px) {
-    .diaryModal {
-        max-width: 420px;
-    }
     .formWrap{
-        max-width: 520px;
+        width: 640px;
     }
     .textarea {
         min-height: 160px;
@@ -226,18 +218,10 @@
     .saveBtnWrap {
         width: 220px;
         max-width: none;
-    }
-   
+    } 
 }
 @media (min-width: 1440px) {
-    .diaryModal {
-        max-width: 520px;
-    }
-    .formWrap {
-        max-width: 520px;
-    }
     .menuScroll {
         max-height: 170px;
     }
-   
 }
