@@ -107,15 +107,22 @@ export default function DiaryPage() {
     setIsModalOpen(true);
   };
 
-  const { removeEntry } = useDiaryStore();
   const handleDelete = async (id: string) => {
     try {
-      await removeEntry(id);
+      const res = await fetch('/api/diaries', {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      if (!res.ok) throw new Error();
 
       toast.success('Запис видалено');
 
       setEntries((prev) => prev.filter((e) => e._id !== id));
-
       setSelectedId((prev) => (prev === id ? null : prev));
     } catch {
       toast.error('Не вдалося видалити запис');
