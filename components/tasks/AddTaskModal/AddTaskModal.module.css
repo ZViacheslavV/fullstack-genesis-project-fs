@@ -1,17 +1,19 @@
 .modal {
+  --modal-bg: var(--color-scheme-background, #fff);
+  --modal-radius: 40px;
+
   --modal-max-w: 335px;
+  --modal-max-h: calc(100vh - 32px);
 
-  --modal-bg: transparent;
-  --modal-padding-y: 0px;
-  --modal-padding-x: 0px;
-  box-shadow: none;
+  --modal-padding-y: 64px;
+  --modal-padding-x: 64px;
 
-  /* close button */
+  --modal-overflow: auto;
+
   --modal-close-size: 32px;
   --modal-close-pad: 4px;
   --modal-close-top: 20px;
   --modal-close-right: 20px;
-  --modal-overflow: visible;
 }
 
 .wrapper {
@@ -31,12 +33,17 @@
 @media (min-width: 1440px) {
   .modal {
     --modal-max-w: 768px;
+        --modal-padding-y: 64px;
+    --modal-padding-x: 64px;
     --modal-close-top: 25px;
     --modal-close-right: 32px;
+
+    /* height: var(--modal-max-h);
+    max-height: var(--modal-max-h); */
   }
 }
 
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
   .modalTask {
     width: 704px;
   }
@@ -46,4 +53,4 @@
   .modalTask {
     width: 768px;
   }
-}
+} */

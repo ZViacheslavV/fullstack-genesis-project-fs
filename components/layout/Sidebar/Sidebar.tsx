@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -20,7 +21,7 @@ function isActive(pathname: string, href: string) {
 }
 
 function SideBar() {
-  const router = useRouter();
+  // const router = useRouter();
   const pathname = usePathname();
 
   const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
@@ -50,16 +51,16 @@ function SideBar() {
   const isAuthRoute = pathname.startsWith('/auth');
   if (isAuthRoute) return null;
 
-  const handleProtectedNavClick = (e: React.MouseEvent) => {
-    if (!isAuthenticated) {
-      e.preventDefault();
-      router.push('/auth/login');
-      close();
-      return;
-    }
+  // const handleProtectedNavClick = (e: React.MouseEvent) => {
+  //   if (!isAuthenticated) {
+  //     e.preventDefault();
+  //     router.push('/auth/login');
+  //     close();
+  //     return;
+  //   }
 
-    close();
-  };
+  //   close();
+  // };
 
   return (
     <>
@@ -100,10 +101,10 @@ function SideBar() {
               <Link
                 href="/"
                 className={`${css.navItem} ${isActive(pathname, '/') ? css.active : ''}`}
-                onClick={() => {
-                  router.push('/'); //! Changed this to without protection state, because we have Demo day on this route. No need protection.
-                  close();
-                }}
+                // onClick={() => {
+                //   router.push('/'); //! Changed this to without protection state, because we have Demo day on this route. No need protection.
+                //   close();
+                // }}
               >
                 <svg width="20" height="20" aria-hidden>
                   <use href="/icons.svg#icon-today" />
@@ -117,7 +118,7 @@ function SideBar() {
                 className={`${css.navItem} ${
                   isActive(pathname, '/journey') ? css.active : ''
                 }`}
-                onClick={handleProtectedNavClick}
+                // onClick={handleProtectedNavClick}
               >
                 <svg width="20" height="20" aria-hidden>
                   <use href="/icons.svg#icon-conversion-path" />
@@ -129,7 +130,7 @@ function SideBar() {
               <Link
                 href="/diary"
                 className={`${css.navItem} ${isActive(pathname, '/diary') ? css.active : ''}`}
-                onClick={handleProtectedNavClick}
+                // onClick={handleProtectedNavClick}
               >
                 <svg width="20" height="20" aria-hidden>
                   <use href="/icons.svg#icon-book" />
@@ -143,7 +144,7 @@ function SideBar() {
                 className={`${css.navItem} ${
                   isActive(pathname, '/profile') ? css.active : ''
                 }`}
-                onClick={handleProtectedNavClick}
+                // onClick={handleProtectedNavClick}
               >
                 <svg width="20" height="20" aria-hidden>
                   <use href="/icons.svg#icon-account-circle" />

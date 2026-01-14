@@ -32,7 +32,6 @@ function Modal({
   backdropClassName,
   closeButtonClassName,
   closeIconClassName,
-  
 }: ModalProps) {
   useEffect(() => {
     if (!isOpen) return;
@@ -93,3 +92,4 @@ function Modal({
 }
 
 export default Modal;
+

@@ -1,7 +1,7 @@
 'use client';
 
 import Modal from '@/components/common/Modal/Modal';
-import AddDiaryEntryForm from '@/components/diary/AddDiaryEntryForm/AddDiaryEntryForm_SUPPOSED_EXAMPLE';
+import AddDiaryEntryForm from '@/components/diary/AddDiaryEntryForm/addDiaryEntryForm';
 import css from './AddDiaryEntryModal.module.css';
 
 type DiaryEntryModalProps = {
