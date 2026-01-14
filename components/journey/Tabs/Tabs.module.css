@@ -20,6 +20,7 @@
   font-size: 14px;
   line-height: 1.6;
   color: var(--color-scheme-text);
+  box-shadow: none;
 }
 
 .button_non_active {
@@ -33,5 +34,38 @@
   font-weight: 400;
   line-height: 1.5;
   color: var(--color-scheme-text);
-  border-bottom: none;
+  box-shadow: none;
+}
+
+@media (min-width: 768px) {
+  .container_tab {
+    width: 704px;
+  }
+
+  .button {
+    width: 347px;
+  }
+
+  .button_non_active {
+    width: 347px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container_tab {
+    width: 572px;
+    height: 54px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .button {
+    width: 275px;
+    height: 46px;
+  }
+
+  .button_non_active {
+    width: 275px;
+    height: 46px;
+  }
 }
