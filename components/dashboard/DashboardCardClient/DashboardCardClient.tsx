@@ -11,14 +11,16 @@ import { useEffect, useState } from 'react';
 
 type Props = {
   onMomDailyTip?: (tip: string | undefined) => void;
+  hasAuth: boolean;
 };
 
-export default function DashboardCardClient({ onMomDailyTip }: Props) {
-  const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
+export default function DashboardCardClient({ onMomDailyTip, hasAuth }: Props) {
+  // const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['weeks'],
-    queryFn: isAuthenticated ? getWeeksCurrent : getWeeksDemo,
+    queryFn: hasAuth ? getWeeksCurrent : getWeeksDemo,
+    refetchOnMount: false,
   });
   // console.log('RAW weeks response from backend:', data);
 

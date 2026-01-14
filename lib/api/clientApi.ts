@@ -138,6 +138,7 @@ export type WeeksInfo = {
 };
 
 export const getWeeksDemo = async (): Promise<WeeksApiResponse> => {
+  console.log('🔵 CLIENT fetch weeks DEMO'); // TODO del console.log
   const { data } = await nextServer.get<WeeksApiResponse>(
     API_ENDPOINTS.WEEKS_DEMO
   );
@@ -145,6 +146,7 @@ export const getWeeksDemo = async (): Promise<WeeksApiResponse> => {
 };
 
 export const getWeeksCurrent = async (): Promise<WeeksApiResponse> => {
+  console.log('🔵 CLIENT fetch weeks'); // TODO del console.log
   const { data } = await nextServer.get<WeeksApiResponse>(
     API_ENDPOINTS.WEEKS_GET
   );
@@ -215,6 +217,7 @@ import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';
 import axios, { AxiosInstance } from 'axios';
 
 export async function getTasks(): Promise<Task[]> {
+  console.log('🔵 CLIENT fetch tasks'); // TODO del console.log
   const { data } = await nextServer.get<Task[]>(`${API_ENDPOINTS.TASKS_GET}`);
   return data;
 }
