@@ -10,7 +10,7 @@ import { getMe } from '@/lib/api/clientApi';
 
 import OnboardingForm from '@/components/profile/OnboardingForm/OnboardingForm';
 import Toast from '@/components/common/Toast/Toast';
-import css from '../../../(public routes)/auth/layout.module.css';
+import css from './page.module.css';
 
 //===========================================================================
 
