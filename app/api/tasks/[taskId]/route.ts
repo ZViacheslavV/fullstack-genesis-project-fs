@@ -16,7 +16,7 @@ export async function PATCH(request: Request, { params }: Props) {
 
   try {
     const res = await api.patch(
-      `${API_ENDPOINTS.TASKS_PATCH_TASK_ID}${taskId}`,
+      `${API_ENDPOINTS.TASKS_PATCH_TASK_ID}${taskId}/status`,
       body,
       {
         headers: { Cookie: cookieStore.toString() },

@@ -11,6 +11,7 @@ import { createTask } from '@/lib/api/clientApi';
 import toast from 'react-hot-toast';
 import { useTaskStore } from '@/lib/store/taskStore';
 import Button from '@/components/common/Button/Button';
+import Toast from '@/components/common/Toast/Toast';
 
 //===========================================================================
 const today = new Date();
@@ -57,8 +58,11 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
       queryClient.invalidateQueries({
         queryKey: ['task'],
       });
-      toast('Successfully submitted!');
-      // setErrors({});
+      toast.custom(
+        () => <Toast type="success" message="Завдання успішно додано" />,
+        { duration: 5000 }
+      );
+
       clearDraft();
       if (afterSubmit) {
         afterSubmit();
