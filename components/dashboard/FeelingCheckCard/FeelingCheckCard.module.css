@@ -9,7 +9,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  overflow: hidden;
 }
 
 .title {
@@ -44,9 +43,10 @@
 }
 
 .btn.btn {
-  width: 250px;
+  width: fit-content;
+  align-self: center;
   --btn-height: 46px;
-  --btn-font-size: 16px;
+  --btn-font-size: 14px;
 }
 
 /* tablet */
@@ -65,39 +65,8 @@
   }
 }
 
-/* desktop */
 @media (min-width: 1440px) {
   .card {
-    max-width: 390px;
     height: 210px;
-    justify-content: flex-start;
-  }
-
-  .text {
-    max-height: 72px;
-    overflow: auto;
-
-    padding-right: 6px;
-  }
-
-  .text::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .text::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 999px;
-  }
-
-  .text::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .btn.btn {
-    width: fit-content;
-    --btn-height: 42px;
-    --btn-font-size: 14px;
   }
 }
-
-
