@@ -15,9 +15,11 @@ export default function JourneyPage() {
   }
 
   return (
-    <JourneyDetails
-      baby={<BabyJourney weekNumber={week} />}
-      mom={<MomyJourney weekNumber={week} />}
-    />
+    <>
+      <JourneyDetails
+        baby={<BabyJourney weekNumber={week} />}
+        mom={<MomyJourney weekNumber={week} />}
+      />
+    </>
   );
 }
