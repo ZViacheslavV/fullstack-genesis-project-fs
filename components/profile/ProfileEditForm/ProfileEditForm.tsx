@@ -11,7 +11,7 @@ import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarD
 import css from './ProfileEditForm.module.css';
 import GenderSelect from '@/components/common/Select/Select';
 import { useId } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
+// import { FaChevronDown } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 // --
 
@@ -34,8 +34,7 @@ interface FormValues {
 }
 
 function ProfileEditForm({ user }: ProfileEditFormProps) {
-
-    const router = useRouter();
+  const router = useRouter();
   const fieldId = useId();
 
   const initialValues: FormValues = {
@@ -134,7 +133,7 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                   />
 
                   <span className={css.dateIcon}>
-                    <FaChevronDown size={14} />
+                    {/* <FaChevronDown size={14} /> */}
                   </span>
                 </div>
                 <ErrorMessage name="dueDate">
