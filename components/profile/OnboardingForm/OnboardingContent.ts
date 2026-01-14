@@ -1,70 +1,75 @@
-export  const  selectStyles = {
-  control: (base: any) => ({
-    ...base,
-    fontSize: '16px',
-    fontFamily: 'inherit',
-    background: 'var(--opacity-neutral-darkest-5)',
-    border: '2px solid var(--opacity-transparent)',
-    borderRadius: '12px',
-    padding: '0 12px',
-    width: '100%',
-    minHeight: '37px',
-    height: '37px',
+import { StylesConfig } from 'react-select';
 
+export type GenderOption = {
+  value: 'boy' | 'girl' | 'unknown';
+  label: string;
+};
+
+export const genderOptions: GenderOption[] = [
+  { value: 'boy', label: 'Хлопчик' },
+  { value: 'girl', label: 'Дівчинка' },
+  { value: 'unknown', label: 'Ще не знаю' },
+];
+
+export const genderSelectStyles: StylesConfig<GenderOption, false> = {
+  control: (base, state) => ({
+    ...base,
+     width: '100%', 
+    height: 44,
+    minHeight: 44,
+    backgroundColor: '#f2f2f2',
+    borderRadius: 12,
+    border: state.isFocused ? '2px solid #FFCBD3' : '2px solid transparent',
     boxShadow: 'none',
-    transition: 'border-color 0.3s',
+    paddingLeft: 16,
+    paddingRight: 40,
+    cursor: 'pointer',
+
+    '&:hover': {
+      border: '2px solid #FFCBD3',
+    },
   }),
 
-  valueContainer: (base: any) => ({
+  valueContainer: (base) => ({
     ...base,
     padding: 0,
   }),
 
-  placeholder: (base: any) => ({
+  singleValue: (base) => ({
     ...base,
-    color: '#333',
+    fontSize: 16,
   }),
 
-  singleValue: (base: any) => ({
+  placeholder: (base) => ({
     ...base,
-    color: '#333',
+    fontSize: 16,
+    color: '#999',
   }),
 
   indicatorSeparator: () => ({
     display: 'none',
   }),
 
-  dropdownIndicator: (base: any) => ({
+  dropdownIndicator: (base) => ({
     ...base,
-    padding: 0,
+    color: 'rgba(0, 0, 0, 0.6)',
+    marginRight: -50, 
   }),
 
-  menu: (base: any) => ({
+  menu: (base) => ({
     ...base,
-    width: '100%',
-    borderRadius: '12px',
-    marginTop: 0,
-    overflow: 'hidden',
+    borderRadius: 12,
     boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
   }),
 
-  option: (base: any, state: any) => ({
+  option: (base, state) => ({
     ...base,
     padding: '12px 16px',
     cursor: 'pointer',
-    transition: 'background 0.15s',
-    color: '#333',
     backgroundColor: state.isSelected
       ? '#e6e6e6'
       : state.isFocused
-        ? '#f2f2f2'
+        ? '#f7f7f7'
         : '#fff',
   }),
 };
-
-
-export const genderOptions = [
-  { value: 'boy', label: 'Хлопчик' },
-  { value: 'girl', label: 'Дівчинка' },
-  { value: 'unknown', label: 'Ще не знаю' },
-];
