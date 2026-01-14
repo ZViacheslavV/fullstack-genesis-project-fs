@@ -50,7 +50,7 @@ function ConfirmationModal({
           </Button>
 
           <Button
-            variant="delete"
+            variant="cancel"
             size="md"
             onClick={onConfirm}
             isLoading={isLoading}
