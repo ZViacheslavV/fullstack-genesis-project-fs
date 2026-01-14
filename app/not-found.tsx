@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
 
 import ButtonLink from '@/components/common/Button/ButtonLink';
 import css from './not-found.module.css';
@@ -15,31 +17,46 @@ export const metadata: Metadata = {
 
 function NotFound() {
   return (
-    <section className={css.section}>
-      <div className={css.card}>
-        <div className={css.badge} aria-hidden="true">
-          404
+    <section className={css.page}>
+      <div className={css.left}>
+        <div className={css.logoRow}>
+          <Link href="/">
+            <Image
+              src="/company-logo.svg"
+              alt="Лелека"
+              width={105}
+              height={45}
+              priority
+            />
+          </Link>
         </div>
 
-        <h1 className={css.title}>Сторінку не знайдено</h1>
+        <div className={css.formWrap}>
+          <p className={css.code} aria-hidden="true">
+            404
+          </p>
 
-        <p className={css.description}>
-          Сторінка, яку ви шукаєте, не існує, була переміщена або посилання не
-          працює.
-        </p>
+          <h1 className={css.title}>Ой лишенько!</h1>
+          <p className={css.subtitle}>Сторінку не знайдено.</p>
 
-        <div className={css.actions}>
-          <ButtonLink href="/" variant="normal" size="md">
-            Назад додому
-          </ButtonLink>
+          <p className={css.text}>Спробуйте повернутися на основну сторінку.</p>
 
-          <ButtonLink href="/auth/login" variant="cancel" size="md">
-            На вхід
+          <ButtonLink href="/" size="md">
+            На головну
           </ButtonLink>
         </div>
       </div>
 
-      <div className={css.bgDecor} aria-hidden="true" />
+      <div className={css.right} aria-hidden="true">
+        <Image
+          src={'/stork-near-its-nest.jpg'}
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 1440px) 40vw, 0px"
+          className={css.illustration}
+        />
+      </div>
     </section>
   );
 }
