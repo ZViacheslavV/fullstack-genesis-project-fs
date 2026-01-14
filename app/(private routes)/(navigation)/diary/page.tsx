@@ -1,5 +1,7 @@
 'use client';
 
+import { useDiaryStore } from '@/lib/store/diaryStore';
+
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -105,6 +107,28 @@ export default function DiaryPage() {
     setIsModalOpen(true);
   };
 
+  const handleDelete = async (id: string) => {
+    try {
+      const res = await fetch('/api/diaries', {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      if (!res.ok) throw new Error();
+
+      toast.success('Запис видалено');
+
+      setEntries((prev) => prev.filter((e) => e._id !== id));
+      setSelectedId((prev) => (prev === id ? null : prev));
+    } catch {
+      toast.error('Не вдалося видалити запис');
+    }
+  };
+
   return (
     <div className={css.page}>
       <GreetingBlock />
@@ -126,7 +150,11 @@ export default function DiaryPage() {
             />
 
             <div className={css.details}>
-              <DiaryEntryDetails entry={selectedEntry} onEdit={openEditModal} />
+              <DiaryEntryDetails
+                entry={selectedEntry}
+                onEdit={openEditModal}
+                onDelete={handleDelete}
+              />
             </div>
           </div>
 

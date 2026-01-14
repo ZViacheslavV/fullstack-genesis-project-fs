@@ -1,0 +1,23 @@
+.avatarWrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background: #eee;
+}
+
+.avatarImage {
+    object-fit: cover;
+    /* 🔑 без искажений */
+}
+
+.changeButton {
+    border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+    border-radius: 100px;
+    padding: 8px 20px;
+    width: 335px;
+    height: 38px;
+    background: var(--opacity-neutral-darkest-5);
+    cursor: pointer;
+}

@@ -1,9 +1,3 @@
-.breadcrumbsWrapper {
-  @media only screen and (min-width: 1440px) {
-    margin-left: 300px;
-  }
-}
-
 .breadcrumbs {
   display: flex;
   align-items: center;

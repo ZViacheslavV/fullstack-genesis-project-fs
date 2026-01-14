@@ -12,18 +12,21 @@ type AddTaskModalProps = {
 function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
   return (
     <Modal
-  isOpen={isOpen}
-  onClose={onClose}
-  showCloseButton
-  closeOnBackdrop
-  closeOnEsc
-  modalClassName={css.modalTask}
->
-  <div className={css.wrapper}>
-    <AddTaskForm afterSubmit={onClose} />
-  </div>
-</Modal>
+      isOpen={isOpen}
+      onClose={onClose}
+      showCloseButton
+      closeOnBackdrop
+      closeOnEsc
+      modalClassName={css.modal}
+    >
+      <div className={css.wrapper}>
+        <AddTaskForm afterSubmit={onClose} />
+      </div>
+    </Modal>
   );
 }
 
 export default AddTaskModal;
+
+
+

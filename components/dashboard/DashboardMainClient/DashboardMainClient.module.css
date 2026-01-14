@@ -1,0 +1,49 @@
+.navLayout {
+  @media only screen and (min-width: 1440px) {
+    margin-left: 312px;
+  }
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard__content {
+  display: flex;
+  flex-direction: column;
+  max-width: 375px;
+  align-items: center;
+  margin: 0 auto;
+
+  @media only screen and (min-width: 768px) {
+    max-width: 768px;
+    padding: 0;
+  }
+
+  @media only screen and (min-width: 1440px) {
+    max-width: 1128px;
+    gap: 32px;
+    flex-direction: row;
+    align-items: start;
+  }
+}
+
+.dashboard__tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 32px;
+
+  @media only screen and (min-width: 1440px) {
+    max-width: 390px;
+    align-items: start;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    padding: 0;
+  }
+}

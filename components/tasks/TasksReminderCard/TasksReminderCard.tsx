@@ -11,8 +11,13 @@ import Button from '@/components/common/Button/Button';
 import { useRouter } from 'next/navigation';
 import AddTaskModal from '../AddTaskModal/AddTaskModal';
 import { isSameDay, addDays, isAfter, startOfDay, isBefore } from 'date-fns';
+import Toast from '@/components/common/Toast/Toast';
 
-function TasksReminderCard() {
+type Props = {
+  hasAuth: boolean;
+};
+
+function TasksReminderCard({ hasAuth }: Props) {
   const { isAuthenticated } = useAuthUserStore();
   const router = useRouter();
 
@@ -21,13 +26,21 @@ function TasksReminderCard() {
     queryFn: () => getTasks(),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
-    enabled: !!isAuthenticated,
+    enabled: hasAuth /* !!isAuthenticated */,
   });
 
   useEffect(() => {
     if (isError) {
       console.log('smth went wrong in get tasks');
-      toast('Sorry, something went wrong, please try again');
+      toast.custom(
+        () => (
+          <Toast
+            type="error"
+            message="Не вдалося отримати список завдань. Спробуйте ще раз."
+          />
+        ),
+        { duration: 5000 }
+      );
     }
   }, [isError, isAuthenticated]);
 

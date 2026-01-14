@@ -1,15 +1,15 @@
-.dashboard {
+.navLayout {
   @media only screen and (min-width: 1440px) {
-    margin-left: 300px;
+    margin-left: 312px;
   }
 }
 
-.dashboard_inner {
+.dashboard {
   display: flex;
   flex-direction: column;
 }
 
-.dashboard__content {
+/* .dashboard__content {
   display: flex;
   flex-direction: column;
   max-width: 375px;
@@ -46,4 +46,4 @@
   .container {
     padding: 0;
   }
-}
+} */

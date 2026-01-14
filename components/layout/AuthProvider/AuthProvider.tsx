@@ -25,13 +25,19 @@ const AuthProvider = ({ children }: Props) => {
       try {
         const isAuthenticated = await checkSession();
 
+        console.log('isAuthenticated:', isAuthenticated); //TODO remove console.log
+
         if (!isMounted) return;
 
         if (isAuthenticated) {
           const user = await getMe();
           if (isMounted && user) setUser(user);
+
+          console.log('User:', user); //TODO remove console.log
         } else {
           if (isMounted) clearIsAuthenticated();
+
+          console.log('Cleared auth, isAuth:', isAuthenticated); //TODO remove console.log
         }
       } catch (error) {
         console.error('AuthProvider error:', error);

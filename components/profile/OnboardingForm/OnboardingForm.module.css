@@ -5,78 +5,118 @@
   align-items: flex-start;
   gap: 8px;
 }
-:global(.react-datepicker-popper) {
-  z-index: 10;
-}
 
-.selectContainer {
-  width: 335px;
-  margin-bottom: 24px;
-}
+/* =========================
+   SELECT (native)
+========================= */
 
 .select {
+  width: 100%;
+  height: 44px;
+  padding: 0 40px 0 16px;
+  /* место под стрелку */
   font-size: 16px;
   font-family: inherit;
-  transition: border-color 0.3s;
 
-  background: var(--opacity-neutral-darkest-5);
-  border: 2px solid var(--opacity-transparent);
+  background: #f2f2f2;
   border-radius: 12px;
-  padding: 8px 12px;
-  width: 335px;
-  height: 37px;
+  border: 2px solid transparent;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-.option {
-  padding: 12px 16px;
-  cursor: pointer;
-  transition: background 0.15s;
-  color: #333;
+.select:hover,
+.select:focus {
+  border-color: #FFCBD3;
+}
+
+.selectWrapper {
+  width: 100%;
+}
+
+/* =========================
+   DATE PICKER
+========================= */
+
+:global(.react-datepicker-wrapper) {
+  width: 100%;
+  display: block;
+}
+
+:global(.react-datepicker__input-container) {
+  width: 100%;
+}
+
+.datePickerWrapper {
+  position: relative;
+  width: 100%;
 }
 
 .dateInput {
+  width: 100%;
+  height: 44px;
+  padding: 0 40px 0 16px;
   font-size: 16px;
   font-family: inherit;
-  transition: border-color 0.3s;
 
-  background: var(--opacity-neutral-darkest-5);
-  border: 2px solid var(--opacity-transparent);
+  background: #f2f2f2;
   border-radius: 12px;
-  padding: 8px 12px;
-  width: 335px;
-  height: 37px;
+  border: 2px solid transparent;
+  cursor: pointer;
 }
 
-.dateInput:hover {
-  border-color: #000;
+.dateInput:hover,
+.dateInput:focus {
+  border-color: #FFCBD3;
 }
+
+.dateIcon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* =========================
+   BUTTON
+========================= */
 
 .saveButton {
-  border-bottom: 4px solid var(--color-scheme-accent);
-  border-radius: 100px;
-  padding: 10px 24px;
-  width: 335px;
-  height: 42px;
-  background: var(--color-scheme-foreground-alt);
   margin-top: 32px;
+  width: 100%;
+  height: 42px;
 
-transition: background 0.3s ease, transform 0.2s ease;
+  border-radius: 100px;
+  border-bottom: 4px solid var(--color-scheme-accent);
+  background: var(--color-scheme-foreground-alt);
+
+  padding: 10px 24px;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.saveButton:hover{
-    background: var(--color-scheme-foreground);
-    border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+.saveButton:hover {
+  background: var(--color-scheme-foreground);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
 }
 
-.saveButton:active{
-    background: var(--color-scheme-accent);
-    transform: translateY(2px);
-        border-bottom-width: 2px;
+.saveButton:active {
+  background: var(--color-scheme-accent);
+  transform: translateY(2px);
+  border-bottom-width: 2px;
 }
 
-/* Styles for Tablet devices */
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media only screen and (min-width: 768px) {
-  .selectContainer {
+  .saveButton {
     width: 480px;
   }
 
@@ -84,30 +124,21 @@ transition: background 0.3s ease, transform 0.2s ease;
     width: 480px;
   }
 
-  .saveButton {
+  .select {
     width: 480px;
   }
 }
 
-/* Styles for Desktop devices */
 @media only screen and (min-width: 1440px) {
   .saveButton {
-    border-bottom: 4px solid var(--color-scheme-accent);
-    border-radius: 100px;
-    padding: 10px 24px;
     width: 480px;
     height: 46px;
   }
 
   .dateInput {
-    border: 1px solid var(--opacity-transparent);
-    border-radius: 12px;
-    padding: 8px 12px;
     width: 480px;
     height: 40px;
-  }
-
-  .selectContainer {
-    width: 480px;
+    padding: 8px 12px;
   }
 }
+

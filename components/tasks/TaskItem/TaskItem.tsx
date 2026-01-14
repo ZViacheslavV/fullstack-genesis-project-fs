@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import css from './TaskItem.module.css';
 import { format } from 'date-fns';
+import Toast from '@/components/common/Toast/Toast';
 
 interface TaskItemProps {
   task: Task;
@@ -12,7 +13,7 @@ interface TaskItemProps {
 export default function TaskItem({ task }: TaskItemProps) {
   const queryClient = useQueryClient();
 
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: updateTaskStatus,
 
     onMutate: async (newStatus) => {
@@ -31,7 +32,15 @@ export default function TaskItem({ task }: TaskItemProps) {
       if (context?.previousTasks) {
         queryClient.setQueryData(['task'], context.previousTasks);
       }
-      toast.error('Failed to update task');
+      toast.custom(
+        () => (
+          <Toast
+            type="error"
+            message="Не вдалося оновити статус завдання. Спробуйте ще раз."
+          />
+        ),
+        { duration: 5000 }
+      );
     },
 
     onSettled: () => {

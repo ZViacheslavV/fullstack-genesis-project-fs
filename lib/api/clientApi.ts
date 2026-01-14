@@ -2,10 +2,14 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
-import {
+import type { DiaryEntry } from '@/types/diary';
+
+import type {
+  WeeksApiResponse,
   BabyWeeksApiResponse,
   MomWeeksApiResponse,
-  WeeksApiResponse,
+  BabyState,
+  MomState,
 } from '@/types/weeks';
 
 // import { Baby, JourneyType, Momy } from '@/types/journey';
@@ -127,95 +131,27 @@ export const logout = async (): Promise<void> => {
   await nextServer.post(`${API_ENDPOINTS.LOGOUT}`);
 };
 
-type ApiResponse<T> = {
-  status: number;
-  message: string;
-  data: T;
-};
 // ============================  WEEKS  =============================
-type WeeksInfo = {
+export type WeeksInfo = {
   weekNumber: number;
   daysLeftToBirth: number;
-  babyState: any;
-  momState: any;
-};
-
-// export const getDemoWeeksInfo = async () => {
-//   const { data } = await nextServer.get<ApiResponse<WeeksInfo>>(
-//     `${API_ENDPOINTS.WEEKS}/demo`
-//   );
-//   return data.data;
-// };
-
-// export const getCurrentWeekInfo = async () => {
-//   const { data } = await nextServer.get<ApiResponse<WeeksInfo>>(
-//     `${API_ENDPOINTS.WEEKS}`
-//   );
-//   return data.data;
-// };
-
-// export const getBabyByWeek = async (weekNumber: number) => {
-//   const { data } = await nextServer.get<ApiResponse<any>>(
-//     `${API_ENDPOINTS.WEEKS}/baby/${weekNumber}`
-//   );
-//   return data.data;
-// };
-
-// export const getMomByWeek = async (weekNumber: number) => {
-//   const { data } = await nextServer.get<ApiResponse<any>>(
-//     `${API_ENDPOINTS.WEEKS}/mom/${weekNumber}`
-//   );
-//   return data.data;
-// };
-export const getDemoWeeksInfo = async (): Promise<WeeksInfo> => {
-  const { data } = await nextServer.get<ApiResponse<WeeksInfo>>(
-    API_ENDPOINTS.WEEKS_DEMO
-  );
-  return data.data;
-};
-
-export const getCurrentWeekInfo = async (): Promise<WeeksInfo> => {
-  const { data } = await nextServer.get<ApiResponse<WeeksInfo>>(
-    API_ENDPOINTS.WEEKS_GET
-  );
-  return data.data;
-};
-
-export const getBabyByWeek = async (weekNumber: number) => {
-  const { data } = await nextServer.get<ApiResponse<any>>(
-    `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
-  );
-  return data.data;
-};
-
-export const getMomByWeek = async (weekNumber: number) => {
-  const { data } = await nextServer.get<ApiResponse<any>>(
-    `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
-  );
-  return data.data;
-};
-
-export const getWeeks = async (): Promise<WeeksApiResponse> => {
-  const { data } = await axios.get<WeeksApiResponse>(
-    'https://fullstack-genesis-project.onrender.com/api/weeks/demo'
-  );
-
-  return data;
+  babyState: BabyState;
+  momState: MomState;
 };
 
 export const getWeeksDemo = async (): Promise<WeeksApiResponse> => {
+  console.log('🔵 CLIENT fetch weeks DEMO'); // TODO del console.log
   const { data } = await nextServer.get<WeeksApiResponse>(
-    `${API_ENDPOINTS.WEEKS_DEMO}`
+    API_ENDPOINTS.WEEKS_DEMO
   );
-
   return data;
 };
 
 export const getWeeksCurrent = async (): Promise<WeeksApiResponse> => {
+  console.log('🔵 CLIENT fetch weeks'); // TODO del console.log
   const { data } = await nextServer.get<WeeksApiResponse>(
-    `${API_ENDPOINTS.WEEKS_GET}`
+    API_ENDPOINTS.WEEKS_GET
   );
-
   return data;
 };
 
@@ -225,7 +161,6 @@ export const getBabyWeeks = async (
   const { data } = await nextServer.get<BabyWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
   );
-
   return data;
 };
 
@@ -235,7 +170,6 @@ export const getMomWeeks = async (
   const { data } = await nextServer.get<MomWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
   );
-
   return data;
 };
 
@@ -285,6 +219,7 @@ import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';
 import axios, { AxiosInstance } from 'axios';
 
 export async function getTasks(): Promise<Task[]> {
+  console.log('🔵 CLIENT fetch tasks'); // TODO del console.log
   const { data } = await nextServer.get<Task[]>(`${API_ENDPOINTS.TASKS_GET}`);
   return data;
 }
@@ -318,3 +253,59 @@ export const updateCurrentUser = async (data: UpdateProfile) => {
 };
 
 // ------------------------- Данило
+
+// ============================  DIARY  =============================
+
+
+
+export type DiaryPayload = {
+  title: string;
+  note: string;
+  emotions: string[];
+};
+
+/* ================= GET ================= */
+export const getDiaries = async (): Promise<DiaryEntry[]> => {
+  const { data } = await nextServer.get<DiaryEntry[]>(
+    API_ENDPOINTS.DIARIES_GET
+  );
+  return data;
+};
+
+/* ================= CREATE ================= */
+export const createDiary = async (
+  payload: DiaryPayload
+): Promise<DiaryEntry> => {
+  const { data } = await nextServer.post<DiaryEntry>(
+    API_ENDPOINTS.DIARIES_POST,
+    {
+      title: payload.title,
+      description: payload.note,
+      emotions: payload.emotions,
+    }
+  );
+  return data;
+};
+
+/* ================= UPDATE ================= */
+export const updateDiary = async (
+  id: string,
+  payload: DiaryPayload
+): Promise<DiaryEntry> => {
+  const { data } = await nextServer.patch<DiaryEntry>(
+    `${API_ENDPOINTS.DIARIES_PATCH_ID}${id}`,
+    {
+      title: payload.title,
+      description: payload.note,
+      emotions: payload.emotions,
+    }
+  );
+  return data;
+};
+
+/* ================= DELETE ================= */
+export const deleteDiary = async (id: string): Promise<void> => {
+  await nextServer.delete(
+    `${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`
+  );
+};

@@ -6,9 +6,11 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./AddDiaryEntryForm.module.css";
-import Button from "../../common/Button/Button";
+import Button from "@/components/common/Button/Button";
 
 import MultiSelect, { type EmotionDTO } from "./MultiSelect";
+
+type EmotionLike = string | { _id: string; title?: string };
 
 type AddDiaryEntryFormProps = {
   onSuccess: () => void;
@@ -16,7 +18,7 @@ type AddDiaryEntryFormProps = {
     _id?: string;
     title?: string;
     description?: string;
-    emotions?: string[];
+    emotions?: EmotionLike[];
     date?: string;
   };
   mode?: "create" | "edit";
@@ -47,6 +49,13 @@ const schema: Yup.ObjectSchema<FormValues> = Yup.object({
     .max(12, "Максимум 12 емоцій")
     .required(),
 });
+
+function normalizeEmotionIds(emotions?: (string | { _id: string })[]): string[] {
+  if (!Array.isArray(emotions)) return [];
+  return emotions
+    .map((e) => (typeof e === "string" ? e : e?._id))
+    .filter((id): id is string => typeof id === "string" && id.length > 0);
+}
 
 function hasMessage(value: unknown): value is { message: string } {
   return (
@@ -110,7 +119,7 @@ export default function AddDiaryEntryForm({
     () => ({
       title: initialValues?.title ?? "",
       description: initialValues?.description ?? "",
-      emotions: initialValues?.emotions ?? [],
+      emotions: normalizeEmotionIds(initialValues?.emotions),
     }),
     [initialValues]
   );

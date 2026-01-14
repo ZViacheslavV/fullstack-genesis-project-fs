@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/components/common/Button/Button';
 import css from './Tabs.module.css';
 
 type Props = {
@@ -10,21 +11,23 @@ type Props = {
 export default function Tabs({ active, onChange }: Props) {
   return (
     <div className={css.container_tab}>
-      <button
+      <Button
+        type="button"
         onClick={() => onChange('baby')}
         aria-pressed={active === 'baby'}
         className={css.button}
       >
         Розвиток малюка
-      </button>
+      </Button>
 
-      <button
+      <Button
+        type="button"
         onClick={() => onChange('mom')}
         aria-pressed={active === 'mom'}
-        className={css.button}
+        className={css.button_non_active}
       >
         Тіло мами
-      </button>
+      </Button>
     </div>
   );
 }
