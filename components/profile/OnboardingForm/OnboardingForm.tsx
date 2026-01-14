@@ -1,46 +1,51 @@
 'use client';
+
 import { Formik, Form, Field } from 'formik';
-import { useEffect, useId } from 'react';
-import css from './OnboardingForm.module.css';
-import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
-import { UpdateUserData, User } from '@/types/user';
-import { loginUser, updateCurrentUser } from '@/lib/api/clientApi';
-import Select from 'react-select';
-import { selectStyles, genderOptions } from './OnboardingContent';
+import { useId } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthUserStore } from '@/lib/store/authStore';
 import toast from 'react-hot-toast';
-//===========================================================================
+import css from './OnboardingForm.module.css';
+
+import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
+import { updateCurrentUser, UpdateProfile } from '@/lib/api/clientApi';
+import { useAuthUserStore } from '@/lib/store/authStore';
+import { User } from '@/types/user';
+
+
+import { FaChevronDown } from 'react-icons/fa';
+import GenderSelect from '@/components/common/Select/Select';
+import { FieldProps } from 'formik';
+
+// ===============================
 
 interface Props {
   initialData?: User | null;
 }
 
 interface FormValues {
-  gender?: '' | 'boy' | 'girl' | 'unknown';
-  dueDate?: string;
+  gender: 'boy' | 'girl' | 'unknown' | null;
+  dueDate: string;
 }
 
 function OnboardingForm({ initialData }: Props) {
-  const initialValues: FormValues = {
-    gender: initialData?.gender ?? '',
-    dueDate: initialData?.dueDate ?? '',
-  };
+const initialValues: FormValues = {
+  gender: null,
+  dueDate: initialData?.dueDate ?? '',
+};
 
   const fieldId = useId();
   const router = useRouter();
- const user = useAuthUserStore((state) => state.user);
-const setUser = useAuthUserStore((state) => state.setUser);
+  const setUser = useAuthUserStore((state) => state.setUser);
 
   const handleSubmit = async (values: FormValues) => {
     try {
-        const payload: any = {};
+      const payload: UpdateProfile = {};
 
-      if (values.gender !== '') {
+      if (values.gender !== null) {
         payload.gender = values.gender;
       }
 
-      if (values.dueDate !== '') {
+      if (values.dueDate) {
         payload.dueDate = values.dueDate;
       }
 
@@ -48,12 +53,9 @@ const setUser = useAuthUserStore((state) => state.setUser);
 
       setUser(updatedUser);
       toast.success('Профіль збережено');
-
       router.push('/');
-    } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message || 'Помилка збереження'
-      );
+    } catch {
+      toast.error('Помилка збереження');
     }
   };
 
@@ -61,41 +63,50 @@ const setUser = useAuthUserStore((state) => state.setUser);
     <div className={css.picker}>
       <Formik
         initialValues={initialValues}
-        enableReinitialize
         onSubmit={handleSubmit}
+        enableReinitialize
       >
         <Form>
+          {/* GENDER */}
           <div className={css.fieldGroup}>
-            <label htmlFor={`${fieldId}-selectGender`}>Стать дитини</label>
-            <Field name="gender">
-              {({ field, form }: any) => (
-                <Select
-                  instanceId={`${fieldId}-gender`}
-                  options={genderOptions}
-                  placeholder="Оберіть стать"
-                  isSearchable={false}
-                  className={css.selectContainer}
-                  classNamePrefix="react-select"
-                  styles={selectStyles}
-                  value={genderOptions.find(
-                    (option) => option.value === field.value
+            <div className={css.datePickerWrapper}>
+              <div className={css.fieldGroup}>
+                <label>Стать дитини</label>
+
+                <div className={css.selectWrapper}>
+                <Field name="gender">
+                  {({ field, form }: FieldProps<FormValues['gender']>) => (
+                    <GenderSelect
+                      value={field.value}
+                      onChange={(value) =>
+                        form.setFieldValue(field.name, value)
+                      }
+                    />
                   )}
-                  onChange={(option: any) =>
-                    form.setFieldValue(field.name, option.value)
-                  }
-                />
-              )}
-            </Field>
-          </div>
-          <div className={css.fieldGroup}>
+                  </Field>
+                  </div>
+              </div>
+            </div>
+         
+
+          {/* DATE */}
+          
             <label htmlFor={`${fieldId}-dueDate`}>Планова дата пологів</label>
-            <Field
-              id={`${fieldId}-dueDate`}
-              name="dueDate"
-              component={CalendarDatePicker}
-              placeholderText="Оберіть дату"
-              className={css.dateInput}
-            />
+
+            <div className={css.datePickerWrapper}>
+              <Field
+                id={`${fieldId}-dueDate`}
+                name="dueDate"
+                component={CalendarDatePicker}
+                placeholderText="Оберіть дату"
+                className={css.dateInput}
+                autoComplete="off"
+              />
+
+              <span className={css.dateIcon}>
+                <FaChevronDown size={14} />
+              </span>
+            </div>
           </div>
 
           <button type="submit" className={css.saveButton}>

@@ -1,0 +1,173 @@
+.inputFields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* =========================
+   TEXT INPUTS
+========================= */
+
+.field {
+  width: 100%;
+  height: 37px;
+  padding: 8px 12px;
+
+  border-radius: 12px;
+  border: 2px solid var(--opacity-transparent);
+  background: var(--opacity-neutral-darkest-5);
+}
+
+/* =========================
+   DATE PICKER
+========================= */
+
+.dateWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.dateInput {
+  width: 100%;
+  height: 44px;
+  padding: 0 40px 0 16px;
+
+  font-size: 16px;
+  font-family: inherit;
+
+  background: #f2f2f2;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.dateInput:hover,
+.dateInput:focus {
+  border-color: #ffcbd3;
+}
+
+/* Date icon (chevron) */
+.dateIcon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttonContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.saveChanges {
+  width: 159px;
+  height: 38px;
+  padding: 8px 20px;
+
+  border-radius: 100px;
+  border-bottom: 4px solid var(--color-scheme-accent);
+  background: var(--color-scheme-foreground-alt);
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.saveChanges:hover {
+  background: var(--color-scheme-foreground);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+.saveChanges:active {
+  background: var(--color-scheme-accent);
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.undoChanges {
+  width: 159px;
+  height: 38px;
+  padding: 8px 20px;
+
+  border-radius: 100px;
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+  background: var(--opacity-neutral-darkest-5);
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.undoChanges:hover {
+  background: var(--color-scheme-background);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+.undoChanges:active {
+  background: var(--color-neutral-light);
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+/* =========================
+   REACT DATEPICKER GLOBAL FIXES
+========================= */
+
+:global(.react-datepicker__triangle),
+:global(.react-datepicker__navigation) {
+  display: none;
+}
+
+:global(.react-datepicker-wrapper),
+:global(.react-datepicker__input-container) {
+  width: 100%;
+}
+
+/* =========================
+   TABLET (≥ 768px)
+========================= */
+
+@media only screen and (min-width: 768px) {
+
+  .label,
+  .field,
+  .dateWrapper {
+    width: 704px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+  }
+}
+
+/* =========================
+   DESKTOP (≥ 1440px)
+========================= */
+
+@media only screen and (min-width: 1440px) {
+
+  .label,
+  .field,
+  .dateWrapper {
+    width: 580px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+}
