@@ -35,7 +35,7 @@ export default function MomyJourney({ weekNumber }: Props) {
       <div className={css.container_mom}>
         <FeelingCheckCard recommendationText="" />
         <ComfortTips comfortTips={mom.comfortTips as ComfortTipsProps[]} />
-        <TasksReminderCard />
+        <TasksReminderCard hasAuth={true} />
       </div>
     </>
   );
