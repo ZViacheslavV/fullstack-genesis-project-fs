@@ -2,10 +2,12 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
-import {
+import type {
+  WeeksApiResponse,
   BabyWeeksApiResponse,
   MomWeeksApiResponse,
-  WeeksApiResponse,
+  BabyState,
+  MomState,
 } from '@/types/weeks';
 
 // import { Baby, JourneyType, Momy } from '@/types/journey';
@@ -128,28 +130,24 @@ export const logout = async (): Promise<void> => {
 };
 
 // ============================  WEEKS  =============================
-
-export const getWeeks = async (): Promise<WeeksApiResponse> => {
-  const { data } = await axios.get<WeeksApiResponse>(
-    'https://fullstack-genesis-project.onrender.com/api/weeks/demo'
-  );
-
-  return data;
+export type WeeksInfo = {
+  weekNumber: number;
+  daysLeftToBirth: number;
+  babyState: BabyState;
+  momState: MomState;
 };
 
 export const getWeeksDemo = async (): Promise<WeeksApiResponse> => {
   const { data } = await nextServer.get<WeeksApiResponse>(
-    `${API_ENDPOINTS.WEEKS_DEMO}`
+    API_ENDPOINTS.WEEKS_DEMO
   );
-
   return data;
 };
 
 export const getWeeksCurrent = async (): Promise<WeeksApiResponse> => {
   const { data } = await nextServer.get<WeeksApiResponse>(
-    `${API_ENDPOINTS.WEEKS_GET}`
+    API_ENDPOINTS.WEEKS_GET
   );
-
   return data;
 };
 
@@ -159,7 +157,6 @@ export const getBabyWeeks = async (
   const { data } = await nextServer.get<BabyWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
   );
-
   return data;
 };
 
@@ -169,7 +166,6 @@ export const getMomWeeks = async (
   const { data } = await nextServer.get<MomWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
   );
-
   return data;
 };
 
