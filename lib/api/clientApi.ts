@@ -2,23 +2,29 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
-import { WeeksApiResponse } from '@/types/weeks';
+import type {
+  WeeksApiResponse,
+  BabyWeeksApiResponse,
+  MomWeeksApiResponse,
+  BabyState,
+  MomState,
+} from '@/types/weeks';
 
-import { Baby, JourneyType, Momy } from '@/types/journey';
+// import { Baby, JourneyType, Momy } from '@/types/journey';
 
 //-----------------JOURNEY------------------------------------------------------
-type JourneyResponse<T extends JourneyType> = T extends 'baby' ? Baby : Momy;
+// type JourneyResponse<T extends JourneyType> = T extends 'baby' ? Baby : Momy;
 
-export async function getJourneyData<T extends JourneyType>(
-  weekNumber: number,
-  type: T
-): Promise<JourneyResponse<T>> {
-  const { data } = await nextServer.get<JourneyResponse<T>>(
-    `/weeks/${type}/${weekNumber}`
-  );
+// export async function getJourneyData<T extends JourneyType>(
+//   weekNumber: number,
+//   type: T
+// ): Promise<JourneyResponse<T>> {
+//   const { data } = await nextServer.get<JourneyResponse<T>>(
+//     `/weeks/${type}/${weekNumber}`
+//   );
 
-  return data;
-}
+//   return data;
+// }
 // ============================  SESSION  =============================
 interface CheckSessionRequest {
   success: boolean;
@@ -124,48 +130,42 @@ export const logout = async (): Promise<void> => {
 };
 
 // ============================  WEEKS  =============================
-
-export const getWeeks = async (): Promise<WeeksApiResponse> => {
-  const { data } = await axios.get<WeeksApiResponse>(
-    'https://fullstack-genesis-project.onrender.com/api/weeks/demo'
-  );
-
-  return data;
+export type WeeksInfo = {
+  weekNumber: number;
+  daysLeftToBirth: number;
+  babyState: BabyState;
+  momState: MomState;
 };
 
 export const getWeeksDemo = async (): Promise<WeeksApiResponse> => {
   const { data } = await nextServer.get<WeeksApiResponse>(
-    `${API_ENDPOINTS.WEEKS_DEMO}`
+    API_ENDPOINTS.WEEKS_DEMO
   );
-
   return data;
 };
 
 export const getWeeksCurrent = async (): Promise<WeeksApiResponse> => {
   const { data } = await nextServer.get<WeeksApiResponse>(
-    `${API_ENDPOINTS.WEEKS_GET}`
+    API_ENDPOINTS.WEEKS_GET
   );
-
   return data;
 };
 
 export const getBabyWeeks = async (
   weekNumber: number | string
-): Promise<WeeksApiResponse> => {
-  const { data } = await nextServer.get<WeeksApiResponse>(
+): Promise<BabyWeeksApiResponse> => {
+  const { data } = await nextServer.get<BabyWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
   );
-
   return data;
 };
 
 export const getMomWeeks = async (
   weekNumber: number | string
-): Promise<WeeksApiResponse> => {
-  const { data } = await nextServer.get<WeeksApiResponse>(
+): Promise<MomWeeksApiResponse> => {
+  const { data } = await nextServer.get<MomWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
   );
-
   return data;
 };
 
@@ -200,16 +200,14 @@ export const updateMe = async (userData: UpdateProfile) => {
 export const updateAvatar = async (file: File) => {
   const formData = new FormData();
   formData.append('avatar', file);
-console.log(formData)
+  console.log(formData);
   const { data } = await nextServer.patch<User>(
-   `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
-    formData,
+    `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
+    formData
   );
 
   return data;
 };
-
-
 
 // ============================  TASKS  =============================
 

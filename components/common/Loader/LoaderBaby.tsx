@@ -51,9 +51,10 @@ const Player = dynamic(
   { ssr: false }
 );
 
-interface LoaderProps {
+interface LoaderBabyProps {
   size?: 'sm' | 'md' | 'lg';
   fullscreen?: boolean;
+  className?: string;
 }
 
 const sizeMap = {
@@ -62,13 +63,19 @@ const sizeMap = {
   lg: 'w-64 h-64',
 };
 
-export default function Loader({
+export default function LoaderBaby({
   size = 'md',
   fullscreen = false,
-}: LoaderProps) {
+  className = '',
+}: LoaderBabyProps) {
   const player = (
-    <div className={sizeMap[size]}>
-      <Player autoplay loop src="/loader.json" />
+    <div className={`${sizeMap[size]} ${className}`}>
+      <Player
+        autoplay
+        loop
+        src="/loader.json"
+        style={{ width: '100%', height: '100%' }}
+      />
     </div>
   );
 

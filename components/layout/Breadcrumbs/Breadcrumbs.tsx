@@ -31,42 +31,40 @@ export default function Breadcrumbs() {
   const isDashboardRoot = segments.length === 1 && segments[0] === 'dashboard';
 
   return (
-    <div className={css.breadcrumbsWrapper}>
-      <nav className={css.breadcrumbs} aria-label="Breadcrumb">
+    <nav className={css.breadcrumbs} aria-label="Breadcrumb">
+      <span className={css.item}>
+        <Link href="/" className={css.link}>
+          Лелека
+        </Link>
+        <ArrowIcon />
+      </span>
+
+      {isDashboardRoot ? (
         <span className={css.item}>
-          <Link href="/" className={css.link}>
-            Лелека
-          </Link>
-          <ArrowIcon />
+          <span className={css.current}>Мій день</span>
         </span>
+      ) : (
+        segments.map((segment, index) => {
+          const href = '/' + segments.slice(0, index + 1).join('/');
+          const label = LABELS[segment] ?? segment;
+          const isLast = index === segments.length - 1;
 
-        {isDashboardRoot ? (
-          <span className={css.item}>
-            <span className={css.current}>Мій день</span>
-          </span>
-        ) : (
-          segments.map((segment, index) => {
-            const href = '/' + segments.slice(0, index + 1).join('/');
-            const label = LABELS[segment] ?? segment;
-            const isLast = index === segments.length - 1;
-
-            return (
-              <span key={href} className={css.item}>
-                {isLast ? (
-                  <span className={css.current}>{label}</span>
-                ) : (
-                  <>
-                    <Link href={href} className={css.link}>
-                      {label}
-                    </Link>
-                    <ArrowIcon />
-                  </>
-                )}
-              </span>
-            );
-          })
-        )}
-      </nav>
-    </div>
+          return (
+            <span key={href} className={css.item}>
+              {isLast ? (
+                <span className={css.current}>{label}</span>
+              ) : (
+                <>
+                  <Link href={href} className={css.link}>
+                    {label}
+                  </Link>
+                  <ArrowIcon />
+                </>
+              )}
+            </span>
+          );
+        })
+      )}
+    </nav>
   );
 }

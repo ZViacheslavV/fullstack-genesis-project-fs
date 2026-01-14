@@ -3,13 +3,13 @@ import { Lato, Comfortaa } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
-import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
-import Header from '@/components/layout/Header/Header';
-import Sidebar from '@/components/layout/Sidebar/Sidebar';
-import Breadcrumbs from '@/components/layout/Breadcrumbs/Breadcrumbs';
-
 import './globals.css';
-import css from './layout.module.css';
+
+// import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
+// import Header from '@/components/layout/Header/Header';
+// import Sidebar from '@/components/layout/Sidebar/Sidebar';
+// import Breadcrumbs from '@/components/layout/Breadcrumbs/Breadcrumbs';
+// import css from './layout.module.css';
 
 //===========================================================================
 
@@ -68,12 +68,28 @@ export const metadata: Metadata = {
 
 //===========================================================================
 
+function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="uk">
+      <body className={`${lato.variable} ${comfortaa.variable}`}>
+        <TanStackProvider>
+          <div className="container">
+            {children}
+            <Toaster position="top-right" />
+          </div>
+        </TanStackProvider>
+      </body>
+    </html>
+  );
+}
+
+export default RootLayout;
+
+/*
 function RootLayout({
-  children /* ,
-  modal, */,
+  children,
 }: Readonly<{
   children: React.ReactNode;
-  /* modal: React.ReactNode; */
 }>) {
   return (
     <html lang="uk">
@@ -84,8 +100,8 @@ function RootLayout({
             <div className="container">
               <Header />
               <Breadcrumbs />
-              <main /* className={css.main} */>
-                <div /* className={css.container} */>{children}</div>
+              <main>
+                <div>{children}</div>
               </main>
             </div>
             <Toaster position="top-right" />
@@ -97,3 +113,4 @@ function RootLayout({
 }
 
 export default RootLayout;
+*/
