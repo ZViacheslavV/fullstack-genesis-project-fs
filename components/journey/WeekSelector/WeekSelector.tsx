@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 
 import styles from './WeekSelector.module.css';
-import { getCurrentWeekInfo, getDemoWeeksInfo } from '@/lib/api/clientApi';
+import { getWeeksCurrent, getWeeksDemo } from '@/lib/api/clientApi';
 import { useWeekStore } from '@/lib/store/weekStore';
 
 function is401(err: unknown) {
@@ -31,15 +31,14 @@ export default function WeekSelector() {
     queryKey: ['weeks', 'current-or-demo'],
     queryFn: async () => {
       try {
-        return await getCurrentWeekInfo();
+        return await getWeeksCurrent();
       } catch (err) {
-        if (is401(err)) return await getDemoWeeksInfo();
+        if (is401(err)) return await getWeeksDemo();
         throw err;
       }
     },
   });
 
- 
   useEffect(() => {
     setCurWeek(activeWeek);
   }, [activeWeek, setCurWeek]);
@@ -55,13 +54,13 @@ export default function WeekSelector() {
   if (isLoading) return <div>Loading weeks...</div>;
   if (isError || !data) return null;
 
- 
-  const apiWeekNumber = Number(data.weekNumber);
+  const weeksInfo = data.data;
+  const apiWeekNumber = Number(weeksInfo.weekNumber);
+
   const safeCurrentWeek =
     Number.isFinite(apiWeekNumber) && apiWeekNumber > 1 ? apiWeekNumber : 42;
 
-  const totalWeeks = 42;
-  const weeks = Array.from({ length: totalWeeks }, (_, i) => i + 1);
+  const weeks = Array.from({ length: 42 }, (_, i) => i + 1);
 
   return (
     <div className={styles.wrapper}>
@@ -94,4 +93,3 @@ export default function WeekSelector() {
     </div>
   );
 }
-
