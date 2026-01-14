@@ -1,9 +1,13 @@
+.diaryModal {
+    max-width:334px;
+    width: 100%;
+}
+
 .formWrap {
-    width: 520px;
+    width: 100%;
     max-width: 100%;
     margin: 0 auto;
     font-size: 12px;
-    /* базовий розмір тексту */
 }
 
 .form {
@@ -18,18 +22,11 @@
     gap: 8px;
 }
 
-.label,
-.placeholder,
-.itemLabel {
-    font-size: inherit;
-}
-
 .label {
     display: flex;
     font-size: 14px;
     line-height: 1.5;
     color: var(--color-scheme-text);
-
     margin: 0 0 8px;
 }
 
@@ -42,7 +39,7 @@
 }
 
 .error {
-    font-size: inherit;
+    font-size: 12px;
     color: #d43b3b;
     margin: 0;
 }
@@ -54,7 +51,7 @@
     border: 1px solid #ededed;
     background: #f3f3f3;
     outline: none;
-    font-size: inherit;
+    font-size: 12px;
 }
 
 .input {
@@ -65,7 +62,7 @@
 
 .textarea {
     composes: control;
-    min-height: 160px;
+    min-height: 140px;
     padding: 10px 12px;
     resize: none;
 }
@@ -151,7 +148,7 @@
 }
 
 .menuScroll {
-    max-height: 160px;
+    max-height: 150px;
     overflow: auto;
     padding: 6px;
 }
@@ -175,6 +172,7 @@
     border: none;
     cursor: pointer;
     text-align: left;
+    background: transparent;
 }
 
 .menuItemActive {
@@ -206,18 +204,40 @@
     margin-top: -1px;
 }
 
-/* .saveBtnWrap {
+.saveBtnWrap {
     margin: 10px auto 0;
-    width: 220px;
-} */
+    width: 100%;
+    max-width: 360px;
+}
 
 @media (min-width: 768px) {
-    .form {
-        max-width: 480px;
+    .diaryModal {
+        max-width: 420px;
     }
+    .formWrap{
+        max-width: 520px;
+    }
+    .textarea {
+        min-height: 160px;
+    }
+    .menuScroll {
+        max-height: 160px;
+    }
+    .saveBtnWrap {
+        width: 220px;
+        max-width: none;
+    }
+   
 }
 @media (min-width: 1440px) {
-    .form {
-        max-width: 480px;
+    .diaryModal {
+        max-width: 520px;
     }
+    .formWrap {
+        max-width: 520px;
+    }
+    .menuScroll {
+        max-height: 170px;
+    }
+   
 }
