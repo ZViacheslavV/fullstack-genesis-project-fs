@@ -46,7 +46,8 @@ export default function WeekSelector() {
   const goToWeek = useCallback(
     (week: number) => {
       setCurWeek(week);
-      router.push(`/journey/${week}`);
+      // router.push(`/journey/${week}`);
+      router.push(`/journey/${week}`, { scroll: false });
     },
     [router, setCurWeek]
   );
