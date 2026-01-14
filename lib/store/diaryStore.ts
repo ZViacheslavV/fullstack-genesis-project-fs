@@ -9,13 +9,8 @@ import {
   createDiary,
   updateDiary,
   deleteDiary,
-} from '@/lib/api/diaryApi';
-
-type DiaryPayload = {
-  title: string;
-  note: string;
-  emotions: string[];
-};
+  type DiaryPayload
+} from '@/lib/api/clientApi';
 
 type DiaryStore = {
   entries: DiaryEntry[];

@@ -2,6 +2,8 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
+import type { DiaryEntry } from '@/types/diary';
+
 import type {
   WeeksApiResponse,
   BabyWeeksApiResponse,
@@ -248,3 +250,59 @@ export const updateCurrentUser = async (data: UpdateProfile) => {
 };
 
 // ------------------------- Данило
+
+// ============================  DIARY  =============================
+
+
+
+export type DiaryPayload = {
+  title: string;
+  note: string;
+  emotions: string[];
+};
+
+/* ================= GET ================= */
+export const getDiaries = async (): Promise<DiaryEntry[]> => {
+  const { data } = await nextServer.get<DiaryEntry[]>(
+    API_ENDPOINTS.DIARIES_GET
+  );
+  return data;
+};
+
+/* ================= CREATE ================= */
+export const createDiary = async (
+  payload: DiaryPayload
+): Promise<DiaryEntry> => {
+  const { data } = await nextServer.post<DiaryEntry>(
+    API_ENDPOINTS.DIARIES_POST,
+    {
+      title: payload.title,
+      description: payload.note,
+      emotions: payload.emotions,
+    }
+  );
+  return data;
+};
+
+/* ================= UPDATE ================= */
+export const updateDiary = async (
+  id: string,
+  payload: DiaryPayload
+): Promise<DiaryEntry> => {
+  const { data } = await nextServer.patch<DiaryEntry>(
+    `${API_ENDPOINTS.DIARIES_PATCH_ID}${id}`,
+    {
+      title: payload.title,
+      description: payload.note,
+      emotions: payload.emotions,
+    }
+  );
+  return data;
+};
+
+/* ================= DELETE ================= */
+export const deleteDiary = async (id: string): Promise<void> => {
+  await nextServer.delete(
+    `${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`
+  );
+};
