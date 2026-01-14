@@ -2,7 +2,8 @@
   border: 0px solid var(--color-scheme-border);
   border-radius: 32px;
   padding: 24px;
-  width: 311px;
+  max-width: 311px;
+  width: 100%;
   /* min-height: 200px; */
   background: var(--color-scheme-foreground);
 }
@@ -55,4 +56,32 @@
   line-height: 1.5;
   color: var(--color-scheme-text);
   margin-left: 32px;
+}
+
+@media (min-width: 768px) {
+  .container_tips {
+    max-width: 704px;
+  }
+
+  .title {
+    margin-bottom: 8px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container_tips {
+    max-width: 650px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .item_title {
+    font-size: 16px;
+  }
+
+  .item_text {
+    font-size: 16px;
+  }
 }
