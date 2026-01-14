@@ -5,6 +5,7 @@
   width: 335px;
   height: 50px;
   background: var(--color-scheme-foreground);
+  margin-top: 32px;
 }
 
 .button {
