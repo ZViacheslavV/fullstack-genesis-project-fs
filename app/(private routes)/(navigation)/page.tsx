@@ -20,7 +20,7 @@ function Home() {
   const [momDailyTip, setMomDailyTip] = useState<string | undefined>('');
 
   return (
-    <section className={css.dashboard}>
+    <main className={css.dashboard}>
       <GreetingBlock />
       <div className={css.dashboard__content}>
         <div className={css.dashboard__stats}>
@@ -32,7 +32,7 @@ function Home() {
           <FeelRecommendationCard recommendationText={momDailyTip} />
         </div>
       </div>
-    </section>
+    </main>
   );
 }
 export default Home;
