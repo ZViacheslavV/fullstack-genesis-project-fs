@@ -306,6 +306,7 @@ export const updateDiary = async (
 /* ================= DELETE ================= */
 export const deleteDiary = async (id: string): Promise<void> => {
   await nextServer.delete(
-    `${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`
+    `${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`, 
+    { responseType: 'text' } // щоб уникнути помилки парсингу порожнього JSON
   );
 };

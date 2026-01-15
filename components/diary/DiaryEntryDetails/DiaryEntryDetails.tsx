@@ -90,7 +90,13 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
       )}
 
       <div className={css.noteBox}>
-        <p className={css.note}>{entry.note}</p>
+        {entry.description ? (
+          <p className={css.note}>{entry.description}</p>
+        ) : (
+          <p className={css.note} style={{ opacity: 0.5 }}>
+            Текст запису відсутній.
+          </p>
+        )}
       </div>
     </section>
   );
