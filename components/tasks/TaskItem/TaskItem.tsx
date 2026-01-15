@@ -63,6 +63,7 @@ export default function TaskItem({ task }: TaskItemProps) {
             onChange={handleChange}
             className={css.taskItemCheckbox}
             id={`task-${task._id}`}
+            aria-label={`Позначити завдання "${task.name}" як виконане`}
           />
           <svg className={css.checkMarkIcon} aria-hidden="true">
             <use href="/icons.svg#icon-checkbox" />
