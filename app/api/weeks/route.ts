@@ -8,7 +8,7 @@ import { api, ApiError } from '../api';
 export async function GET(/* request:  NextRequest*/) {
   try {
     const cookieStore = await cookies();
-    const { data } = await api(`${API_ENDPOINTS.WEEKS_GET}`, {
+    const { data } = await api(API_ENDPOINTS.WEEKS_GET, {
       headers: { Cookie: cookieStore.toString() },
     });
 

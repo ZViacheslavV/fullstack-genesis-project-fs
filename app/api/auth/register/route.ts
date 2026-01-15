@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
 
   try {
-    const response = await api.post(`${API_ENDPOINTS.REGISTER}`, body);
+    const response = await api.post(API_ENDPOINTS.REGISTER, body);
 
     const cookieData = await cookies();
     const setCookie = response.headers['set-cookie'];

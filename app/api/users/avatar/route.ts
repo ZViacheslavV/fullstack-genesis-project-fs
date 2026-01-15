@@ -18,7 +18,7 @@ export async function PATCH(req: Request) {
     );
 
     const { data } = await api.patch(
-      `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
+      API_ENDPOINTS.USER_CURRENT_PATCH_AVA,
       backendFormData,
       {
         headers: {
