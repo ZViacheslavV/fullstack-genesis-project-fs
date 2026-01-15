@@ -11,7 +11,9 @@ import { useWeekStore } from '@/lib/store/weekStore';
 
 function is401(err: unknown) {
   const e = err as AxiosError | undefined;
-  return !!e && typeof e === 'object' && (e as any)?.response?.status === 401;
+  return (
+    !!e && typeof e === 'object' && e /* as any */?.response?.status === 401
+  );
 }
 
 const TOTAL_WEEKS = 42;

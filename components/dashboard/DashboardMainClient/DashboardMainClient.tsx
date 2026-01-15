@@ -7,7 +7,7 @@ import FeelRecommendationCard from '@/components/dashboard/FeelingCheckCard/Feel
 
 import css from './DashboardMainClient.module.css';
 import { useState } from 'react';
-import { useAuthUserStore } from '@/lib/store/authStore';
+// import { useAuthUserStore } from '@/lib/store/authStore';
 
 type Props = {
   hasAuth: boolean;
