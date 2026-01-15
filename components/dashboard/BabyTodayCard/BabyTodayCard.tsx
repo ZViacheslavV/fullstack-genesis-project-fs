@@ -17,6 +17,7 @@ const BabyTodayCard = ({
 }: BabyTodayCardProps) => {
   return (
     <div className={css.card}>
+       <div className={css.content}>
       <p className={css.babyToday}>Малюк сьогодні</p>
 
       <div className={css.top}>
@@ -43,6 +44,7 @@ const BabyTodayCard = ({
       </div>
 
       <p className={css.description}>{description}</p>
+    </div>
     </div>
   );
 };

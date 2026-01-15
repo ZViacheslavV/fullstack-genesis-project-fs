@@ -10,8 +10,10 @@ type MomTipCardProps = {
 const MomTipCard = ({ text }: MomTipCardProps) => {
   return <div className={css.picker}>
        <div className={css.card}>
+        <div className={css.content}>
         <p className={css.title}>Порада для мами</p>
       <p className={css.text}>{text}</p>
+    </div>
     </div>
   </div>;
 }
