@@ -1,8 +1,9 @@
 .wrapper {
   width: 100%;
-  border: 1px solid var(--color-scheme-border);
+  border: 1px solid var(--color-scheme-foreground);
   border-radius: 16px;
-  background: var(--color-scheme-background);
+  background: var(--color-scheme-foreground);
+  /* 🔥 */
   padding: 14px;
 }
 
@@ -20,7 +21,7 @@
 
 .header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
@@ -39,9 +40,9 @@
 }
 
 .date {
-  margin: 6px 0 0;
   font-size: 12px;
   color: var(--color-neutral-dark);
+  white-space: nowrap;
 }
 
 .actions {
@@ -51,23 +52,29 @@
 }
 
 .iconBtn {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  border: 1px solid var(--color-scheme-border);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--color-scheme-foreground);
   background: var(--color-scheme-foreground);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .iconBtnDanger {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  border: 1px solid var(--color-scheme-border);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--color-scheme-foreground);
   background: var(--opacity-neutral-darkest-10);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .emotions {
@@ -98,15 +105,13 @@
 
 .noteBox {
   margin-top: 12px;
-  border-radius: 14px;
-  background: var(--color-scheme-foreground);
-  padding: 12px;
+  padding: 0;
 }
 
 .note {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -150,7 +155,7 @@
 
 @media only screen and (min-width: 1440px) {
   .wrapper {
-    height: 674px;
+    height: 720px;
     display: flex;
     flex-direction: column;
     padding: 24px;
@@ -162,4 +167,18 @@
       overflow-x: hidden;
       scrollbar-gutter: stable;
     }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }

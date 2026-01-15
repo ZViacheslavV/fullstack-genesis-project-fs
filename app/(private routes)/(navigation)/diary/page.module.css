@@ -12,13 +12,6 @@
     gap: 24px;
   }
 
-  .details {
-    display: block;
-    background: #fff5f6;
-    border-radius: 20px;
-    padding: 24px;
-    min-height: 520px;
-  }
 }
 
 /* ===== TABLET + MOBILE (до 1439px) ===== */
@@ -26,12 +19,11 @@
   .grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0;
   }
 
-  /* Приховуємо праву колонку */
-  .details {
-    display: none !important;
+  /* ховаємо */
+  .grid> :nth-child(2) {
+    display: none;
   }
 }
 

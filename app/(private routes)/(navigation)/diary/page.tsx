@@ -61,8 +61,6 @@ export default function DiaryPage() {
     }
   }, [entries, selectedId]);
 
-
-
   const openCreateModal = () => {
     setEntryModalMode('create');
     setEntryModalValues(undefined);
@@ -113,7 +111,9 @@ export default function DiaryPage() {
       <GreetingBlock />
 
       {isLoading && entries.length === 0 ? (
-        <div className={css.loader}><Loader /></div>
+        <div className={css.loader}>
+          <Loader />
+        </div>
       ) : (
         <>
           <div className={css.grid}>
@@ -124,21 +124,24 @@ export default function DiaryPage() {
               onSelectEntry={setSelectedId}
             />
 
-            <div className={css.details}>
-              <DiaryEntryDetails
-                entry={selectedEntry}
-                onEdit={openEditModal}
-                onDelete={handleDeleteClick}
-              />
-            </div>
+            <DiaryEntryDetails
+              entry={selectedEntry}
+              onEdit={openEditModal}
+              onDelete={handleDeleteClick}
+            />
           </div>
 
           <DiaryEntryModal
             isOpen={isEntryModalOpen}
             onClose={() => setIsEntryModalOpen(false)}
             onSuccess={() => {
-               fetchEntries();
-               showToast(entryModalMode === 'create' ? 'Запис створено' : 'Запис оновлено', 'success');
+              fetchEntries();
+              showToast(
+                entryModalMode === 'create'
+                  ? 'Запис створено'
+                  : 'Запис оновлено',
+                'success'
+              );
             }}
             mode={entryModalMode}
             initialValues={entryModalValues}
