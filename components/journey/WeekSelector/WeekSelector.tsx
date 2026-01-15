@@ -32,7 +32,7 @@ export default function WeekSelector() {
   }, [weekNumber, weekFromStore]);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['weeks', 'current-or-demo'],
+    queryKey: ['weeks' /* , 'current-or-demo' */],
     queryFn: async () => {
       try {
         return await getWeeksCurrent();
@@ -42,6 +42,7 @@ export default function WeekSelector() {
       }
     },
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   useEffect(() => {

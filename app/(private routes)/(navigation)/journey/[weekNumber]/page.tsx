@@ -74,7 +74,7 @@ const JourneyPage = async ({ params }: Props) => {
   //  if (!Number.isFinite(week) || week < 1) notFound(); //TODO handle wrong inputs
 
   await queryClient.prefetchQuery({
-    queryKey: ['weeks', 'current-or-demo'],
+    queryKey: ['weeks' /* , 'current-or-demo' */],
     queryFn: getWeeksCurrentServer,
     staleTime: 60_000,
   });
