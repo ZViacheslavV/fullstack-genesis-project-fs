@@ -14,6 +14,8 @@ function is401(err: unknown) {
   return !!e && typeof e === 'object' && (e as any)?.response?.status === 401;
 }
 
+const TOTAL_WEEKS = 42;
+
 export default function WeekSelector() {
   const router = useRouter();
   const { weekNumber } = useParams<{ weekNumber?: string }>();
@@ -37,6 +39,7 @@ export default function WeekSelector() {
         throw err;
       }
     },
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -45,35 +48,33 @@ export default function WeekSelector() {
 
   const goToWeek = useCallback(
     (week: number) => {
-      setCurWeek(week);
-      // router.push(`/journey/${week}`);
       router.push(`/journey/${week}`, { scroll: false });
     },
-    [router, setCurWeek]
+    [router]
   );
 
   if (isLoading) return <div>Loading weeks...</div>;
   if (isError || !data) return null;
+  const apiWeekNumber = Number(data.data?.weekNumber);
+  const currentWeek =
+    Number.isFinite(apiWeekNumber) && apiWeekNumber >= 1 ? apiWeekNumber : 1;
 
-  const weeksInfo = data.data;
-  const apiWeekNumber = Number(weeksInfo.weekNumber);
-
-  const safeCurrentWeek =
-    Number.isFinite(apiWeekNumber) && apiWeekNumber > 1 ? apiWeekNumber : 42;
-
-  const weeks = Array.from({ length: 42 }, (_, i) => i + 1);
+  const weeks = Array.from({ length: TOTAL_WEEKS }, (_, i) => i + 1);
 
   return (
     <div className={styles.wrapper}>
       {weeks.map((week) => {
         const isActive = week === activeWeek;
-        const isPast = week < activeWeek;
-        const isDisabled = week > safeCurrentWeek;
+        const isCurrent = week === currentWeek;
+        const isPast = week < currentWeek;
+        const isDisabled = week > currentWeek;
 
         const className = [
           styles.week,
-          isActive && styles.active,
           isPast && styles.past,
+          isCurrent && styles.current,
+          isActive && styles.active,
+          isDisabled && styles.disabled,
         ]
           .filter(Boolean)
           .join(' ');
@@ -85,6 +86,12 @@ export default function WeekSelector() {
             disabled={isDisabled}
             onClick={() => goToWeek(week)}
             className={className}
+            aria-current={isActive ? 'page' : undefined}
+            title={
+              isDisabled
+                ? 'Недоступно: тижні після поточного заблоковані'
+                : undefined
+            }
           >
             <span className={styles.weekNumber}>{week}</span>
             <span className={styles.weekLabel}>Тиждень</span>
