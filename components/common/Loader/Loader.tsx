@@ -1,5 +1,5 @@
-import { LoaderStork } from '@/components/common/Loader';
+// import { LoaderStork } from '@/components/common/Loader';
 
-export default function LoadingPage() {
-  return <LoaderStork />;
-}
+// export default function LoadingPage() {
+//   return <LoaderStork />;
+// }

@@ -4,7 +4,7 @@ import { getWeeksCurrent, getWeeksDemo } from '@/lib/api/clientApi';
 import StatusBlock from '../StatusBlock/StatusBlock';
 import MomTipCard from '../MomTipCard/MomTipCard';
 import { useQuery } from '@tanstack/react-query';
-import LoaderStork from '@/components/common/Loader/LoaderStork';
+// import LoaderStork from '@/components/common/Loader/LoaderStork';
 import BabyTodayCard from '@/components/dashboard/BabyTodayCard/BabyTodayCard';
 import { useAuthUserStore } from '@/lib/store/authStore';
 import { useEffect, useState } from 'react';
@@ -36,11 +36,9 @@ export default function DashboardCardClient({ onMomDailyTip, hasAuth }: Props) {
   // console.log('RAW weeks response from backend:', data);
 
   // if (isLoading) return <div>Loading...</div>;
-  // if (isLoading)
-  //   return <LoaderStork fullScreen={false} size="medium" overlay={true} />;
-  if (isLoading) {
-    return <LoaderStork fullScreen overlay size="medium" />;
-  }
+
+  // if (isLoading) return <LoaderStork overlay size="medium" />;
+
   if (error || !data) return <div>Error loading weeks</div>;
 
   const weeksInfo = data.data;
