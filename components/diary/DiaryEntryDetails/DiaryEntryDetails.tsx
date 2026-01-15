@@ -45,49 +45,38 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
   return (
     <section className={css.wrapper} aria-label="Деталі запису">
       <div className={css.header}>
-        <div className={css.headerText}>
+        {/* ЛІВА ЧАСТИНА */}
+        <div className={css.left}>
           <h2 className={css.title}>{entry.title}</h2>
-          {dateLabel ? <p className={css.date}>{dateLabel}</p> : null}
-        </div>
 
-        <div className={css.actions}>
           <button
             type="button"
             className={css.iconBtn}
             onClick={() => onEdit?.(entry)}
             aria-label="Редагувати запис"
-            title="Редагувати"
           >
-            ✎
+            <svg width="20" height="20">
+              <use href="/icons.svg#icon-edit-square" />
+            </svg>
           </button>
+        </div>
+
+        {/* ПРАВА ЧАСТИНА */}
+        <div className={css.right}>
+          {dateLabel ? <span className={css.date}>{dateLabel}</span> : null}
 
           <button
             type="button"
-            className={css.iconBtnDanger}
+            className={css.iconBtn}
             onClick={() => onDelete?.(entry._id)}
             aria-label="Видалити запис"
-            title="Видалити"
           >
-            🗑
+            <svg width="20" height="20">
+              <use href="/icons.svg#icon-delete-forever" />
+            </svg>
           </button>
         </div>
       </div>
-
-      {emotions.length ? (
-        <ul className={css.emotions} aria-label="Емоції">
-          {emotions.map((e) => (
-            <li
-              key={getEmotionKey(e)}
-              className={css.chip}
-              title={getEmotionLabel(e)}
-            >
-              {getEmotionLabel(e)}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className={css.noEmotions}>Емоції не обрані</p>
-      )}
 
       <div className={css.noteBox}>
         {entry.description ? (
@@ -96,6 +85,22 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
           <p className={css.note} style={{ opacity: 0.5 }}>
             Текст запису відсутній.
           </p>
+        )}
+
+        {emotions.length ? (
+          <ul className={css.emotions} aria-label="Емоції">
+            {emotions.map((e) => (
+              <li
+                key={getEmotionKey(e)}
+                className={css.chip}
+                title={getEmotionLabel(e)}
+              >
+                {getEmotionLabel(e)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className={css.noEmotions}>Емоції не обрані</p>
         )}
       </div>
     </section>

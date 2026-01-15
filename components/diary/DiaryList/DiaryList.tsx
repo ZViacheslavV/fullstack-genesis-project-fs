@@ -58,7 +58,14 @@ export default function DiaryList({
         <button type="button" className={css.addBtn} onClick={onAddEntry}>
           <span>Новий запис</span>
           <span className={css.plus} aria-hidden="true">
-            +
+            <svg
+              className={css.plusIcon}
+              width="20"
+              height="20"
+              aria-hidden="true"
+            >
+              <use href="/icons.svg#icon-add-circle" />
+            </svg>
           </span>
         </button>
       </div>
