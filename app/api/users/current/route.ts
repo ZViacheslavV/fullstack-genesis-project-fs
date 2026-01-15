@@ -11,7 +11,7 @@ export async function GET() {
   try {
     const cookieStore = await cookies();
 
-    const res = await api.get(`${API_ENDPOINTS.USER_CURRENT_GET}`, {
+    const res = await api.get(API_ENDPOINTS.USER_CURRENT_GET, {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -39,7 +39,7 @@ export async function PATCH(request: Request) {
     const cookieStore = await cookies();
     const body = await request.json();
 
-    const res = await api.patch(`${API_ENDPOINTS.USER_CURRENT_PATCH}`, body, {
+    const res = await api.patch(API_ENDPOINTS.USER_CURRENT_PATCH, body, {
       headers: {
         Cookie: cookieStore.toString(),
       },

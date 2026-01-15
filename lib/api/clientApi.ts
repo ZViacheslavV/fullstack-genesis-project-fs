@@ -34,7 +34,7 @@ interface CheckSessionRequest {
 
 export const checkSession = async () => {
   const { data } = await nextServer.get<CheckSessionRequest>(
-    `${API_ENDPOINTS.REFRESH}`
+    API_ENDPOINTS.REFRESH
   );
   return data.success;
 };
@@ -95,7 +95,7 @@ export async function registerUser(
   params: RegisterRequest
 ): Promise<RegisterLoginUserResponse> {
   const { data } = await nextServer.post<RegisterLoginUserResponse>(
-    `${API_ENDPOINTS.REGISTER}`,
+    API_ENDPOINTS.REGISTER,
     params
   );
   return data;
@@ -119,7 +119,7 @@ export async function loginUser(
   params: loginRequest
 ): Promise<RegisterLoginUserResponse> {
   const { data } = await nextServer.post<RegisterLoginUserResponse>(
-    `${API_ENDPOINTS.LOGIN}`,
+    API_ENDPOINTS.LOGIN,
     params
   );
   return data;
@@ -128,7 +128,7 @@ export async function loginUser(
 */
 
 export const logout = async (): Promise<void> => {
-  await nextServer.post(`${API_ENDPOINTS.LOGOUT}`);
+  await nextServer.post(API_ENDPOINTS.LOGOUT);
 };
 
 // ============================  WEEKS  =============================
@@ -178,9 +178,7 @@ export const getMomWeeks = async (
 // ============================  USERS  =============================
 
 export const getMe = async () => {
-  const { data } = await nextServer.get<User>(
-    `${API_ENDPOINTS.USER_CURRENT_GET}`
-  );
+  const { data } = await nextServer.get<User>(API_ENDPOINTS.USER_CURRENT_GET);
   return data;
 };
 
@@ -195,7 +193,7 @@ export interface UpdateProfile {
 //TODO updateMe requires checking, alpha version
 export const updateMe = async (userData: UpdateProfile) => {
   const { data } = await nextServer.patch<User>(
-    `${API_ENDPOINTS.USER_CURRENT_PATCH}`,
+    API_ENDPOINTS.USER_CURRENT_PATCH,
     userData
   );
   return data;
@@ -208,7 +206,7 @@ export const updateAvatar = async (file: File) => {
   formData.append('avatar', file);
   console.log(formData);
   const { data } = await nextServer.patch<User>(
-    `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
+    API_ENDPOINTS.USER_CURRENT_PATCH_AVA,
     formData,
     {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -225,13 +223,13 @@ import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';
 
 export async function getTasks(): Promise<Task[]> {
   console.log('🔵 CLIENT fetch tasks'); // TODO del console.log
-  const { data } = await nextServer.get<Task[]>(`${API_ENDPOINTS.TASKS_GET}`);
+  const { data } = await nextServer.get<Task[]>(API_ENDPOINTS.TASKS_GET);
   return data;
 }
 
 export async function createTask(newTask: TaskFormData): Promise<Task> {
   const { data } = await nextServer.post<Task>(
-    `${API_ENDPOINTS.TASKS_POST}`,
+    API_ENDPOINTS.TASKS_POST,
     newTask
   );
   return data;
@@ -250,10 +248,7 @@ export async function updateTaskStatus({
 // ------------------------- Данило
 
 export const updateCurrentUser = async (data: UpdateProfile) => {
-  const res = await nextServer.patch(
-    `${API_ENDPOINTS.USER_CURRENT_PATCH}`,
-    data
-  );
+  const res = await nextServer.patch(API_ENDPOINTS.USER_CURRENT_PATCH, data);
   return res.data;
 };
 

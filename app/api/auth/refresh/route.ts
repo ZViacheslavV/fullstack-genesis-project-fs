@@ -75,7 +75,7 @@ export async function GET() {
     }
 
     if (refreshToken) {
-      const apiRes = await api.get(`${API_ENDPOINTS.REFRESH}`, {
+      const apiRes = await api.get(API_ENDPOINTS.REFRESH, {
         headers: {
           Cookie: cookieStore.toString(),
         },

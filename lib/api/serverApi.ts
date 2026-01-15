@@ -15,7 +15,7 @@ const cookieHeaders = async () => {
 // ---------------- AUTH --------------------------------------------------
 export const checkServerSession = async () => {
   const headers = await cookieHeaders();
-  const res = await nextServer.get<User | null>(`${API_ENDPOINTS.REFRESH}`, {
+  const res = await nextServer.get<User | null>(API_ENDPOINTS.REFRESH, {
     headers,
   });
   return res;
@@ -24,12 +24,9 @@ export const checkServerSession = async () => {
 // ---------------- USER --------------------------------------------------
 export const getServerMe = async () => {
   const headers = await cookieHeaders();
-  const { data } = await nextServer.get<User>(
-    `${API_ENDPOINTS.USER_CURRENT_GET}`,
-    {
-      headers,
-    }
-  );
+  const { data } = await nextServer.get<User>(API_ENDPOINTS.USER_CURRENT_GET, {
+    headers,
+  });
   return data;
 };
 
@@ -37,7 +34,7 @@ export const getServerMe = async () => {
 export const getServerTasks = async () => {
   console.log('🟢 SERVER fetch tasks'); //TODO del console.log
   const headers = await cookieHeaders();
-  const { data } = await nextServer.get<Task[]>(`${API_ENDPOINTS.TASKS_GET}`, {
+  const { data } = await nextServer.get<Task[]>(API_ENDPOINTS.TASKS_GET, {
     headers,
   });
   return data;

@@ -37,7 +37,7 @@ import { api, ApiError } from '../api';
 export async function GET() {
   try {
     const cookieStore = await cookies();
-    const { data } = await api(`${API_ENDPOINTS.EMOTIONS}`, {
+    const { data } = await api(API_ENDPOINTS.EMOTIONS, {
       headers: { Cookie: cookieStore.toString() },
     });
 
