@@ -6,35 +6,63 @@
   height: 50px;
   background: var(--color-scheme-foreground);
   margin-top: 32px;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  touch-action: pan-y;
 }
 
-.button_active {
-  border: 1px solid var(--opacity-transparent);
-  border-radius: 100px;
-  padding: 10px 24px;
+.slider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
   width: 162px;
-  height: 42px;
+  border-radius: 100px;
   background: var(--color-scheme-foreground-alt);
-  font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--color-scheme-text);
-  box-shadow: none;
+  transition: transform 0.3s ease-in-out;
+  z-index: 0;
 }
 
-.button_non_active {
-  border: 1px solid var(--opacity-transparent);
-  border-radius: 100px;
-  padding: 10px 24px;
+.slider_baby {
+  transform: translateX(0);
+}
+
+.slider_mom {
+  transform: translateX(162px);
+}
+
+.button {
+  position: relative;
+  z-index: 1;
   width: 162px;
   height: 42px;
-  background: var(--opacity-transparent);
+  background-color: transparent;
+  border-radius: 100px;
+  padding: 10px 24px;
+  border: 1px solid var(--opacity-transparent);
+  box-shadow: none;
   font-family: var(--font-family);
   font-weight: 400;
+  font-size: 14px;
   line-height: 1.5;
+  cursor: pointer;
   color: var(--color-scheme-text);
-  box-shadow: none;
+  transition:
+    background-color 0.35s ease,
+    font-weight 0.35s ease,
+    line-height 0.35s ease;
+}
+
+.container_tab:has(.slider_baby) .button:first-of-type {
+  background-color: var(--color-scheme-foreground-alt);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.container_tab:has(.slider_mom) .button:last-of-type {
+  background-color: var(--color-scheme-foreground-alt);
+  font-weight: 500;
+  line-height: 1.6;
 }
 
 @media (min-width: 768px) {
@@ -42,11 +70,15 @@
     width: 704px;
   }
 
-  .button_active {
+  .slider {
     width: 347px;
   }
 
-  .button_non_active {
+  .slider_mom {
+    transform: translateX(347px);
+  }
+
+  .button {
     width: 347px;
   }
 }
@@ -59,12 +91,16 @@
     margin-right: auto;
   }
 
-  .button_active {
+  .slider {
     width: 275px;
     height: 46px;
   }
 
-  .button_non_active {
+  .slider_mom {
+    transform: translateX(275px);
+  }
+
+  .button {
     width: 275px;
     height: 46px;
   }
