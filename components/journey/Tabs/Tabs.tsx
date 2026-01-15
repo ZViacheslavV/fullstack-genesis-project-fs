@@ -15,7 +15,9 @@ export default function Tabs({ active, onChange }: Props) {
         type="button"
         onClick={() => onChange('baby')}
         aria-pressed={active === 'baby'}
-        className={css.button}
+        className={
+          active === 'baby' ? css.button_active : css.button_non_active
+        }
       >
         Розвиток малюка
       </Button>
@@ -24,7 +26,7 @@ export default function Tabs({ active, onChange }: Props) {
         type="button"
         onClick={() => onChange('mom')}
         aria-pressed={active === 'mom'}
-        className={css.button_non_active}
+        className={active === 'mom' ? css.button_active : css.button_non_active}
       >
         Тіло мами
       </Button>

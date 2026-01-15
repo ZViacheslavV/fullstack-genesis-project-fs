@@ -1,0 +1,29 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  transition:
+    transform 0.35s ease,
+    opacity 0.25s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.active {
+  position: relative;
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.left {
+  transform: translateX(-100%);
+}
+
+.right {
+  transform: translateX(100%);
+}
