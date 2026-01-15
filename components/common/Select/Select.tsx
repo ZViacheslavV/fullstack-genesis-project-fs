@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Select, { SingleValue } from 'react-select';
 import {
   genderOptions,
@@ -13,23 +14,37 @@ type Props = {
 };
 
 function GenderSelect({ value, onChange }: Props) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+    
+    return () => clearTimeout(timeout);
+  }, []);
+
   const selectedOption = genderOptions.find((o) => o.value === value) ?? null;
 
   const handleChange = (option: SingleValue<GenderOption>) => {
     onChange(option ? option.value : null);
   };
 
+  if (!mounted) {
+    return <div style={{ minHeight: '40px', border: '1px solid #ddd' }} />;
+  }
+
   return (
     <Select
+      instanceId="gender-select"
       options={genderOptions}
       placeholder="Оберіть стать дитини"
       isSearchable={false}
       styles={genderSelectStyles}
-      value={selectedOption} 
+      value={selectedOption}
       onChange={handleChange}
     />
   );
 }
 
 export default GenderSelect;
-

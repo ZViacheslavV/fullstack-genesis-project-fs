@@ -1,8 +1,9 @@
 export type DiaryEntry = {
   _id: string;
   title: string;
-  note: string;
-  emotions: string[];
+  description: string;
+  emotions: Array<{ _id: string; title: string }> | string[];
+  date?: string;
   createdAt: string;
   updatedAt: string;
 };

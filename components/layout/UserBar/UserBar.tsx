@@ -59,9 +59,9 @@ function UserBar() {
           height={40}
         />
 
-        <div>
-          <p className={css.name}>{user?.name}</p>
-          <p className={css.email}>{user?.email}</p>
+        <div className={css.info}>
+          <p>{user?.name}</p>
+          <p>{user?.email}</p>
         </div>
       </div>
 

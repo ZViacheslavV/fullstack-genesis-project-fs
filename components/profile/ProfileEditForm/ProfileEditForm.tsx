@@ -67,7 +67,7 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
   };
 
   return (
-    <div className="">
+    <div className={css.fullLowerContent}>
       <Formik
         className=""
         initialValues={initialValues}
@@ -121,7 +121,7 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                 </ErrorMessage>
               </label>
 
-              <label className={css.label}>
+              <label className={`${css.label} ${css.dateLabel}`}>
                 Планова дата пологів
                 <div className={css.dateWrapper}>
                   <Field

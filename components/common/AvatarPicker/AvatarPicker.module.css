@@ -1,23 +1,61 @@
+.picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
 .avatarWrapper {
-    width: 120px;
-    height: 120px;
+    position: relative;
+    width: 132px;
+    height: 132px;
     border-radius: 50%;
     overflow: hidden;
-    position: relative;
-    background: #eee;
 }
 
 .avatarImage {
     object-fit: cover;
-    /* 🔑 без искажений */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .changeButton {
-    border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+border-bottom: 4px solid var(--opacity-neutral-darkest-15);
     border-radius: 100px;
     padding: 8px 20px;
     width: 335px;
     height: 38px;
     background: var(--opacity-neutral-darkest-5);
-    cursor: pointer;
+    text-align: center;
+}
+
+.changeButton:hover {
+    background: #e6e6e6;
+}
+
+.error {
+    color: #e53935;
+    font-size: 12px;
+}
+
+/* Tablet & Desktop 768px+ */
+@media only screen and (min-width: 768px) {
+    .picker {
+        flex-direction: row;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .content {
+        align-items: flex-start;
+    }
+
+    .changeButton {
+        width: fit-content;
+    }
 }

@@ -1,34 +1,42 @@
 .page {
-  display: block;
-}
-
-/* ====== DESKTOP LAYOUT ====== */
-.container {
   display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
-/* ліва колонка (список) */
-.sidebar {
-  width: 320px;
+/* Обгортка для картки запису */
+.card {
+  background: #fff5f6;
+  border-radius: 20px;
+  padding: 24px;
+  min-height: 400px;
 }
 
-/* права колонка (деталі) */
-.details {
-  flex: 1;
+/* Центрування лоадера */
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }
 
-/* ====== MOBILE + TABLET ====== */
-@media (max-width: 1023px) {
-  .container {
-    flex-direction: column;
-  }
+.infoText {
+  text-align: center;
+  color: #888;
+  margin-top: 40px;
+}
 
-  .sidebar {
-    display: block;
-  }
+/* ===== TOAST ANIMATION ===== */
+.toastWrapper {
+  transition: all 0.3s ease-in-out;
+}
 
-  .details {
-    display: none;
-  }
+.toastEnter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toastExit {
+  opacity: 0;
+  transform: translateY(-10px);
 }

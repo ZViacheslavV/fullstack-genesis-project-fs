@@ -148,12 +148,17 @@ function TasksReminderCard({ hasAuth }: Props) {
       <div className={css.taskCard}>
         <div className={css.taskCardHeader}>
           <h3 className={css.taskCardTitle}>Важливі завдання</h3>
-          <button onClick={openModal} className={css.addTaskBtn}>
+          <button
+            onClick={openModal}
+            className={css.addTaskBtn}
+            aria-label="Створити нове завдання"
+          >
             <svg
               width={21}
               height={21}
               fill={'#000000'}
               className={css.addTaskBtnIcon}
+              aria-hidden="true"
             >
               <use href="/icons.svg#icon-add-circle"></use>
             </svg>
