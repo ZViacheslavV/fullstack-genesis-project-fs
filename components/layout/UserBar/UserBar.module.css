@@ -13,17 +13,9 @@
   object-fit: cover;
 }
 
-.name {
+.info {
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 12px;
-  line-height: 160%;
-  color: var(--color-scheme-text);
-}
-
-.email {
-  font-family: var(--font-family);
-  font-weight: 400;
   font-size: 12px;
   line-height: 160%;
   color: var(--color-scheme-text);
@@ -41,11 +33,15 @@
 }
 
 @media only screen and (min-width: 1440px) {
-  .name {
-    font-size: 14px;
+  .userBar {
+    margin-top: 8px;
   }
 
-  .email {
+  .userInfo {
+    gap: 12px;
+  }
+
+  .info {
     font-size: 14px;
   }
 }
