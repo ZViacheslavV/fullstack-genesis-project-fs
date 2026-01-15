@@ -15,7 +15,7 @@ import {
 
 //===========================================================================
 
-const SITE_URL = 'https://fullstack-genesis-project.vercel.app/';
+export const SITE_URL = 'https://fullstack-genesis-project.vercel.app/';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

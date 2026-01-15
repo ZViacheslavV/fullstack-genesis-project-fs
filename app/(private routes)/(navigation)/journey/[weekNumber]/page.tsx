@@ -1,21 +1,108 @@
-'use client';
+import type { Metadata } from 'next';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+// import { cookies } from 'next/headers';
 
-import { useParams, notFound } from 'next/navigation';
-import BabyJourney from '@/components/journey/BabyJourney/BabyJourney';
-import JourneyDetails from '@/components/journey/JourneyDetails/JourneyDetails';
-import MomyJourney from '@/components/journey/MomyJourney/MomyJourney';
+import {
+  getBabyWeeksServer,
+  getMomWeeksServer,
+  getServerTasks,
+  getWeeksCurrentServer,
+} from '@/lib/api/serverApi';
+import JourneyPageClient from '@/components/journey/JourneyPageClient/JourneyPageClient';
+import { SITE_URL } from '../../page';
 
-export default function JourneyPage() {
-  const { weekNumber } = useParams<{ weekNumber: string }>();
+//===========================================================================
+
+type Props = {
+  params: Promise<{ weekNumber: string }>;
+};
+
+//===========================================================================
+
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const { weekNumber } = await params;
+
+  return {
+    title: 'Подорож | Лелека',
+    description:
+      'Зробіть віртуальну подорож по розвитку вашого малюка й запишіть свої задачі',
+    openGraph: {
+      title: 'Подорож | Лелека',
+      description:
+        'Зробіть віртуальну подорож по розвитку вашого малюка й запишіть свої задачі',
+      url: `${SITE_URL}/journey/${weekNumber}`,
+      siteName: 'Лелека',
+      images: [
+        {
+          url: '/leleka-og-meta.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'Leleka image',
+        },
+      ],
+      locale: 'uk_UA',
+      type: 'website',
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Подорож | Лелека',
+      description:
+        'Зробіть віртуальну подорож по розвитку вашого малюка й запишіть свої задачі',
+      images: ['/leleka-og-meta.jpg'],
+    },
+  };
+};
+
+//===========================================================================
+
+const JourneyPage = async ({ params }: Props) => {
+  const queryClient = new QueryClient();
+
+  const { weekNumber } = await params;
+
+  /*   const cookieStore = await cookies();
+  const hasAuth = cookieStore.has('accessToken'); */
+
   const week = Number(weekNumber);
-  if (!Number.isFinite(week) || week < 1) notFound();
+  //  if (!Number.isFinite(week) || week < 1) notFound(); //TODO handle wrong inputs
+
+  await queryClient.prefetchQuery({
+    queryKey: ['weeks', 'current-or-demo'],
+    queryFn: getWeeksCurrentServer,
+    staleTime: 60_000,
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ['mom', week],
+    queryFn: () => getMomWeeksServer(week),
+    staleTime: 60_000,
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ['baby', week],
+    queryFn: () => getBabyWeeksServer(week),
+    staleTime: 60_000,
+  });
+
+  /*   if (hasAuth) { */
+  await queryClient.prefetchQuery({
+    queryKey: ['task'],
+    queryFn: getServerTasks,
+    staleTime: 60_000,
+  });
+  /*   } */
 
   return (
-    <>
-      <JourneyDetails
-        baby={<BabyJourney weekNumber={week} />}
-        mom={<MomyJourney weekNumber={week} />}
-      />
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <JourneyPageClient />
+    </HydrationBoundary>
   );
-}
+};
+export default JourneyPage;

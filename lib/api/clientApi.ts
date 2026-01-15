@@ -158,6 +158,7 @@ export const getWeeksCurrent = async (): Promise<WeeksApiResponse> => {
 export const getBabyWeeks = async (
   weekNumber: number | string
 ): Promise<BabyWeeksApiResponse> => {
+  console.log('🔵 CLIENT fetch weeks BABY'); // TODO del console.log
   const { data } = await nextServer.get<BabyWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`
   );
@@ -167,6 +168,7 @@ export const getBabyWeeks = async (
 export const getMomWeeks = async (
   weekNumber: number | string
 ): Promise<MomWeeksApiResponse> => {
+  console.log('🔵 CLIENT fetch weeks MOM'); // TODO del console.log
   const { data } = await nextServer.get<MomWeeksApiResponse>(
     `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`
   );
@@ -219,7 +221,7 @@ export const updateAvatar = async (file: File) => {
 // ============================  TASKS  =============================
 
 import { Task, TaskFormData, UpdateTaskStatus } from '@/types/task';
-import axios, { AxiosInstance } from 'axios';
+// import axios, { AxiosInstance } from 'axios';
 
 export async function getTasks(): Promise<Task[]> {
   console.log('🔵 CLIENT fetch tasks'); // TODO del console.log

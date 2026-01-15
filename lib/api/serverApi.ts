@@ -3,7 +3,7 @@ import { API_ENDPOINTS, nextServer } from './api';
 
 import type { User } from '@/types/user';
 import { Task } from '@/types/task';
-import { WeeksApiResponse } from '@/types/weeks';
+import { MomWeeksApiResponse, WeeksApiResponse } from '@/types/weeks';
 
 //===========================================================================
 
@@ -64,6 +64,26 @@ export const getWeeksDemoServer = async () => {
   const headers = await cookieHeaders();
   const { data } = await nextServer.get<WeeksApiResponse>(
     API_ENDPOINTS.WEEKS_DEMO,
+    { headers }
+  );
+  return data;
+};
+
+export const getMomWeeksServer = async (weekNumber: number | string) => {
+  console.log('🟢 SERVER fetch weeks MOM'); //TODO del console.log
+  const headers = await cookieHeaders();
+  const { data } = await nextServer.get<MomWeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_MOM_WEEK_NUMB}${weekNumber}`,
+    { headers }
+  );
+  return data;
+};
+
+export const getBabyWeeksServer = async (weekNumber: number | string) => {
+  console.log('🟢 SERVER fetch weeks BABY'); //TODO del console.log
+  const headers = await cookieHeaders();
+  const { data } = await nextServer.get<MomWeeksApiResponse>(
+    `${API_ENDPOINTS.WEEKS_BABY_WEEK_NUMB}${weekNumber}`,
     { headers }
   );
   return data;
