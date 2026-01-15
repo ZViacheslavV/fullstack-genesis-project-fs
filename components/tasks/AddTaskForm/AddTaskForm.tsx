@@ -46,11 +46,12 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
 
   const queryClient = useQueryClient();
   const { draft, setDraft, clearDraft } = useTaskStore();
+  const isDraftDateValid = draft.date && draft.date >= todayString;
+
   const initialValues: TaskFormValues = {
     name: draft.name || '',
-    date: draft.date || todayString,
+    date: isDraftDateValid ? draft.date : todayString,
   };
-
   const { mutate, isPending } = useMutation({
     mutationFn: async (TaskFormData: TaskFormData) =>
       await createTask(TaskFormData),
@@ -62,13 +63,18 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
         () => <Toast type="success" message="Завдання успішно додано" />,
         { duration: 5000 }
       );
-
       clearDraft();
       if (afterSubmit) {
         afterSubmit();
       }
     },
-    onError: () => toast('Sorry, something went wrong, please try again'),
+    onError: () =>
+      toast.custom(
+        () => (
+          <Toast type="error" message="Щось пішло не так. Спробуйте ще раз" />
+        ),
+        { duration: 5000 }
+      ),
   });
 
   const handleSubmit = (
