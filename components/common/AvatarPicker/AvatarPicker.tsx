@@ -1,15 +1,13 @@
 'use client';
-
 import { useState } from 'react';
 import css from './AvatarPicker.module.css';
 import Image from 'next/image';
 import { updateAvatar } from '@/lib/api/clientApi';
 
-//===========================================================================
-
 type Props = {
   profilePhotoUrl?: string | null;
-   children?: React.ReactNode;
+  children?: React.ReactNode;
+  layout?: 'vertical' | 'horizontal';
 };
 
 function AvatarPicker({ profilePhotoUrl, children }: Props) {
@@ -26,23 +24,19 @@ function AvatarPicker({ profilePhotoUrl, children }: Props) {
         setError('Only images');
         return;
       }
-
       if (file.size > 5 * 1024 * 1024) {
         setError('Max file size 5MB');
         return;
       }
+
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result as string);
-      };
+      reader.onloadend = () => setPreviewUrl(reader.result as string);
       reader.readAsDataURL(file);
+
       try {
         setLoading(true);
         const updatedUser = await updateAvatar(file);
-
-        if (updatedUser.photo) {
-          setPreviewUrl(updatedUser.photo);
-        }
+        if (updatedUser.photo) setPreviewUrl(updatedUser.photo);
       } catch (err) {
         console.log(err);
       } finally {
@@ -51,29 +45,31 @@ function AvatarPicker({ profilePhotoUrl, children }: Props) {
     }
   };
 
-
   return (
-    <div className={css.picker}>
+    <div className={`${css.picker} `}>
       {previewUrl && (
         <div className={css.avatarWrapper}>
           <Image src={previewUrl} alt="" fill className={css.avatarImage} />
         </div>
       )}
- {children && <div>{children}</div>}
-      <label className={css.changeButton}>
-        {loading ? 'Uploading...' : 'Завантажити нове фото'}
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          disabled={loading}
-          hidden
-        />
-      </label>
+
+      <div className={css.content}>
+        {children}
+        <label className={css.changeButton}>
+          {loading ? 'Uploading...' : 'Завантажити нове фото'}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            disabled={loading}
+            hidden
+          />
+        </label>
+      </div>
+
       {error && <p className={css.error}>{error}</p>}
     </div>
   );
 }
 
 export default AvatarPicker;
-
