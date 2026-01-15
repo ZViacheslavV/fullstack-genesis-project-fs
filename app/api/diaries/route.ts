@@ -7,9 +7,7 @@ import { API_ENDPOINTS } from '@/lib/api/api';
 import { logErrorResponse } from '../_utils/utils';
 
 function serializeCookies() {
-  // Next 15: cookies() async
-  // Header Cookie: "a=1; b=2"
-  // Беремо всі cookie і склеюємо
+
   return cookies().then((store) =>
     store
       .getAll()
@@ -88,7 +86,6 @@ export async function DELETE(request: Request) {
       }
     );
 
-    // 🔥 ВАЖЛИВО
     if (res.status === 204) {
       return new NextResponse(null, { status: 204 });
     }

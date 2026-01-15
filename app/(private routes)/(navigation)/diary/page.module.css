@@ -46,3 +46,18 @@
   text-align: center;
   color: #888;
 }
+
+/* ===== TOAST ANIMATION ===== */
+.toastWrapper {
+  transition: all 0.3s ease-in-out;
+}
+
+.toastEnter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toastExit {
+  opacity: 0;
+  transform: translateY(-10px);
+}

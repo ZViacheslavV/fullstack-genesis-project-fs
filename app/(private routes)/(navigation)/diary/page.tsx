@@ -1,35 +1,49 @@
 'use client';
 
-import { useDiaryStore } from '@/lib/store/diaryStore';
-
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
+import { useDiaryStore } from '@/lib/store/diaryStore';
+
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
-// import Loader from '@/components/common/Loader/Loader';
+import Loader from '@/components/common/Loader/Loader';
 
 import DiaryList from '@/components/diary/DiaryList/DiaryList';
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
 import DiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
+import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
+import Toast from '@/components/common/Toast/Toast';
 
 import type { DiaryEntry } from '@/types/diary';
-import { isWrappedDiariesResponse } from '@/types/diary';
-
 import css from './page.module.css';
 
 type ModalMode = 'create' | 'edit';
 
 export default function DiaryPage() {
-  const [entries, setEntries] = useState<DiaryEntry[]>([]);
+  const { entries, isLoading, fetchEntries, removeEntry } = useDiaryStore();
+
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [isForbidden, setIsForbidden] = useState(false);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState<ModalMode>('create');
-  const [modalInitialValues, setModalInitialValues] =
+  const [isEntryModalOpen, setIsEntryModalOpen] = useState(false);
+  const [entryModalMode, setEntryModalMode] = useState<ModalMode>('create');
+  const [entryModalValues, setEntryModalValues] =
     useState<Record<string, unknown>>();
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [idToDelete, setIdToDelete] = useState<string | null>(null);
+
+  // --- Helper для красивих тостів ---
+  const showToast = (message: string, type: 'success' | 'error') => {
+    toast.custom((t) => (
+      <div
+        className={`${css.toastWrapper} ${
+          t.visible ? css.toastEnter : css.toastExit
+        }`}
+      >
+        <Toast message={message} type={type} />
+      </div>
+    ));
+  };
 
   const selectedEntry = useMemo(() => {
     if (!selectedId) return null;
@@ -37,108 +51,69 @@ export default function DiaryPage() {
   }, [entries, selectedId]);
 
   useEffect(() => {
-    let active = true;
+    fetchEntries();
+  }, [fetchEntries]);
 
-    const load = async () => {
-      try {
-        setIsLoading(true);
-        setIsForbidden(false);
+  // Автоматичний вибір першого запису (Desktop)
+  useEffect(() => {
+    if (!selectedId && entries.length > 0) {
+      setSelectedId(entries[0]._id);
+    }
+  }, [entries, selectedId]);
 
-        const res = await fetch('/api/diaries', {
-          credentials: 'include',
-          cache: 'no-store',
-        });
 
-        if (res.status === 401 || res.status === 403) {
-          if (!active) return;
-          setIsForbidden(true);
-          setEntries([]);
-          setSelectedId(null);
-          return;
-        }
-
-        if (!res.ok) throw new Error();
-
-        const raw = await res.json();
-
-        const list: DiaryEntry[] = Array.isArray(raw)
-          ? raw
-          : isWrappedDiariesResponse(raw)
-            ? raw.data
-            : [];
-
-        if (!active) return;
-
-        setEntries(list);
-
-        if (!selectedId && list.length > 0) {
-          setSelectedId(list[0]._id);
-        }
-      } catch {
-        if (!active) return;
-        toast.error('Не вдалося завантажити записи щоденника');
-        setEntries([]);
-        setSelectedId(null);
-      } finally {
-        if (active) setIsLoading(false);
-      }
-    };
-
-    load();
-    return () => {
-      active = false;
-    };
-  }, []);
 
   const openCreateModal = () => {
-    setModalMode('create');
-    setModalInitialValues(undefined);
-    setIsModalOpen(true);
+    setEntryModalMode('create');
+    setEntryModalValues(undefined);
+    setIsEntryModalOpen(true);
   };
 
   const openEditModal = (entry: DiaryEntry) => {
-    setModalMode('edit');
-    setModalInitialValues({
+    setEntryModalMode('edit');
+    setEntryModalValues({
       _id: entry._id,
       title: entry.title,
-      note: entry.note,
+      description: entry.description,
       emotions: entry.emotions,
     });
-    setIsModalOpen(true);
+    setIsEntryModalOpen(true);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDeleteClick = (id: string) => {
+    setIdToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!idToDelete) return;
+
     try {
-      const res = await fetch('/api/diaries', {
-        method: 'DELETE',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id }),
-      });
+      await removeEntry(idToDelete);
+      showToast('Запис успішно видалено', 'success');
 
-      if (!res.ok) throw new Error();
-
-      toast.success('Запис видалено');
-
-      setEntries((prev) => prev.filter((e) => e._id !== id));
-      setSelectedId((prev) => (prev === id ? null : prev));
+      if (selectedId === idToDelete) {
+        setSelectedId(null);
+      }
     } catch {
-      toast.error('Не вдалося видалити запис');
+      showToast('Не вдалося видалити запис', 'error');
+    } finally {
+      setIsDeleteModalOpen(false);
+      setIdToDelete(null);
     }
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setIdToDelete(null);
   };
 
   return (
     <div className={css.page}>
       <GreetingBlock />
 
-      {isLoading ? (
-        <div className={css.loader}>{/* <Loader /> */}</div>
-      ) : isForbidden ? (
-        <p className={css.infoText}>
-          Щоб переглянути щоденник, потрібно увійти.
-        </p>
+      {isLoading && entries.length === 0 ? (
+        <div className={css.loader}><Loader /></div>
       ) : (
         <>
           <div className={css.grid}>
@@ -153,16 +128,30 @@ export default function DiaryPage() {
               <DiaryEntryDetails
                 entry={selectedEntry}
                 onEdit={openEditModal}
-                onDelete={handleDelete}
+                onDelete={handleDeleteClick}
               />
             </div>
           </div>
 
           <DiaryEntryModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            mode={modalMode}
-            initialValues={modalInitialValues}
+            isOpen={isEntryModalOpen}
+            onClose={() => setIsEntryModalOpen(false)}
+            onSuccess={() => {
+               fetchEntries();
+               showToast(entryModalMode === 'create' ? 'Запис створено' : 'Запис оновлено', 'success');
+            }}
+            mode={entryModalMode}
+            initialValues={entryModalValues}
+          />
+
+          <ConfirmationModal
+            isOpen={isDeleteModalOpen}
+            title="Ви впевнені, що хочете видалити цей запис?"
+            confirmButtonText="Видалити"
+            cancelButtonText="Скасувати"
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCloseDeleteModal}
+            isLoading={isLoading}
           />
         </>
       )}
