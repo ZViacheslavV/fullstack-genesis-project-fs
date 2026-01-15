@@ -44,20 +44,21 @@ export default function BabyJourney({ weekNumber }: Props) {
           Ваш малюк зараз розміром з {baby.analogy}
         </figcaption>
       </div>
-
-      <div className={css.container_text}>
-        <p className={css.text}>{baby.babyDevelopment}</p>
-        <p className={css.text}>{baby.babyActivity}</p>
-      </div>
-
-      <div className={css.container_fact}>
-        <div className={css.container_fact_svg}>
-          <svg width={24} height={24}>
-            <use href="/icons.svg#icon-star-shine" />
-          </svg>
+      <div className={css.container_wrap}>
+        <div className={css.container_text}>
+          <p className={css.text}>{baby.babyDevelopment}</p>
+          <p className={css.text}>{baby.babyActivity}</p>
         </div>
-        <h2 className={css.fact_title}>Цікавий факт тижня</h2>
-        <p className={css.text}>{baby.interestingFact}</p>
+
+        <div className={css.container_fact}>
+          <div className={css.container_fact_svg}>
+            <svg width={24} height={24}>
+              <use href="/icons.svg#icon-star-shine" />
+            </svg>
+          </div>
+          <h2 className={css.fact_title}>Цікавий факт тижня</h2>
+          <p className={css.text}>{baby.interestingFact}</p>
+        </div>
       </div>
     </div>
   );

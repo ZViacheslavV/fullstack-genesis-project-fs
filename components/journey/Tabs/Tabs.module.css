@@ -8,7 +8,7 @@
   margin-top: 32px;
 }
 
-.button {
+.button_active {
   border: 1px solid var(--opacity-transparent);
   border-radius: 100px;
   padding: 10px 24px;
@@ -42,7 +42,7 @@
     width: 704px;
   }
 
-  .button {
+  .button_active {
     width: 347px;
   }
 
@@ -59,7 +59,7 @@
     margin-right: auto;
   }
 
-  .button {
+  .button_active {
     width: 275px;
     height: 46px;
   }
