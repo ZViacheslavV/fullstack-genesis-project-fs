@@ -13,7 +13,9 @@ type Props = {
 };
 
 function GenderSelect({ value, onChange }: Props) {
-  const selectedOption = genderOptions.find((o) => o.value === value) ?? null;
+  
+  const selectedOption: GenderOption | null =
+    genderOptions.find((o) => o.value === value) ?? null;
 
   const handleChange = (option: SingleValue<GenderOption>) => {
     onChange(option ? option.value : null);
@@ -25,11 +27,10 @@ function GenderSelect({ value, onChange }: Props) {
       placeholder="Оберіть стать дитини"
       isSearchable={false}
       styles={genderSelectStyles}
-      value={selectedOption} 
+      value={selectedOption}
       onChange={handleChange}
     />
   );
 }
 
 export default GenderSelect;
-
