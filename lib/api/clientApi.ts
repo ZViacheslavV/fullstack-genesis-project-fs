@@ -207,7 +207,10 @@ export const updateAvatar = async (file: File) => {
   console.log(formData);
   const { data } = await nextServer.patch<User>(
     `${API_ENDPOINTS.USER_CURRENT_PATCH_AVA}`,
-    formData
+    formData,
+    {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }
   );
 
   return data;
@@ -255,8 +258,6 @@ export const updateCurrentUser = async (data: UpdateProfile) => {
 // ------------------------- Данило
 
 // ============================  DIARY  =============================
-
-
 
 export type DiaryPayload = {
   title: string;
@@ -306,7 +307,7 @@ export const updateDiary = async (
 /* ================= DELETE ================= */
 export const deleteDiary = async (id: string): Promise<void> => {
   await nextServer.delete(
-    `${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`, 
+    `${API_ENDPOINTS.DIARIES_DELETE_ID}${id}`,
     { responseType: 'text' } // щоб уникнути помилки парсингу порожнього JSON
   );
 };

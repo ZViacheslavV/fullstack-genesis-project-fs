@@ -49,19 +49,6 @@ export const fetchDiaryById = async () => {};
 
 // ---------------- WEEKS --------------------------------------------------
 
-/* export const getWeeksCurrentServer = async (cookies?: HeadersInit) => {
-  return fetch(`${API_URL}/weeks/current`, {
-    headers: cookies,
-    cache: 'no-store',
-  }).then((r) => r.json());
-}; */
-
-/* export const getWeeksDemoServer = async () => {
-  return fetch(`${API_URL}/weeks/demo`, {
-    cache: 'force-cache',
-  }).then((r) => r.json());
-};
- */
 export const getWeeksCurrentServer = async () => {
   console.log('🟢 SERVER fetch weeks'); //TODO del console.log
   const headers = await cookieHeaders();
