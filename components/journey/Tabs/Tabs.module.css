@@ -18,7 +18,7 @@
   position: absolute;
   top: 4px;
   bottom: 4px;
-  /* width: 162px; */
+  width: 140px;
   border-radius: 100px;
   background: var(--color-scheme-foreground-alt);
   transition: transform 0.3s ease-in-out;

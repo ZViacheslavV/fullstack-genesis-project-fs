@@ -64,26 +64,6 @@ export default function Tabs({ active, onChange }: Props) {
       >
         Тіло мами
       </Button>
-
-      {/* <Button
-        type="button"
-        onClick={() => onChange('baby')}
-        aria-pressed={active === 'baby'}
-        className={
-          active === 'baby' ? css.button_active : css.button_non_active
-        }
-      >
-        Розвиток малюка
-      </Button>
-
-      <Button
-        type="button"
-        onClick={() => onChange('mom')}
-        aria-pressed={active === 'mom'}
-        className={active === 'mom' ? css.button_active : css.button_non_active}
-      >
-        Тіло мами
-      </Button> */}
     </div>
   );
 }
