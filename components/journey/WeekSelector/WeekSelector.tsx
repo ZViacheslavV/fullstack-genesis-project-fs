@@ -3,6 +3,7 @@
 import { useMemo, useCallback, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import useEmblaCarousel from 'embla-carousel-react';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
 import styles from './WeekSelector.module.css';
 import { useWeekStore } from '@/lib/store/weekStore';
@@ -45,11 +46,14 @@ export default function WeekSelector() {
   const user = useAuthUserStore((s) => s.user);
   const dueDate = user?.dueDate;
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    dragFree: true,
-    containScroll: 'trimSnaps',
-    align: 'start',
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      dragFree: true,
+      containScroll: 'trimSnaps',
+      align: 'start',
+    },
+    [WheelGesturesPlugin({ forceWheelAxis: 'x' })]
+  );
 
   const currentWeek = useMemo(
     () => calcCurrentWeekFromDueDate(dueDate),
