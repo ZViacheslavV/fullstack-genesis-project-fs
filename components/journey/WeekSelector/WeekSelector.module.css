@@ -9,6 +9,7 @@
   padding: 2px 2px 8px;
   align-items: stretch;
   will-change: transform;
+  touch-action: pan-y;
 }
 
 .slide {
@@ -33,6 +34,8 @@
 
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
+
   transition:
     background 160ms ease,
     opacity 160ms ease,
@@ -41,14 +44,18 @@
     border-color 160ms ease;
 }
 
-.week:hover:not(:disabled) {
+.week:hover:not(.disabled) {
   background: #ffcbd3;
   opacity: 1;
 }
 
-.week:focus-visible {
+.week:focus-visible:not(.disabled) {
   outline: none;
   box-shadow: 0 0 0 3px rgba(255, 143, 163, 0.55);
+}
+
+.week:active:not(.disabled) {
+  transform: translateY(-1px);
 }
 
 .weekNumber {
@@ -78,13 +85,25 @@
     opacity 160ms ease;
 }
 
-.week:disabled,
-.disabled {
+.week.disabled {
   background: #f2f2f2;
   opacity: 0.35;
-  cursor: not-allowed;
+  cursor: default;
   box-shadow: none;
+  transform: none;
 }
+
+.week.disabled:hover,
+.week.disabled:active,
+.week.disabled:focus,
+.week.disabled:focus-visible {
+  background: #f2f2f2;
+  opacity: 0.35;
+  box-shadow: none;
+  transform: none;
+  outline: none;
+}
+
 .past {
   background: #fff4f6;
   opacity: 0.95;
@@ -124,22 +143,5 @@
 
   .weekLabel {
     font-size: 14px;
-  }
-}
-
-@media (max-width: 420px) {
-  .container {
-    gap: 10px;
-  }
-
-  .week {
-    width: 82px;
-    height: 92px;
-    border-radius: 26px;
-    padding: 12px;
-  }
-
-  .weekNumber {
-    font-size: 26px;
   }
 }

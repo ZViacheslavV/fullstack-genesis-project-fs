@@ -3,6 +3,7 @@
 import { useMemo, useCallback, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import useEmblaCarousel from 'embla-carousel-react';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
 import styles from './WeekSelector.module.css';
 import { useWeekStore } from '@/lib/store/weekStore';
@@ -45,11 +46,14 @@ export default function WeekSelector() {
   const user = useAuthUserStore((s) => s.user);
   const dueDate = user?.dueDate;
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    dragFree: true,
-    containScroll: 'trimSnaps',
-    align: 'start',
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      dragFree: true,
+      containScroll: 'trimSnaps',
+      align: 'start',
+    },
+    [WheelGesturesPlugin({ forceWheelAxis: 'x' })]
+  );
 
   const currentWeek = useMemo(
     () => calcCurrentWeekFromDueDate(dueDate),
@@ -88,10 +92,12 @@ export default function WeekSelector() {
 
   const goToWeek = useCallback(
     (week: number) => {
-      if (week > currentWeek) return;
+      const safe = clampWeek(week);
 
-      setCurWeek(week);
-      router.push(`/journey/${week}`, { scroll: false });
+      if (safe > currentWeek) return;
+
+      setCurWeek(safe);
+      router.push(`/journey/${safe}`, { scroll: false });
     },
     [router, setCurWeek, currentWeek]
   );
@@ -121,8 +127,12 @@ export default function WeekSelector() {
             <div key={week} className={styles.slide}>
               <button
                 type="button"
-                disabled={isDisabled}
-                onClick={() => goToWeek(week)}
+                aria-disabled={isDisabled}
+                tabIndex={isDisabled ? -1 : 0}
+                onClick={() => {
+                  if (isDisabled) return;
+                  goToWeek(week);
+                }}
                 className={className}
                 aria-current={isActive ? 'page' : undefined}
                 title={

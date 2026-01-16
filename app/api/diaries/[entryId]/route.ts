@@ -6,6 +6,8 @@ import { NextResponse } from 'next/server';
 import { logErrorResponse } from '../../_utils/utils';
 import { api } from '../../api';
 
+export const dynamic = 'force-dynamic';
+
 type Props = {
   params: Promise<{ entryId: string }>;
 };
@@ -18,6 +20,7 @@ async function serializeCookies() {
     .join('; ');
 }
 
+// === PATCH (Редагування) ===
 export async function PATCH(request: Request, { params }: Props) {
   const { entryId } = await params;
   const body = await request.json();
@@ -51,20 +54,22 @@ export async function PATCH(request: Request, { params }: Props) {
   }
 }
 
+// === DELETE (Видалення) ===
 export async function DELETE(_: Request, { params }: Props) {
   const { entryId } = await params;
 
   try {
     const cookieHeader = await serializeCookies();
 
-    const res = await api.delete(
+    await api.delete(
       `${API_ENDPOINTS.DIARIES_DELETE_ID}${entryId}`,
       {
         headers: cookieHeader ? { Cookie: cookieHeader } : undefined,
       }
     );
 
-    return NextResponse.json(res.data, { status: res.status });
+    return NextResponse.json({ success: true }, { status: 200 });
+
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);
