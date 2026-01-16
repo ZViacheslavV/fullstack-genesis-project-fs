@@ -212,7 +212,6 @@ export const updateAvatar = async (file: File) => {
       headers: { 'Content-Type': 'multipart/form-data' },
     }
   );
-
   return data;
 };
 

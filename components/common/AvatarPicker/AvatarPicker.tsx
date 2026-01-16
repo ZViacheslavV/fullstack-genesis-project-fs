@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import css from './AvatarPicker.module.css';
-import { updateAvatar } from '@/lib/api/clientApi';
+import { getMe, updateAvatar } from '@/lib/api/clientApi';
+import { useAuthUserStore } from '@/lib/store/authStore';
 
 type Props = {
   profilePhotoUrl?: string | null;
@@ -22,7 +23,7 @@ function AvatarPicker({
   const [error, setError] = useState('');
   const [previewUrl, setPreviewUrl] = useState(profilePhotoUrl ?? '');
   const [loading, setLoading] = useState(false);
-
+  const { setUser } = useAuthUserStore();
   useEffect(() => {
     setPreviewUrl(profilePhotoUrl ?? '');
   }, [profilePhotoUrl]);
@@ -49,9 +50,12 @@ function AvatarPicker({
 
     try {
       setLoading(true);
-      const updatedUser = await updateAvatar(file);
-      if (updatedUser.photo) {
-        setPreviewUrl(updatedUser.photo);
+      await updateAvatar(file);
+      const userWithNewAva = await getMe();
+      console.log('updatedUser:', userWithNewAva);
+      if (userWithNewAva.photo) {
+        setUser(userWithNewAva);
+        setPreviewUrl(userWithNewAva.photo);
       }
     } catch (err) {
       console.error(err);
