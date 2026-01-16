@@ -89,6 +89,6 @@ export const config = {
     '/profile/:path*',
     '/diary/:path*',
     '/journey/:path*',
-    '/auth/:path',
+    '/auth/:path*',
   ],
 };
