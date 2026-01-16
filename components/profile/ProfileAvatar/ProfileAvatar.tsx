@@ -13,6 +13,7 @@ function ProfileAvatar({ user }: Props) {
   return (
     <AvatarPicker
       profilePhotoUrl={user.photo}
+      buttonVariant="profile"
       // onChangePhoto={setImageFile}
     >
       <p className={css.name}>{user.name}</p>

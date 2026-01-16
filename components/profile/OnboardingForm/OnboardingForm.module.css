@@ -6,41 +6,23 @@
   gap: 8px;
 }
 
-/* =========================
-   SELECT (native)
-========================= */
-
-.select {
+.picker{
   width: 100%;
-  height: 44px;
-  padding: 0 40px 0 16px;
-  /* место под стрелку */
-  font-size: 16px;
-  font-family: inherit;
-
-  background: #f2f2f2;
-  border-radius: 12px;
-  border: 2px solid transparent;
-
-  cursor: pointer;
-
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
 }
 
-.select:hover,
-.select:focus {
-  border-color: #FFCBD3;
-}
+/* =========================
+   SELECT
+========================= */
 
 .selectWrapper {
   width: 100%;
+  margin-bottom: 24px;
 }
 
 /* =========================
    DATE PICKER
 ========================= */
+
 
 :global(.react-datepicker-wrapper) {
   width: 100%;
@@ -71,7 +53,7 @@
 
 .dateInput:hover,
 .dateInput:focus {
-  border-color: #FFCBD3;
+  border-color: #ffCBD3;
 }
 
 .dateIcon {
@@ -116,29 +98,16 @@
 ========================= */
 
 @media only screen and (min-width: 768px) {
-  .saveButton {
-    width: 480px;
-  }
 
-  .dateInput {
-    width: 480px;
-  }
-
-  .select {
-    width: 480px;
-  }
 }
 
 @media only screen and (min-width: 1440px) {
   .saveButton {
-    width: 480px;
     height: 46px;
   }
 
   .dateInput {
-    width: 480px;
     height: 40px;
     padding: 8px 12px;
   }
 }
-

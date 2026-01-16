@@ -130,10 +130,8 @@
 /* =========================
    REACT DATEPICKER GLOBAL FIXES
 ========================= */
-
-:global(.react-datepicker__triangle),
-:global(.react-datepicker__navigation) {
-  display: none;
+:global(.react-datepicker__month) {
+  min-height: 200px;
 }
 
 :global(.react-datepicker-wrapper),

@@ -1,66 +1,84 @@
 'use client';
-import { useState } from 'react';
-import css from './AvatarPicker.module.css';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import css from './AvatarPicker.module.css';
 import { updateAvatar } from '@/lib/api/clientApi';
 
 type Props = {
   profilePhotoUrl?: string | null;
   children?: React.ReactNode;
   layout?: 'vertical' | 'horizontal';
+  buttonVariant?: 'onboarding' | 'profile';
   // onChangePhoto: (file: File | null) => void;
 };
 
 function AvatarPicker({
   profilePhotoUrl,
-  // onChangePhoto
   children,
+  layout = 'horizontal',
+  buttonVariant = 'onboarding',
 }: Props) {
   const [error, setError] = useState('');
   const [previewUrl, setPreviewUrl] = useState(profilePhotoUrl ?? '');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    setPreviewUrl(profilePhotoUrl ?? '');
+  }, [profilePhotoUrl]);
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setError('');
 
-    if (file) {
-      if (!file.type.startsWith('image/')) {
-        setError('Only images');
-        return;
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        setError('Max file size 5MB');
-        return;
-      }
-      // onChangePhoto(file);
-      const reader = new FileReader();
-      reader.onloadend = () => setPreviewUrl(reader.result as string);
-      reader.readAsDataURL(file);
+    if (!file) return;
 
-      try {
-        setLoading(true);
-        const updatedUser = await updateAvatar(file);
-        if (updatedUser.photo) setPreviewUrl(updatedUser.photo);
-      } catch (err) {
-        console.log('upd ava:', err);
-      } finally {
-        setLoading(false);
+    if (!file.type.startsWith('image/')) {
+      setError('Only images');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Max file size 5MB');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => setPreviewUrl(reader.result as string);
+    reader.readAsDataURL(file);
+
+    try {
+      setLoading(true);
+      const updatedUser = await updateAvatar(file);
+      if (updatedUser.photo) {
+        setPreviewUrl(updatedUser.photo);
       }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className={`${css.picker} `}>
+    <div
+      className={`${css.picker} ${layout === 'vertical' ? css.vertical : ''}`}
+    >
       {previewUrl && (
         <div className={css.avatarWrapper}>
-          <Image src={previewUrl} alt="" fill className={css.avatarImage} />
+          <Image
+            src={previewUrl}
+            alt="Avatar"
+            fill
+            className={css.avatarImage}
+          />
         </div>
       )}
 
       <div className={css.content}>
         {children}
-        <label className={css.changeButton}>
+
+        <label className={`${css.changeButton} ${css[buttonVariant]}`}>
           {loading ? 'Uploading...' : 'Завантажити нове фото'}
           <input
             type="file"
