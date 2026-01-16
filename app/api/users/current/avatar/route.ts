@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import FormData from 'form-data';
 import { API_ENDPOINTS } from '@/lib/api/api';
 import { NextResponse } from 'next/server';
-import { api } from '../../api';
+import { api } from '../../../api';
 
 export async function PATCH(req: Request) {
   try {

@@ -204,7 +204,7 @@ export const updateMe = async (userData: UpdateProfile) => {
 export const updateAvatar = async (file: File) => {
   const formData = new FormData();
   formData.append('avatar', file);
-  console.log(formData);
+  console.log('form data:', formData);
   const { data } = await nextServer.patch<User>(
     API_ENDPOINTS.USER_CURRENT_PATCH_AVA,
     formData,

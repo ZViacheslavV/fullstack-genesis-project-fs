@@ -10,6 +10,7 @@ type Props = {
   children?: React.ReactNode;
   layout?: 'vertical' | 'horizontal';
   buttonVariant?: 'onboarding' | 'profile';
+  // onChangePhoto: (file: File | null) => void;
 };
 
 function AvatarPicker({
@@ -21,7 +22,6 @@ function AvatarPicker({
   const [error, setError] = useState('');
   const [previewUrl, setPreviewUrl] = useState(profilePhotoUrl ?? '');
   const [loading, setLoading] = useState(false);
-
 
   useEffect(() => {
     setPreviewUrl(profilePhotoUrl ?? '');
@@ -42,7 +42,6 @@ function AvatarPicker({
       setError('Max file size 5MB');
       return;
     }
-
 
     const reader = new FileReader();
     reader.onloadend = () => setPreviewUrl(reader.result as string);
