@@ -5,14 +5,11 @@
 .logoRow {
   display: flex;
   align-items: center;
+  margin-bottom: 90px;
 }
 
+/* form — обычный поток, БЕЗ центрирования */
 .formWrap {
-  min-height: calc(100dvh - 62px);
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  padding: 16px 0;
 }
 
 /* desktop: split */
@@ -22,38 +19,59 @@
 
 .title {
   text-align: center;
-  width: 300px;
   font-family: var(--second-family);
   font-weight: 700;
   font-size: 36px;
   line-height: 1.2;
   letter-spacing: 0.01em;
-  text-align: center;
   color: var(--color-scheme-text);
-
   margin-bottom: 32px;
 }
 
-@media only screen and (min-width: 768px) {
+/* tablet */
+@media (min-width: 768px) {
   .title {
     width: 480px;
   }
+
+  .formWrap {
+    min-height: calc(100dvh - 62px);
+
+    max-width: 480px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 96px 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+    .logoRow {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+    }
 }
 
+/* desktop */
 @media (min-width: 1440px) {
   .page {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
+    align-items: stretch;
   }
 
   .left {
-    padding-right: 32px;
-    padding-left: 32px;
-  }
+    padding-left: 64px;
+    padding-right: 64px;
 
-  .formWrap {
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .right {
@@ -71,5 +89,10 @@
 
   .title {
     font-size: 48px;
+  }
+
+  .formWrap {
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
 }

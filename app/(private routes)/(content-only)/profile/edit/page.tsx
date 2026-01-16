@@ -11,6 +11,7 @@ import { getMe } from '@/lib/api/clientApi';
 import OnboardingForm from '@/components/profile/OnboardingForm/OnboardingForm';
 import Toast from '@/components/common/Toast/Toast';
 import css from './page.module.css';
+import AvatarPicker from '@/components/common/AvatarPicker/AvatarPicker';
 
 //===========================================================================
 
@@ -53,6 +54,7 @@ const OnboardingPage = () => {
 
         <div className={css.formWrap}>
           <h1 className={css.title}>Давайте познаймимось ближче</h1>
+          <AvatarPicker profilePhotoUrl={user?.photo} layout="vertical" buttonVariant="onboarding"/>
           <OnboardingForm initialData={user} />
         </div>
       </div>
