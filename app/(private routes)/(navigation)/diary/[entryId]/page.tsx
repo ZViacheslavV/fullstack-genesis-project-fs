@@ -7,7 +7,9 @@ import toast from 'react-hot-toast';
 import { useDiaryStore } from '@/lib/store/diaryStore';
 
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
-import Loader from '@/components/common/Loader/Loader';
+
+import { Baby } from '@/components/common/Loader';
+
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
 import DiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
 import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
@@ -25,7 +27,8 @@ export default function DiaryEntryPage() {
 
   const [isEntryModalOpen, setIsEntryModalOpen] = useState(false);
   const [entryModalMode, setEntryModalMode] = useState<ModalMode>('edit');
-  const [entryModalValues, setEntryModalValues] = useState<Record<string, unknown>>();
+  const [entryModalValues, setEntryModalValues] =
+    useState<Record<string, unknown>>();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -59,7 +62,7 @@ export default function DiaryEntryPage() {
     setEntryModalValues({
       _id: entry._id,
       title: entry.title,
-      description: entry.description, 
+      description: entry.description,
       emotions: entry.emotions,
     });
     setIsEntryModalOpen(true);
@@ -73,7 +76,7 @@ export default function DiaryEntryPage() {
     try {
       await removeEntry(entryId);
       showToast('Запис видалено', 'success');
-      router.push('/diary'); 
+      router.push('/diary');
     } catch {
       showToast('Помилка видалення', 'error');
     } finally {
@@ -85,17 +88,17 @@ export default function DiaryEntryPage() {
     <div className={css.page}>
       <GreetingBlock />
 
-      {isLoading && !entry ? (
-        <div className={css.loaderWrapper}>
-          <Loader />
+      {isLoading && entries.length === 0 ? (
+        <div className={css.loader}>
+          <Baby />
         </div>
       ) : entry ? (
         <>
           <div className={css.card}>
-            <DiaryEntryDetails 
-                entry={entry} 
-                onEdit={openEditModal}
-                onDelete={handleDeleteClick}
+            <DiaryEntryDetails
+              entry={entry}
+              onEdit={openEditModal}
+              onDelete={handleDeleteClick}
             />
           </div>
 
@@ -103,21 +106,21 @@ export default function DiaryEntryPage() {
             isOpen={isEntryModalOpen}
             onClose={() => setIsEntryModalOpen(false)}
             onSuccess={() => {
-                fetchEntries();
-                showToast('Запис оновлено', 'success');
+              fetchEntries();
+              showToast('Запис оновлено', 'success');
             }}
             mode={entryModalMode}
             initialValues={entryModalValues}
           />
 
           <ConfirmationModal
-             isOpen={isDeleteModalOpen}
-             title="Ви впевнені, що хочете видалити цей запис?"
-             confirmButtonText="Видалити"
-             cancelButtonText="Скасувати"
-             onConfirm={handleConfirmDelete}
-             onCancel={() => setIsDeleteModalOpen(false)}
-             isLoading={isLoading}
+            isOpen={isDeleteModalOpen}
+            title="Ви впевнені, що хочете видалити цей запис?"
+            confirmButtonText="Видалити"
+            cancelButtonText="Скасувати"
+            onConfirm={handleConfirmDelete}
+            onCancel={() => setIsDeleteModalOpen(false)}
+            isLoading={isLoading}
           />
         </>
       ) : (

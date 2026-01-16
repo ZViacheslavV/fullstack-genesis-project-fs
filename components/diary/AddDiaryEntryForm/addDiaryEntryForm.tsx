@@ -8,6 +8,8 @@ import { useEffect, useMemo, useState } from "react";
 import styles from "./AddDiaryEntryForm.module.css";
 import Button from "@/components/common/Button/Button";
 
+import { useDiaryStore } from "@/lib/store/diaryStore";
+
 import MultiSelect, { type EmotionDTO } from "./MultiSelect";
 
 type EmotionLike = string | { _id: string; title?: string };
@@ -57,19 +59,12 @@ function normalizeEmotionIds(emotions?: (string | { _id: string })[]): string[] 
     .filter((id): id is string => typeof id === "string" && id.length > 0);
 }
 
-function hasMessage(value: unknown): value is { message: string } {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "message" in value &&
-    typeof (value as { message?: unknown }).message === "string"
-  );
-}
-
 function getErrorMessage(e: unknown, fallback: string) {
   if (axios.isAxiosError(e)) {
     const data = e.response?.data;
-    if (hasMessage(data)) return data.message;
+    if (data && typeof data === 'object' && 'message' in data) {
+      return (data as { message: string }).message;
+    }
     return e.message || fallback;
   }
   if (e instanceof Error) return e.message || fallback;
@@ -86,7 +81,11 @@ function useEmotions() {
     (async () => {
       setLoading(true);
       try {
-        const res = await axios.get<EmotionsApiResponse>("/api/emotions", { withCredentials: true });
+        const res = await axios.get<EmotionsApiResponse>(
+          "/api/emotions",
+          { withCredentials: true }
+        );
+
         if (!alive) return;
         setEmotions(res.data.data ?? []);
       } catch (e: unknown) {
@@ -113,7 +112,10 @@ export default function AddDiaryEntryForm({
   mode = "create",
 }: AddDiaryEntryFormProps) {
   const entryId = initialValues?._id;
-  const { emotions, loading: loadingEmotions  } = useEmotions();
+  
+  const { addEntry, editEntry } = useDiaryStore();
+  
+  const { emotions, loading: loadingEmotions } = useEmotions();
 
   const defaults: FormValues = useMemo(
     () => ({
@@ -136,21 +138,21 @@ export default function AddDiaryEntryForm({
           try {
             const payload = {
               title: values.title.trim(),
-              description: values.description.trim(),
+              note: values.description.trim(),
               emotions: values.emotions,
             };
 
             if (mode === "edit") {
-              if (!entryId) throw new Error("Не знайдено id запису для редагування");
-              await axios.patch(`/api/diaries/${entryId}`, payload, { withCredentials: true });
+              if (!entryId) throw new Error("Не знайдено id запису");
+              await editEntry(entryId, payload);
             } else {
-              await axios.post(`/api/diaries`, payload, { withCredentials: true });
+              await addEntry(payload);
             }
 
             onSuccess();
           } catch (e: unknown) {
             helpers.setSubmitting(false);
-            toast.error(getErrorMessage(e, "Не вдалося зберегти запис. Спробуй ще раз."));
+            toast.error(getErrorMessage(e, "Не вдалося зберегти запис."));
           }
         }}
       >
@@ -185,14 +187,16 @@ export default function AddDiaryEntryForm({
             </div>
 
             <Button
-  type="submit"
-  size="md"
-  variant="normal"
-  isLoading={isSubmitting}
-  loadingText="Збереження…"
-  disabled={loadingEmotions}
-  className={styles.saveBtn}
->Зберегти</Button>
+              type="submit"
+              size="md"
+              variant="normal"
+              isLoading={isSubmitting}
+              loadingText="Збереження…"
+              disabled={loadingEmotions}
+              className={styles.saveBtn}
+            >
+              Зберегти
+            </Button>
           </Form>
         )}
       </Formik>
