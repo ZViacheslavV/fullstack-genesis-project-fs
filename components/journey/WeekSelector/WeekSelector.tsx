@@ -92,10 +92,12 @@ export default function WeekSelector() {
 
   const goToWeek = useCallback(
     (week: number) => {
-      if (week > currentWeek) return;
+      const safe = clampWeek(week);
 
-      setCurWeek(week);
-      router.push(`/journey/${week}`, { scroll: false });
+      if (safe > currentWeek) return;
+
+      setCurWeek(safe);
+      router.push(`/journey/${safe}`, { scroll: false });
     },
     [router, setCurWeek, currentWeek]
   );
@@ -125,8 +127,12 @@ export default function WeekSelector() {
             <div key={week} className={styles.slide}>
               <button
                 type="button"
-                disabled={isDisabled}
-                onClick={() => goToWeek(week)}
+                aria-disabled={isDisabled}
+                tabIndex={isDisabled ? -1 : 0}
+                onClick={() => {
+                  if (isDisabled) return;
+                  goToWeek(week);
+                }}
                 className={className}
                 aria-current={isActive ? 'page' : undefined}
                 title={

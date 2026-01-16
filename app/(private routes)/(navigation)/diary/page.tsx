@@ -111,7 +111,8 @@ export default function DiaryPage() {
       <GreetingBlock />
 
       {isLoading && entries.length === 0 ? (
-  <div className={css.loader}><Baby />
+        <div className={css.loader}>
+          <Baby />
         </div>
       ) : (
         <>
