@@ -9,7 +9,7 @@ interface Props {
 
 function ProfileAvatar({ user }: Props) {
   return (
-    <AvatarPicker profilePhotoUrl={user.photo}>
+    <AvatarPicker profilePhotoUrl={user.photo} buttonVariant="profile">
       <p className={css.name}>{user.name}</p>
       <p className={css.email}>{user.email}</p>
     </AvatarPicker>

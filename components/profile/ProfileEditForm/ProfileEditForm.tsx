@@ -131,6 +131,7 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                     component={CalendarDatePicker}
                     placeholderText="Оберіть дату"
                     className={css.dateInput}
+                    autoComplete="off"
                   />
 
                   <span className={css.dateIcon}>

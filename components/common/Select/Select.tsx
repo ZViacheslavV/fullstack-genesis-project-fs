@@ -37,6 +37,7 @@ function GenderSelect({ value, onChange }: Props) {
   return (
     <Select
       instanceId="gender-select"
+      classNamePrefix="react-select"
       options={genderOptions}
       placeholder="Оберіть стать дитини"
       isSearchable={false}
