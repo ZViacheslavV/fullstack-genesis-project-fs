@@ -9,6 +9,7 @@
   padding: 2px 2px 8px;
   align-items: stretch;
   will-change: transform;
+  touch-action: pan-y;
 }
 
 .slide {
