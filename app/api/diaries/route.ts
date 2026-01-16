@@ -6,6 +6,8 @@ import { api } from '../api';
 import { API_ENDPOINTS } from '@/lib/api/api';
 import { logErrorResponse } from '../_utils/utils';
 
+export const dynamic = 'force-dynamic';
+
 function serializeCookies() {
 
   return cookies().then((store) =>
