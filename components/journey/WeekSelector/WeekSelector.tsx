@@ -2,21 +2,38 @@
 
 import { useMemo, useCallback, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import type { AxiosError } from 'axios';
+import useEmblaCarousel from 'embla-carousel-react';
 
 import styles from './WeekSelector.module.css';
-import { getWeeksCurrent, getWeeksDemo } from '@/lib/api/clientApi';
 import { useWeekStore } from '@/lib/store/weekStore';
+import { useAuthUserStore } from '@/lib/store/authStore';
 
-function is401(err: unknown) {
-  const e = err as AxiosError | undefined;
-  return (
-    !!e && typeof e === 'object' && e /* as any */?.response?.status === 401
+const TOTAL_WEEKS = 40;
+const MS_IN_DAY = 24 * 60 * 60 * 1000;
+
+function calcCurrentWeekFromDueDate(dueDate?: string | null) {
+  if (!dueDate) return 1;
+
+  const iso = dueDate.includes('T') ? dueDate : `${dueDate}T00:00:00`;
+  const due = new Date(iso);
+  const today = new Date();
+
+  const daysLeft = Math.max(
+    0,
+    Math.ceil((due.getTime() - today.getTime()) / MS_IN_DAY)
   );
+
+  const week = Math.min(
+    TOTAL_WEEKS,
+    Math.max(1, TOTAL_WEEKS - Math.floor(daysLeft / 7))
+  );
+
+  return week;
 }
 
-const TOTAL_WEEKS = 42;
+function clampWeek(n: number) {
+  return Math.min(TOTAL_WEEKS, Math.max(1, n));
+}
 
 export default function WeekSelector() {
   const router = useRouter();
@@ -25,82 +42,102 @@ export default function WeekSelector() {
   const weekFromStore = useWeekStore((s) => s.weekNumb);
   const setCurWeek = useWeekStore((s) => s.setCurWeek);
 
+  const user = useAuthUserStore((s) => s.user);
+  const dueDate = user?.dueDate;
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    dragFree: true,
+    containScroll: 'trimSnaps',
+    align: 'start',
+  });
+
+  const currentWeek = useMemo(
+    () => calcCurrentWeekFromDueDate(dueDate),
+    [dueDate]
+  );
+
   const activeWeek = useMemo(() => {
     const n = Number(weekNumber);
-    if (!Number.isFinite(n) || n < 1) return weekFromStore || 1;
-    return n;
-  }, [weekNumber, weekFromStore]);
+    const urlWeek = Number.isFinite(n) && n >= 1 ? clampWeek(n) : null;
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['weeks' /* , 'current-or-demo' */],
-    queryFn: async () => {
-      try {
-        return await getWeeksCurrent();
-      } catch (err) {
-        if (is401(err)) return await getWeeksDemo();
-        throw err;
-      }
-    },
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
+    const base = urlWeek ?? (weekFromStore ? clampWeek(weekFromStore) : 1);
+    return Math.min(base, currentWeek);
+  }, [weekNumber, weekFromStore, currentWeek]);
+
+  useEffect(() => {
+    if (typeof weekNumber === 'undefined') return;
+
+    const n = Number(weekNumber);
+    const urlWeek = Number.isFinite(n) && n >= 1 ? clampWeek(n) : null;
+
+    const normalized = Math.min(urlWeek ?? activeWeek, currentWeek);
+    if (urlWeek !== normalized) {
+      router.replace(`/journey/${normalized}`, { scroll: false });
+    }
+  }, [weekNumber, currentWeek, activeWeek, router]);
 
   useEffect(() => {
     setCurWeek(activeWeek);
   }, [activeWeek, setCurWeek]);
 
+  useEffect(() => {
+    if (!emblaApi) return;
+    const index = activeWeek - 1;
+    emblaApi.scrollTo(index, true);
+  }, [emblaApi, activeWeek]);
+
   const goToWeek = useCallback(
     (week: number) => {
+      if (week > currentWeek) return;
+
+      setCurWeek(week);
       router.push(`/journey/${week}`, { scroll: false });
     },
-    [router]
+    [router, setCurWeek, currentWeek]
   );
-
-  if (isLoading) return <div>Loading weeks...</div>;
-  if (isError || !data) return null;
-  const apiWeekNumber = Number(data.data?.weekNumber);
-  const currentWeek =
-    Number.isFinite(apiWeekNumber) && apiWeekNumber >= 1 ? apiWeekNumber : 1;
 
   const weeks = Array.from({ length: TOTAL_WEEKS }, (_, i) => i + 1);
 
   return (
-    <div className={styles.wrapper}>
-      {weeks.map((week) => {
-        const isActive = week === activeWeek;
-        const isCurrent = week === currentWeek;
-        const isPast = week < currentWeek;
-        const isDisabled = week > currentWeek;
+    <div ref={emblaRef} className={styles.viewport}>
+      <div className={styles.container}>
+        {weeks.map((week) => {
+          const isActive = week === activeWeek;
+          const isCurrent = week === currentWeek;
+          const isPast = week < currentWeek;
+          const isDisabled = week > currentWeek;
 
-        const className = [
-          styles.week,
-          isPast && styles.past,
-          isCurrent && styles.current,
-          isActive && styles.active,
-          isDisabled && styles.disabled,
-        ]
-          .filter(Boolean)
-          .join(' ');
+          const className = [
+            styles.week,
+            isPast && styles.past,
+            isCurrent && styles.current,
+            isActive && styles.active,
+            isDisabled && styles.disabled,
+          ]
+            .filter(Boolean)
+            .join(' ');
 
-        return (
-          <button
-            key={week}
-            type="button"
-            disabled={isDisabled}
-            onClick={() => goToWeek(week)}
-            className={className}
-            aria-current={isActive ? 'page' : undefined}
-            title={
-              isDisabled
-                ? 'Недоступно: тижні після поточного заблоковані'
-                : undefined
-            }
-          >
-            <span className={styles.weekNumber}>{week}</span>
-            <span className={styles.weekLabel}>Тиждень</span>
-          </button>
-        );
-      })}
+          return (
+            <div key={week} className={styles.slide}>
+              <button
+                type="button"
+                disabled={isDisabled}
+                onClick={() => goToWeek(week)}
+                className={className}
+                aria-current={isActive ? 'page' : undefined}
+                title={
+                  isDisabled
+                    ? 'Недоступно: тижні після поточного заблоковані'
+                    : undefined
+                }
+              >
+                <span className={styles.weekNumber}>{week}</span>
+                <span className={styles.weekLabel}>Тиждень</span>
+              </button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
