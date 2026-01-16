@@ -2,7 +2,7 @@
   border: 1px solid var(--opacity-transparent);
   border-radius: 100px;
   padding: 4px;
-  width: 335px;
+  width: 311px;
   height: 50px;
   background: var(--color-scheme-foreground);
   margin-top: 32px;
@@ -10,13 +10,15 @@
   display: flex;
   overflow: hidden;
   touch-action: pan-y;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .slider {
   position: absolute;
   top: 4px;
   bottom: 4px;
-  width: 162px;
+  /* width: 162px; */
   border-radius: 100px;
   background: var(--color-scheme-foreground-alt);
   transition: transform 0.3s ease-in-out;
@@ -85,14 +87,14 @@
 
 @media (min-width: 1440px) {
   .container_tab {
-    width: 572px;
+    width: 576px;
     height: 54px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .slider {
-    width: 275px;
+    width: 290px;
     height: 46px;
   }
 

@@ -70,7 +70,7 @@
 
 @media (min-width: 1440px) {
   .container_tips {
-    max-width: 650px;
+    width: 650px;
   }
 
   .title {
