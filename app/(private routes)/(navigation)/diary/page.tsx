@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { useDiaryStore } from '@/lib/store/diaryStore';
 
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
-import Loader from '@/components/common/Loader/Loader';
+import Loader from '@/components/common/Loader/LoaderStork';
 
 import DiaryList from '@/components/diary/DiaryList/DiaryList';
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
