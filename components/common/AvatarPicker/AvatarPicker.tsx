@@ -8,9 +8,10 @@ type Props = {
   profilePhotoUrl?: string | null;
   children?: React.ReactNode;
   layout?: 'vertical' | 'horizontal';
+  onChangePhoto: (file: File | null) => void;
 };
 
-function AvatarPicker({ profilePhotoUrl, children }: Props) {
+function AvatarPicker({ profilePhotoUrl, onChangePhoto, children }: Props) {
   const [error, setError] = useState('');
   const [previewUrl, setPreviewUrl] = useState(profilePhotoUrl ?? '');
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ function AvatarPicker({ profilePhotoUrl, children }: Props) {
         setError('Max file size 5MB');
         return;
       }
-
+      onChangePhoto(file);
       const reader = new FileReader();
       reader.onloadend = () => setPreviewUrl(reader.result as string);
       reader.readAsDataURL(file);
@@ -38,7 +39,7 @@ function AvatarPicker({ profilePhotoUrl, children }: Props) {
         const updatedUser = await updateAvatar(file);
         if (updatedUser.photo) setPreviewUrl(updatedUser.photo);
       } catch (err) {
-        console.log(err);
+        console.log('upd ava:', err);
       } finally {
         setLoading(false);
       }
