@@ -7,13 +7,18 @@
 .form {
   display: flex;
   flex-direction: column;
+  /* 🔥 Цей gap робить відступ 24px між УСІМА елементами, 
+     включаючи відступ від останнього поля до кнопки */
   gap: 24px;
 }
 
+/* === ПОЛЯ ВВОДУ === */
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 8px; /* Відступ між Label і Input */
+  position: relative; /* База для помилки */
+  margin-bottom: 0; /* Прибрали, бо є gap у батька */
 }
 
 .label {
@@ -34,15 +39,25 @@
   color: var(--color-scheme-text);
 }
 
+/* === ПОМИЛКА (АБСОЛЮТНА) === */
 .error {
-  font-size: 14px;
+  font-size: 12px;
   color: #c60000;
   margin: 0;
+
+  /* Висить у просторі gap'у (24px) */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+
+  line-height: 1.2;
 }
 
-/* ===== controls ===== */
-
-.control {
+/* ===== CONTROLS ===== */
+.input,
+.textarea,
+.dropdownControl {
   border-radius: 12px;
   border: 2px solid var(--opacity-transparent);
   background: var(--opacity-neutral-darkest-5);
@@ -51,28 +66,24 @@
 }
 
 .input {
-  composes: control;
   height: 36px;
   padding: 8px 12px;
 }
 
 .textarea {
-  composes: control;
-  min-height: 250px;
+  min-height: 250px; /* Як на макеті */
   padding: 10px 12px;
   resize: none;
   overflow: hidden;
   background-color: var(--opacity-neutral-darkest-5);
 }
 
-/* ===== dropdown ===== */
-
+/* ===== DROPDOWN (Без змін) ===== */
 .dropdownWrap {
   position: relative;
 }
 
 .dropdownControl {
-  composes: control;
   width: 100%;
   min-height: 36px;
   padding: 8px 12px;
@@ -232,16 +243,19 @@
   margin-top: -1px;
 }
 
+/* === КНОПКА === */
 .saveBtn {
   width: 100%;
-  position: sticky;
-  bottom: 0;
+  /* 🔥 ПРИБРАЛИ margin-top. 
+     Відступ 24px вже забезпечується батьківським gap: 24px */
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 @media (min-width: 768px) {
   .saveBtn {
     width: 268px;
-    margin: 0 auto;
+    margin: 0 auto; /* Центрування без додаткових відступів */
   }
 }
 
@@ -250,7 +264,9 @@
   .label,
   .itemLabel,
   .placeholder,
-  .control {
+  .input,
+  .textarea,
+  .dropdownControl {
     font-size: 16px;
   }
 }
