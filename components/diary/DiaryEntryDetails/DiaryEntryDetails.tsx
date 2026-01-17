@@ -1,3 +1,5 @@
+'use client';
+
 import css from './DiaryEntryDetails.module.css';
 import type { DiaryEntry } from '@/types/diary';
 
@@ -43,9 +45,8 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
   const dateLabel = formatDate(entry.createdAt);
 
   return (
-    <section className={css.wrapper} aria-label="Деталі запису">
+    <div className={css.wrapper}>
       <div className={css.header}>
-        {/* ЛІВА ЧАСТИНА */}
         <div className={css.left}>
           <h2 className={css.title}>{entry.title}</h2>
 
@@ -61,7 +62,6 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
           </button>
         </div>
 
-        {/* ПРАВА ЧАСТИНА */}
         <div className={css.right}>
           {dateLabel ? <span className={css.date}>{dateLabel}</span> : null}
 
@@ -103,6 +103,6 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
           <p className={css.noEmotions}>Емоції не обрані</p>
         )}
       </div>
-    </section>
+    </div>
   );
 }

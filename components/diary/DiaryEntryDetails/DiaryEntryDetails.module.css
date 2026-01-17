@@ -3,7 +3,6 @@
   border: 1px solid var(--color-scheme-foreground);
   border-radius: 16px;
   background: var(--color-scheme-foreground);
-  /* 🔥 */
   padding: 14px;
 }
 
@@ -19,6 +18,7 @@
   color: var(--color-neutral-dark);
 }
 
+/* === HEADER LAYOUT === */
 .header {
   display: flex;
   align-items: center;
@@ -26,8 +26,19 @@
   gap: 12px;
 }
 
-.headerText {
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   min-width: 0;
+  flex: 1;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .title {
@@ -45,36 +56,43 @@
   white-space: nowrap;
 }
 
-.actions {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
+/* === BUTTONS === */
 .iconBtn {
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  border: 1px solid var(--color-scheme-foreground);
-  background: var(--color-scheme-foreground);
+  border: 1px solid var(--color-scheme-border);
+  background: transparent;
   cursor: pointer;
-  font-size: 14px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  color: var(--color-neutral-dark);
+  transition: all 0.2s ease;
 }
 
-.iconBtnDanger {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  border: 1px solid var(--color-scheme-foreground);
+.iconBtn:hover {
   background: var(--opacity-neutral-darkest-10);
-  cursor: pointer;
-  font-size: 14px;
+  color: var(--color-primary);
+}
+
+/* === CONTENT === */
+.noteBox {
+  margin-top: 12px;
+  padding: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.note {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .emotions {
@@ -103,20 +121,7 @@
   color: var(--color-neutral);
 }
 
-.noteBox {
-  margin-top: 12px;
-  padding: 0;
-}
-
-.note {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.6;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
-
+/* === MEDIA QUERIES (SCROLL LOGIC) === */
 @media only screen and (max-width: 767px) {
   .wrapper {
     height: 603px;
@@ -145,12 +150,12 @@
     font-size: 22px;
   }
 
-    .noteBox {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-gutter: stable;
-    }
+  .noteBox {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -161,24 +166,10 @@
     padding: 24px;
   }
 
-    .noteBox {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-gutter: stable;
-    }
-}
-
-.left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-
-.right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+  .noteBox {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+  }
 }

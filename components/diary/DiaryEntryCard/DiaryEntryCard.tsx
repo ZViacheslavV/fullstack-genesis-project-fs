@@ -24,20 +24,28 @@ function formatDateShort(iso: string) {
 
 function DiaryEntryCard({ entry, isActive = false, onClick }: Props) {
   const emotions = (entry.emotions ?? []) as unknown as EmotionValue[];
-
   const dateLabel = formatDateShort(entry.createdAt);
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      aria-current={isActive ? 'true' : undefined} 
+      
+      tabIndex={0}
       className={`${css.card} ${isActive ? css.active : ''}`}
       onClick={onClick}
+      
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
     >
       <div className={css.topRow}>
         <h3 className={css.title} title={entry.title}>
           {entry.title}
         </h3>
-
         {dateLabel ? <p className={css.date}>{dateLabel}</p> : null}
       </div>
 
@@ -47,14 +55,12 @@ function DiaryEntryCard({ entry, isActive = false, onClick }: Props) {
             {emotions.slice(0, 6).map((e) => {
               const key = typeof e === 'string' ? e : e._id;
               const label = typeof e === 'string' ? e : e.title;
-
               return (
                 <li key={key} className={css.chip} title={label}>
                   {label}
                 </li>
               );
             })}
-
             {emotions.length > 6 ? (
               <li className={css.more} aria-label="Більше емоцій">
                 +{emotions.length - 6}
@@ -65,7 +71,7 @@ function DiaryEntryCard({ entry, isActive = false, onClick }: Props) {
           <p className={css.noEmotions}>Без емоцій</p>
         )}
       </div>
-    </button>
+    </div>
   );
 }
 
