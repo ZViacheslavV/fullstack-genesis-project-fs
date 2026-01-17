@@ -24,6 +24,9 @@ function FeelRecommendationCard({
 }: FeelRecommendationCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
+  const router = useRouter();
+
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
