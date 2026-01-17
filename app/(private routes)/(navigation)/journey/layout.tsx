@@ -9,10 +9,10 @@ export default function WeekLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main>
+    <section>
       <GreetingBlock />
 
       {children}
-    </main>
+    </section>
   );
 }
