@@ -54,7 +54,7 @@ export default function MultiSelect({
     <div className={styles.dropdownWrap} ref={wrapRef}>
       <button
         type="button"
-        className={styles.dropdownControl}
+        className={`${styles.dropdownControl} ${open ? styles.dropdownControlOpen : ""}`}
         onClick={() => !disabled && setOpen((s) => !s)}
         aria-expanded={open}
         disabled={disabled}

@@ -73,6 +73,9 @@
   padding: var(--modal-close-pad);
 
   cursor: pointer;
+
+  stroke-width: 1px;
+  stroke: var(--color-scheme-text);
 }
 
 .closeIcon {
