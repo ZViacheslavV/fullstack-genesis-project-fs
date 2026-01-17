@@ -8,7 +8,7 @@ import css from './ErrorState.module.css';
 type Props = {
   title?: string;
   description?: string;
-  onRetry?: () => void;
+  reset: () => void;
 };
 
 //===============================================================
@@ -16,7 +16,7 @@ type Props = {
 function ErrorState({
   title = 'Сталася помилка',
   description = 'Ми вже розбираємось. Спробуйте повторити дію.',
-  onRetry,
+  reset,
 }: Props) {
   return (
     <section>
@@ -25,7 +25,7 @@ function ErrorState({
         <p className={css.desc}>{description}</p>
 
         <div className={css.actions}>
-          <Button onClick={onRetry}>Спробувати знову</Button>
+          <Button onClick={reset}>Спробувати знову</Button>
         </div>
       </div>
     </section>
