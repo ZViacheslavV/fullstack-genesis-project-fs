@@ -131,18 +131,24 @@
 }
 
 .chevron::before {
+  margin: 4px auto 0;
   content: '';
   display: block;
   width: 8px;
   height: 8px;
   border-right: 2px solid var(--opacity-neutral-darkest-60);
   border-bottom: 2px solid var(--opacity-neutral-darkest-60);
-  transform: rotate(45deg);
-  margin: 4px auto 0;
+
+    transform: rotate(45deg);
+    transform-origin: center;
+  
+
+    transition: transform 0.2s ease;
+  
 }
 
 .chevronOpen::before {
-  transform: rotate(-135deg);
+  transform: rotate(225deg);
   margin-top: 8px;
 }
 
