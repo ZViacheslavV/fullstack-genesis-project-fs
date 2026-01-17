@@ -40,11 +40,8 @@
 }
 
 .changeButton {
-  width: 100%;
-  /* мобильная — длинная */
-  max-width: 335px;
+  width: 335px;
   height: 38px;
-
   border-bottom: 4px solid var(--opacity-neutral-darkest-15);
   border-radius: 100px;
   padding: 8px 20px;

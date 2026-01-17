@@ -59,16 +59,45 @@
   border-color: #ffcbd3;
 }
 
-/* Date icon (chevron) */
-.dateIcon {
+
+/* .dateIcon {
   position: absolute;
   right: 16px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.6);
+} */
+
+
+.dateIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 19px;
+  height: 18px;
+  pointer-events: none;
 }
 
+.dateIcon::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+
+  transform: rotate(45deg);
+  margin: 4px auto 0;
+  transition: transform 0.2s ease, margin-top 0.2s ease;
+}
+
+.dateIconOpen::before {
+  transform: rotate(225deg);
+  margin-top: 8px;
+}
 /* =========================
    BUTTONS
 ========================= */
@@ -131,7 +160,7 @@
    REACT DATEPICKER GLOBAL FIXES
 ========================= */
 :global(.react-datepicker__month) {
-  min-height: 200px;
+  min-height: 190px;
 }
 
 :global(.react-datepicker-wrapper),
