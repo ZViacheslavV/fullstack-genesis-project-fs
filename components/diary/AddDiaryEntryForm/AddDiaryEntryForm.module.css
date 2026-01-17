@@ -1,227 +1,234 @@
 .formWrap {
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    font-size: 12px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 12px;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .label {
-    display: block;
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--color-scheme-text);
-    margin: 0 0 8px;
+  display: block;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-scheme-text);
+  margin: 0 0 8px;
 }
 
 .placeholder {
-    color: #777;
+  color: #777;
 }
 
 .itemLabel {
-    color: #222;
+  color: #222;
 }
 
 .error {
-    font-size: inherit;
-    color: #d43b3b;
-    margin: 0;
+  font-size: inherit;
+  color: #d43b3b;
+  margin: 0;
 }
 
 /* ===== controls ===== */
 
 .control {
-    border-radius: 10px;
-    border: 1px solid #ededed;
-    background: #f3f3f3;
-    outline: none;
-    font-size: inherit;
+  border-radius: 10px;
+  border: 1px solid #ededed;
+  background: #f3f3f3;
+  outline: none;
+  font-size: inherit;
 }
 
 .input {
-    composes: control;
-    height: 36px;
-    padding: 0 12px;
+  composes: control;
+  height: 36px;
+  padding: 0 12px;
 }
 
 .textarea {
-    composes: control;
-    min-height: 140px;
-    padding: 10px 12px;
-    resize: none;
+  composes: control;
+  min-height: 140px;
+  padding: 10px 12px;
+  resize: none;
 }
 
 /* ===== dropdown ===== */
 
 .dropdownWrap {
-    position: relative;
+  position: relative;
 }
 
 .dropdownControl {
-    composes: control;
-    width: 100%;
-    min-height: 36px;
-    padding: 6px 40px 6px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+  composes: control;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 40px 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .dropdownControl:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .dropdownValue {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
 .chips {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .chip {
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: #e7e7e7;
-    color: #222;
-    white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #e7e7e7;
+  color: #222;
+  white-space: nowrap;
 }
 
 .chevron {
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .chevron::before {
-    content: "";
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-right: 2px solid #777;
-    border-bottom: 2px solid #777;
-    transform: rotate(45deg);
-    margin: 4px auto 0;
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+
+  border-right: 2px solid #777;
+  border-bottom: 2px solid #777;
+
+  transform: rotate(45deg);
+  margin: 4px auto 0;
+
+  transition:
+    transform 0.2s ease,
+    margin-top 0.2s ease;
 }
 
 .chevronOpen::before {
-    transform: rotate(-135deg);
-    margin-top: 8px;
+  transform: rotate(225deg);
+  margin-top: 8px;
 }
 
 .dropdownMenu {
-    position: absolute;
-    inset: auto 0;
-    /* left/right = 0 */
-    top: calc(100% + 6px);
-    background: #fff;
-    border: 1px solid #ededed;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    z-index: 20;
+  position: absolute;
+  inset: auto 0;
+  /* left/right = 0 */
+  top: calc(100% + 6px);
+  background: #fff;
+  border: 1px solid #ededed;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  z-index: 20;
 }
 
 .menuScroll {
-    max-height: 150px;
-    overflow: auto;
-    padding: 6px;
+  max-height: 150px;
+  overflow: auto;
+  padding: 6px;
 }
 
 .menuScroll::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .menuScroll::-webkit-scrollbar-thumb {
-    background: #f4b7c3;
-    border-radius: 999px;
+  background: #f4b7c3;
+  border-radius: 999px;
 }
 
 .menuItem {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    background: transparent;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  background: transparent;
 }
 
 .menuItemActive {
-    background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 .checkbox {
-    width: 16px;
-    height: 16px;
-    border-radius: 3px;
-    border: 1px solid #cfcfcf;
-    background: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkboxChecked {
-    border-color: #111;
-    background: #111;
+  border-color: #111;
+  background: #111;
 }
 
 .checkMark {
-    width: 8px;
-    height: 4px;
-    border-left: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    transform: rotate(-45deg);
-    margin-top: -1px;
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+  margin-top: -1px;
 }
 
 .saveBtnWrap {
-    margin: 10px auto 0;
-    width: 100%;
-    max-width: 360px;
+  margin: 10px auto 0;
+  width: 100%;
+  max-width: 360px;
 }
 
 @media (min-width: 768px) {
-    .formWrap{
-        width: 640px;
-    }
-    .textarea {
-        min-height: 160px;
-    }
-    .menuScroll {
-        max-height: 160px;
-    }
-    .saveBtnWrap {
-        width: 220px;
-        max-width: none;
-    } 
+  .formWrap {
+    width: 640px;
+  }
+  .textarea {
+    min-height: 160px;
+  }
+  .menuScroll {
+    max-height: 160px;
+  }
+  .saveBtnWrap {
+    width: 220px;
+    max-width: none;
+  }
 }
 @media (min-width: 1440px) {
-    .menuScroll {
-        max-height: 170px;
-    }
+  .menuScroll {
+    max-height: 170px;
+  }
 }

@@ -1,30 +1,19 @@
 'use client';
 
+import { useState, useId } from 'react';
 import { childGender, User } from '@/types/user';
 import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
 import { profileValidationSchema } from './ProfileValidationSchema';
 import { updateMe, UpdateProfile } from '@/lib/api/clientApi';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
-
-// --
+import GenderSelect from '@/components/common/Select/Select';
+import { useRouter } from 'next/navigation';
 
 import css from './ProfileEditForm.module.css';
-import GenderSelect from '@/components/common/Select/Select';
-import { useId } from 'react';
-// import { FaChevronDown } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
-// --
 
 interface ProfileEditFormProps {
   user: User;
 }
-
-// interface FormValues {
-//   name: string;
-//   email: string;
-//   gender: childGender;
-//   dueDate: string;
-// }
 
 interface FormValues {
   name: string;
@@ -37,29 +26,27 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
   const router = useRouter();
   const fieldId = useId();
 
+  // 🔥 состояние ТОЛЬКО для иконки
+  const [isDateFocused, setIsDateFocused] = useState(false);
+
   const initialValues: FormValues = {
     name: user.name,
     email: user.email,
     gender: user.gender ?? null,
     dueDate: user.dueDate ?? '',
   };
+
   const handleSubmit = async (values: FormValues) => {
     const payload: UpdateProfile = {
       name: values.name,
       email: values.email,
     };
 
-    if (values.gender !== null) {
-      payload.gender = values.gender;
-    }
-
-    if (values.dueDate) {
-      payload.dueDate = values.dueDate;
-    }
+    if (values.gender !== null) payload.gender = values.gender;
+    if (values.dueDate) payload.dueDate = values.dueDate;
 
     try {
       await updateMe(payload);
-      console.log('sent', payload);
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -69,7 +56,6 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
   return (
     <div className={css.fullLowerContent}>
       <Formik
-        className=""
         initialValues={initialValues}
         onSubmit={handleSubmit}
         enableReinitialize
@@ -78,6 +64,7 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
         {({ resetForm }) => (
           <Form>
             <div className={css.inputFields}>
+              {/* ІМʼЯ */}
               <label htmlFor="name" className={css.label}>
                 Ім`я
                 <Field
@@ -86,11 +73,10 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                   type="text"
                   className={css.field}
                 />
-                <ErrorMessage name="name">
-                  {(msg) => <p className="">{msg}</p>}
-                </ErrorMessage>
+                <ErrorMessage name="name" component="p" />
               </label>
 
+              {/* EMAIL */}
               <label htmlFor="email" className={css.label}>
                 Пошта
                 <Field
@@ -99,11 +85,10 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                   type="email"
                   className={css.field}
                 />
-                <ErrorMessage name="email">
-                  {(msg) => <p className="">{msg}</p>}
-                </ErrorMessage>
+                <ErrorMessage name="email" component="p" />
               </label>
 
+              {/* GENDER */}
               <label htmlFor="gender" className={css.label}>
                 Стать дитини
                 <Field name="gender">
@@ -116,13 +101,13 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                     />
                   )}
                 </Field>
-                <ErrorMessage name="gender">
-                  {(msg) => <p className="">{msg}</p>}
-                </ErrorMessage>
+                <ErrorMessage name="gender" component="p" />
               </label>
 
+              {/* DATE */}
               <label className={`${css.label} ${css.dateLabel}`}>
                 Планова дата пологів
+
                 <div className={css.dateWrapper}>
                   <Field
                     id={`${fieldId}-dueDate`}
@@ -131,17 +116,21 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                     placeholderText="Оберіть дату"
                     className={css.dateInput}
                     autoComplete="off"
+                    onFocus={() => setIsDateFocused(true)}   
+                    onBlur={() => setIsDateFocused(false)}  
                   />
 
-                  <span className={css.dateIcon}>
-                    {/* <FaChevronDown size={14} /> */}
-                  </span>
+                  <span
+                    className={`${css.dateIcon} ${
+                      isDateFocused ? css.dateIconOpen : ''
+                    }`}
+                  />
                 </div>
-                <ErrorMessage name="dueDate">
-                  {(msg) => <p>{msg}</p>}
-                </ErrorMessage>
+
+                <ErrorMessage name="dueDate" component="p" />
               </label>
 
+              {/* BUTTONS */}
               <div className={css.buttonContainer}>
                 <button
                   type="button"

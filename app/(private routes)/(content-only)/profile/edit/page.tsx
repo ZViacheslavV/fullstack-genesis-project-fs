@@ -1,41 +1,14 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
-
-import { User } from '../../../../../types/user';
-import { getMe } from '@/lib/api/clientApi';
-
-import OnboardingForm from '@/components/profile/OnboardingForm/OnboardingForm';
-import Toast from '@/components/common/Toast/Toast';
 import css from './page.module.css';
-import AvatarPicker from '@/components/common/AvatarPicker/AvatarPicker';
 
-//===========================================================================
+import { getServerMe } from '@/lib/api/serverApi';
+import OnboardingClient from './OnboardingClient';
 
-const OnboardingPage = () => {
-  const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const data = await getMe();
-        setUser(data);
-      } catch (error) {
-        console.error('Data error:', error);
 
-        toast.custom(
-          <Toast type="error" message="Помилка отримання користувача" />,
-
-          { duration: 5000 }
-        );
-      }
-    };
-
-    fetchUser();
-  }, []);
+export default async function OnboardingPage() {
+  const user = await getServerMe(); // user гарантирован
 
   return (
     <div className={css.page}>
@@ -54,16 +27,14 @@ const OnboardingPage = () => {
 
         <div className={css.formWrap}>
           <h1 className={css.title}>Давайте познаймимось ближче</h1>
-          <AvatarPicker profilePhotoUrl={user?.photo} layout="vertical" buttonVariant="onboarding"/>
-          <OnboardingForm initialData={user} />
+
+          <OnboardingClient user={user} />
         </div>
       </div>
 
       <div className={css.right} aria-hidden="true">
         <Image
-          src={
-            '/painting-of-a-tiny-delicate-sprout-emerging-from-the-ground-surrounded-by-a-soft-warm-magical-glow.jpg'
-          }
+          src="/painting-of-a-tiny-delicate-sprout-emerging-from-the-ground-surrounded-by-a-soft-warm-magical-glow.jpg"
           alt=""
           fill
           priority
@@ -73,6 +44,4 @@ const OnboardingPage = () => {
       </div>
     </div>
   );
-};
-
-export default OnboardingPage;
+}

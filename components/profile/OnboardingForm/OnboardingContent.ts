@@ -50,11 +50,20 @@ export const genderSelectStyles: StylesConfig<GenderOption, false> = {
     display: 'none',
   }),
 
-  dropdownIndicator: (base) => ({
-    ...base,
-    color: 'rgba(0, 0, 0, 0.6)',
-    marginRight: -50, 
-  }),
+ dropdownIndicator: (base, state) => ({
+  ...base,
+  color: 'black',
+  marginRight: -50,
+  transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+  transform: state.selectProps.menuIsOpen
+    ? 'rotate(180deg)'
+     : 'rotate(0deg)',
+   '&:hover': {
+    color: 'black',
+    backgroundColor: 'transparent',
+   },
+   borderRadius: 0,
+}),
 
   menu: (base) => ({
     ...base,

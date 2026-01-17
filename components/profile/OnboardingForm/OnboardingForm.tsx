@@ -1,9 +1,9 @@
 'use client';
 
 import { Formik, Form, Field, FieldProps } from 'formik';
-import { useId } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { useState, useId } from 'react';
 
 import css from './OnboardingForm.module.css';
 
@@ -13,10 +13,10 @@ import { useAuthUserStore } from '@/lib/store/authStore';
 import { User } from '@/types/user';
 import GenderSelect from '@/components/common/Select/Select';
 
-import { FaChevronDown } from 'react-icons/fa';
-
 interface Props {
-  initialData?: User | null;
+  initialData: User;
+  onSuccess?: () => void;
+  onError?: () => void;
 }
 
 interface FormValues {
@@ -29,6 +29,7 @@ function OnboardingForm({ initialData }: Props) {
     gender: null,
     dueDate: initialData?.dueDate ?? '',
   };
+  const [isDateFocused, setIsDateFocused] = useState(false);
 
   const fieldId = useId();
   const router = useRouter();
@@ -53,7 +54,11 @@ function OnboardingForm({ initialData }: Props) {
 
   return (
     <div className={css.picker}>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit} enableReinitialize>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        enableReinitialize
+      >
         <Form>
           {/* GENDER */}
           <div className={css.fieldGroup}>
@@ -64,9 +69,7 @@ function OnboardingForm({ initialData }: Props) {
                 {({ field, form }: FieldProps<FormValues['gender']>) => (
                   <GenderSelect
                     value={field.value}
-                    onChange={(value) =>
-                      form.setFieldValue(field.name, value)
-                    }
+                    onChange={(value) => form.setFieldValue(field.name, value)}
                   />
                 )}
               </Field>
@@ -75,9 +78,7 @@ function OnboardingForm({ initialData }: Props) {
 
           {/* DATE */}
           <div className={css.fieldGroup}>
-            <label htmlFor={`${fieldId}-dueDate`}>
-              Планова дата пологів
-            </label>
+            <label htmlFor={`${fieldId}-dueDate`}>Планова дата пологів</label>
 
             <div className={css.datePickerWrapper}>
               <Field
@@ -87,11 +88,15 @@ function OnboardingForm({ initialData }: Props) {
                 placeholderText="Оберіть дату"
                 className={css.dateInput}
                 autoComplete="off"
+                onFocus={() => setIsDateFocused(true)}
+                onBlur={() => setIsDateFocused(false)}
               />
 
-              <span className={css.dateIcon}>
-                <FaChevronDown size={14} />
-              </span>
+              <span
+                className={`${css.dateIcon} ${
+                  isDateFocused ? css.dateIconOpen : ''
+                }`}
+              />
             </div>
           </div>
 

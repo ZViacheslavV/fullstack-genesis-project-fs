@@ -61,8 +61,29 @@
   right: 16px;
   top: 50%;
   transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
   pointer-events: none;
-  color: rgba(0, 0, 0, 0.6);
+}
+
+.dateIcon::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+
+  border-right: 2px solid #000;
+  border-bottom: 2px solid #000;
+
+  transform: rotate(45deg);
+  margin: 4px auto 0;
+
+  transition: transform 0.2s ease, margin-top 0.2s ease;
+}
+
+.dateIconOpen::before {
+  transform: rotate(225deg);
+  margin-top: 8px;
 }
 
 /* =========================
