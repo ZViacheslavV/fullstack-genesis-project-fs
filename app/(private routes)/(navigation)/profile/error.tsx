@@ -16,7 +16,7 @@ function ProfileError({ reset }: Props) {
     <ErrorState
       title="Помилка при завантаженні"
       description="Щось пішло не так. Спробуйте, будь ласка, ще раз."
-      onRetry={reset}
+      reset={reset}
     />
   );
 }
