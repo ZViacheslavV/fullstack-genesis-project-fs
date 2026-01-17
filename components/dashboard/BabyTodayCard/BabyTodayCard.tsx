@@ -1,4 +1,6 @@
 import css from './BabyTodayCard.module.css';
+import Image from 'next/image';
+
 
 type BabyTodayCardProps = {
   imageUrl: string;
@@ -18,12 +20,18 @@ const BabyTodayCard = ({
   return (
     <div className={css.card}>
        <div className={css.content}>
-      <p className={css.babyToday}>Малюк сьогодні</p>
+      <h2 className={css.babyToday}>Малюк сьогодні</h2>
 
       <div className={css.top}>
         <div className={css.imageWrapper}>
-          {/* //TODO: need Image */}
-          <img src={imageUrl} alt="Baby illustration" />
+          <Image
+    src={imageUrl}
+    alt="Baby illustration"
+    width={257}
+    height={194}
+    className={css.image}
+    
+  />
         </div>
         <div className={css.params}>
           <p className={css.row}>

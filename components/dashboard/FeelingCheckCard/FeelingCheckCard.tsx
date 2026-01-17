@@ -5,8 +5,8 @@ import { useState } from 'react';
 import Button from '@/components/common/Button/Button';
 import DiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
 import css from './FeelingCheckCard.module.css';
-import { useAuthUserStore } from '@/lib/store/authStore';
 import { useRouter } from 'next/navigation';
+import { useAuthUserStore } from '@/lib/store/authStore';
 
 type FeelRecommendationCardProps = {
   recommendationText: string | undefined;
@@ -23,8 +23,6 @@ function FeelRecommendationCard({
   initialValues,
 }: FeelRecommendationCardProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
-  const router = useRouter();
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -44,7 +42,7 @@ function FeelRecommendationCard({
           <Button
             className={css.btn}
             onClick={() =>
-              isAuthenticated ? openModal() : router.push('/auth/login')
+              isAuthenticated ? openModal() : router.push('/auth/register')
             }
           >
             Зробити запис у щоденник

@@ -12,6 +12,9 @@ import css from './StatusBlock.module.css';
   const StatusBlock = ({ currentWeek, daysLeft }: StatusBlockProps) => {
   return (
   <div className={css.picker}>
+     <h2 className={css.visuallyHidden}>
+    Статус вагітності
+  </h2>
     <div className ={css.cards}>
  <div className={css.card}>
   <div className={css.content}>
