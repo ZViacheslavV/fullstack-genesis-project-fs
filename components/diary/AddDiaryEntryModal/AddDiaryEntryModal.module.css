@@ -43,7 +43,7 @@
 @media (min-width: 768px) {
   .modal {
     --modal-max-w: 704px;
-    --modal-max-h: 755px;
+    --modal-max-h: 756px;
 
     --modal-padding-y: 64px;
     --modal-padding-x: 32px;
@@ -71,7 +71,7 @@
 @media (min-width: 1440px) {
   .modal {
     --modal-max-w: 768px;
-    --modal-max-h: 780px;
+    --modal-max-h: 786px;
 
     --modal-padding-y: 64px;
     --modal-padding-x: 64px;
