@@ -46,7 +46,7 @@ function UserBar() {
   };
 
   return (
-    <section className={css.userBar}>
+    <div className={css.userBar}>
       <div className={css.userInfo}>
         <Image
           className={css.avatar}
@@ -86,7 +86,7 @@ function UserBar() {
         onCancel={() => setIsModalOpen(false)}
         isLoading={isLoading}
       />
-    </section>
+    </div>
   );
 }
 

@@ -40,9 +40,7 @@ export default function BabyJourney({ weekNumber }: Props) {
           />
         )}
         {weekNumber !== 1 && (
-          <figcaption className={css.text}>
-            Ваш малюк зараз розміром як {baby.analogy}
-          </figcaption>
+          <p className={css.text}>Ваш малюк зараз розміром як {baby.analogy}</p>
         )}
       </div>
       <div className={css.container_wrap}>
