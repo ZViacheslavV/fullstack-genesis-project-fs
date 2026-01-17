@@ -1,10 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import Button from '@/components/common/Button/Button';
-import ButtonLink from '@/components/common/Button/ButtonLink';
 import css from './error.module.css';
 
 //===========================================================================
@@ -17,6 +17,8 @@ type Props = {
 //===========================================================================
 
 function GlobalError({ error, reset }: Props) {
+  const router = useRouter();
+
   return (
     <section className={css.page}>
       <div className={css.left}>
@@ -43,20 +45,24 @@ function GlobalError({ error, reset }: Props) {
               <p className={css.devMsg} title={error.message}>
                 {error.message}
               </p>
-              <div>
-                <ul className={css.actions}>
-                  <li>
-                    <Button onClick={reset} size="md">
-                      Спробувати знову
-                    </Button>
-                  </li>
-                  <li>
-                    <ButtonLink href="/" variant="cancel" size="md">
-                      Назад додому
-                    </ButtonLink>
-                  </li>
-                </ul>
-              </div>
+
+              <ul className={css.actions}>
+                <li>
+                  <Button onClick={reset} size="md">
+                    Спробувати знову
+                  </Button>
+                </li>
+
+                <li>
+                  <Button
+                    variant="cancel"
+                    size="md"
+                    onClick={() => router.back()}
+                  >
+                    Повернутися назад
+                  </Button>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
