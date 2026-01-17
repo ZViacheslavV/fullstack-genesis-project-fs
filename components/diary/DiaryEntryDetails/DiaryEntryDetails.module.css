@@ -4,6 +4,9 @@
   border-radius: 16px;
   background: var(--color-scheme-foreground);
   padding: 14px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .empty {
@@ -18,27 +21,28 @@
   color: var(--color-neutral-dark);
 }
 
-/* === HEADER LAYOUT === */
+/* === HEADER LAYOUT (MOBILE FIRST) === */
 .header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 12px;
+  margin-bottom: 12px;
 }
 
 .left {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-width: 0;
-  flex: 1;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .right {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .title {
@@ -56,12 +60,11 @@
   white-space: nowrap;
 }
 
-/* === BUTTONS === */
 .iconBtn {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 8px;
-  border: 1px solid var(--color-scheme-border);
+  border: none;
   background: transparent;
   cursor: pointer;
 
@@ -71,6 +74,7 @@
 
   color: var(--color-neutral-dark);
   transition: all 0.2s ease;
+  padding: 0;
 }
 
 .iconBtn:hover {
@@ -78,9 +82,8 @@
   color: var(--color-primary);
 }
 
-/* === CONTENT === */
 .noteBox {
-  margin-top: 12px;
+  margin-top: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -121,7 +124,7 @@
   color: var(--color-neutral);
 }
 
-/* === MEDIA QUERIES (SCROLL LOGIC) === */
+/* === MEDIA QUERIES === */
 @media only screen and (max-width: 767px) {
   .wrapper {
     height: 603px;
@@ -146,6 +149,27 @@
     padding: 20px;
   }
 
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .left {
+    width: auto;
+    justify-content: flex-start;
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .right {
+    width: auto;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    gap: 8px;
+  }
+
   .title {
     font-size: 22px;
   }
@@ -164,6 +188,27 @@
     display: flex;
     flex-direction: column;
     padding: 24px;
+  }
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .left {
+    width: auto;
+    justify-content: flex-start;
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .right {
+    width: auto;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    gap: 8px;
   }
 
   .noteBox {
