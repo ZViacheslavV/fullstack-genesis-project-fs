@@ -40,7 +40,6 @@ export default function WeekSelector() {
   const router = useRouter();
   const { weekNumber } = useParams<{ weekNumber?: string }>();
 
-  const weekFromStore = useWeekStore((s) => s.weekNumb);
   const setCurWeek = useWeekStore((s) => s.setCurWeek);
 
   const user = useAuthUserStore((s) => s.user);
@@ -52,7 +51,7 @@ export default function WeekSelector() {
       containScroll: 'trimSnaps',
       align: 'start',
     },
-    [WheelGesturesPlugin({ forceWheelAxis: 'x' })]
+    [WheelGesturesPlugin({ forceWheelAxis: 'y' })]
   );
 
   const currentWeek = useMemo(
@@ -62,23 +61,8 @@ export default function WeekSelector() {
 
   const activeWeek = useMemo(() => {
     const n = Number(weekNumber);
-    const urlWeek = Number.isFinite(n) && n >= 1 ? clampWeek(n) : null;
-
-    const base = urlWeek ?? (weekFromStore ? clampWeek(weekFromStore) : 1);
-    return Math.min(base, currentWeek);
-  }, [weekNumber, weekFromStore, currentWeek]);
-
-  useEffect(() => {
-    if (typeof weekNumber === 'undefined') return;
-
-    const n = Number(weekNumber);
-    const urlWeek = Number.isFinite(n) && n >= 1 ? clampWeek(n) : null;
-
-    const normalized = Math.min(urlWeek ?? activeWeek, currentWeek);
-    if (urlWeek !== normalized) {
-      router.replace(`/journey/${normalized}`, { scroll: false });
-    }
-  }, [weekNumber, currentWeek, activeWeek, router]);
+    return Number.isFinite(n) && n >= 1 ? clampWeek(n) : 1;
+  }, [weekNumber]);
 
   useEffect(() => {
     setCurWeek(activeWeek);
@@ -86,8 +70,7 @@ export default function WeekSelector() {
 
   useEffect(() => {
     if (!emblaApi) return;
-    const index = activeWeek - 1;
-    emblaApi.scrollTo(index, true);
+    emblaApi.scrollTo(activeWeek - 1, true);
   }, [emblaApi, activeWeek]);
 
   const goToWeek = useCallback(
@@ -105,48 +88,50 @@ export default function WeekSelector() {
   const weeks = Array.from({ length: TOTAL_WEEKS }, (_, i) => i + 1);
 
   return (
-    <div ref={emblaRef} className={styles.viewport}>
-      <div className={styles.container}>
-        {weeks.map((week) => {
-          const isActive = week === activeWeek;
-          const isCurrent = week === currentWeek;
-          const isPast = week < currentWeek;
-          const isDisabled = week > currentWeek;
+    <div className={styles.wrapper}>
+      <div ref={emblaRef} className={styles.viewport}>
+        <div className={styles.container}>
+          {weeks.map((week) => {
+            const isActive = week === activeWeek;
+            const isCurrent = week === currentWeek;
+            const isPast = week < currentWeek;
+            const isDisabled = week > currentWeek;
 
-          const className = [
-            styles.week,
-            isPast && styles.past,
-            isCurrent && styles.current,
-            isActive && styles.active,
-            isDisabled && styles.disabled,
-          ]
-            .filter(Boolean)
-            .join(' ');
+            const className = [
+              styles.week,
+              isPast && styles.past,
+              isCurrent && styles.current,
+              isActive && styles.active,
+              isDisabled && styles.disabled,
+            ]
+              .filter(Boolean)
+              .join(' ');
 
-          return (
-            <div key={week} className={styles.slide}>
-              <button
-                type="button"
-                aria-disabled={isDisabled}
-                tabIndex={isDisabled ? -1 : 0}
-                onClick={() => {
-                  if (isDisabled) return;
-                  goToWeek(week);
-                }}
-                className={className}
-                aria-current={isActive ? 'page' : undefined}
-                title={
-                  isDisabled
-                    ? 'Недоступно: тижні після поточного заблоковані'
-                    : undefined
-                }
-              >
-                <span className={styles.weekNumber}>{week}</span>
-                <span className={styles.weekLabel}>Тиждень</span>
-              </button>
-            </div>
-          );
-        })}
+            return (
+              <div key={week} className={styles.slide}>
+                <button
+                  type="button"
+                  aria-disabled={isDisabled}
+                  tabIndex={isDisabled ? -1 : 0}
+                  onClick={() => {
+                    if (isDisabled) return;
+                    goToWeek(week);
+                  }}
+                  className={className}
+                  aria-current={isActive ? 'page' : undefined}
+                  title={
+                    isDisabled
+                      ? 'Недоступно: тижні після поточного заблоковані'
+                      : undefined
+                  }
+                >
+                  <span className={styles.weekNumber}>{week}</span>
+                  <span className={styles.weekLabel}>Тиждень</span>
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

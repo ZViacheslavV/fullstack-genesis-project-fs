@@ -6,7 +6,7 @@
 .container {
   display: flex;
   gap: 16px;
-  padding: 2px 2px 8px;
+  padding: 4px 2px 8px;
   align-items: stretch;
   will-change: transform;
   touch-action: pan-y;
@@ -18,7 +18,7 @@
 
 .week {
   width: 97px;
-  height: 101px;
+  height: 87px;
   padding: 16px;
   border-radius: 32px;
   border: 0;
@@ -61,8 +61,8 @@
 .weekNumber {
   font-family: 'Comfortaa', sans-serif;
   font-weight: 700;
-  font-size: 32px;
-  line-height: 1.2;
+  font-size: 24px;
+  line-height: 1.4;
   letter-spacing: 0.01em;
   text-align: center;
   color: #000;
@@ -75,8 +75,8 @@
 .weekLabel {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.2;
+  font-size: 14px;
+  line-height: 1.5;
   text-align: center;
   color: #000;
 
@@ -123,6 +123,11 @@
 
 .current.active {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper {
+  margin-top: 24px;
+  margin-bottom: 32px;
 }
 
 @media (max-width: 768px) {
