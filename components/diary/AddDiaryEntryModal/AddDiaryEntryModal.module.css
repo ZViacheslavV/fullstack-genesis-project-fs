@@ -25,14 +25,14 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   width: 100%;
 }
 
 .title {
   font-family: var(--second-family);
   font-weight: 700;
-  font-size: 32px;
+  font-size: 36px;
   line-height: 1.4;
   letter-spacing: 0.01em;
   text-align: center;
@@ -58,8 +58,11 @@
     max-height: var(--modal-max-h);
   }
 
+  .wrapper {
+  gap: 48px;
+}
+
   .title {
-    font-size: 48px;
     line-height: 1.2;
   }
 }
@@ -82,5 +85,9 @@
     height: var(--modal-max-h);
     max-height: var(--modal-max-h);
   }
-}
 
+  .title {
+    font-size: 48px;
+    line-height: 1.2;
+  }
+}
