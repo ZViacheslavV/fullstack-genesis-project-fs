@@ -73,31 +73,24 @@ const JourneyPage = async ({ params }: Props) => {
   const week = Number(weekNumber);
   //  if (!Number.isFinite(week) || week < 1) notFound(); //TODO handle wrong inputs
 
-  await queryClient.prefetchQuery({
-    queryKey: ['weeks' /* , 'current-or-demo' */],
-    queryFn: getWeeksCurrentServer,
-    staleTime: 60_000,
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: ['mom', week],
-    queryFn: () => getMomWeeksServer(week),
-    staleTime: 60_000,
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: ['baby', week],
-    queryFn: () => getBabyWeeksServer(week),
-    staleTime: 60_000,
-  });
-
-  /*   if (hasAuth) { */
-  await queryClient.prefetchQuery({
-    queryKey: ['task'],
-    queryFn: getServerTasks,
-    staleTime: 60_000,
-  });
-  /*   } */
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ['weeks'],
+      queryFn: getWeeksCurrentServer,
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ['mom', week],
+      queryFn: () => getMomWeeksServer(week),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ['baby', week],
+      queryFn: () => getBabyWeeksServer(week),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ['task'],
+      queryFn: getServerTasks,
+    }),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
