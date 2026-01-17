@@ -139,12 +139,10 @@
   border-right: 2px solid var(--opacity-neutral-darkest-60);
   border-bottom: 2px solid var(--opacity-neutral-darkest-60);
 
-    transform: rotate(45deg);
-    transform-origin: center;
-  
+  transform: rotate(45deg);
+  transform-origin: center;
 
-    transition: transform 0.2s ease;
-  
+  transition: transform 0.2s ease;
 }
 
 .chevronOpen::before {
@@ -256,4 +254,3 @@
     font-size: 16px;
   }
 }
-
