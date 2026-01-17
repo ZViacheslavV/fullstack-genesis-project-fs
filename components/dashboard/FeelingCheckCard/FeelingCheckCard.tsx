@@ -5,6 +5,8 @@ import { useState } from 'react';
 import Button from '@/components/common/Button/Button';
 import DiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
 import css from './FeelingCheckCard.module.css';
+import { useAuthUserStore } from '@/lib/store/authStore';
+import { useRouter } from 'next/navigation';
 
 type FeelRecommendationCardProps = {
   recommendationText: string | undefined;
@@ -21,6 +23,8 @@ function FeelRecommendationCard({
   initialValues,
 }: FeelRecommendationCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const isAuthenticated = useAuthUserStore((s) => s.isAuthenticated);
+  const router = useRouter();
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -37,7 +41,12 @@ function FeelRecommendationCard({
             <span className={css.desc}>{recommendationText}</span>
           </p>
 
-          <Button className={css.btn} onClick={openModal}>
+          <Button
+            className={css.btn}
+            onClick={() =>
+              isAuthenticated ? openModal() : router.push('/auth/login')
+            }
+          >
             Зробити запис у щоденник
           </Button>
         </div>
