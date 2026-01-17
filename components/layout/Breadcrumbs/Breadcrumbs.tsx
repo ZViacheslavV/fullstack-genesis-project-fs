@@ -26,9 +26,15 @@ export default function Breadcrumbs() {
 
   if (pathname.startsWith('/auth')) return null;
 
-  const segments =
+  const rawSegments =
     pathname === '/' ? ['dashboard'] : pathname.split('/').filter(Boolean);
-  const isDashboardRoot = segments.length === 1 && segments[0] === 'dashboard';
+
+  const segments = rawSegments.filter(
+    (segment) => Object.prototype.hasOwnProperty.call(LABELS, segment)
+  );
+
+  const isDashboardRoot =
+    segments.length === 1 && segments[0] === 'dashboard';
 
   return (
     <nav className={css.breadcrumbs} aria-label="Breadcrumb">
@@ -45,12 +51,16 @@ export default function Breadcrumbs() {
         </span>
       ) : (
         segments.map((segment, index) => {
-          const href = '/' + segments.slice(0, index + 1).join('/');
-          const label = LABELS[segment] ?? segment;
+          const href =
+            segment === 'dashboard'
+              ? '/'
+              : '/' + segment;
+
+          const label = LABELS[segment];
           const isLast = index === segments.length - 1;
 
           return (
-            <span key={href} className={css.item}>
+            <span key={segment} className={css.item}>
               {isLast ? (
                 <span className={css.current}>{label}</span>
               ) : (
