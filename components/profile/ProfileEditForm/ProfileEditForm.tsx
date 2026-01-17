@@ -65,10 +65,10 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
           <Form>
             <div className={css.inputFields}>
               {/* ІМʼЯ */}
-              <label htmlFor="name" className={css.label}>
+              <label htmlFor={`${fieldId}-name`}  className={css.label}>
                 Ім`я
                 <Field
-                  id="name"
+                  id={`${fieldId}-name`}
                   name="name"
                   type="text"
                   className={css.field}
@@ -77,10 +77,10 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
               </label>
 
               {/* EMAIL */}
-              <label htmlFor="email" className={css.label}>
+              <label htmlFor={`${fieldId}-email`} className={css.label}>
                 Пошта
                 <Field
-                  id="email"
+                  id={`${fieldId}-email`}
                   name="email"
                   type="email"
                   className={css.field}
@@ -89,9 +89,9 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
               </label>
 
               {/* GENDER */}
-              <label htmlFor="gender" className={css.label}>
+              <label htmlFor={`${fieldId}-gender`} className={css.label}>
                 Стать дитини
-                <Field name="gender">
+                <Field name="gender" id={`${fieldId}-gender`}>
                   {({ field, form }: FieldProps<FormValues['gender']>) => (
                     <GenderSelect
                       value={field.value}
@@ -105,7 +105,7 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
               </label>
 
               {/* DATE */}
-              <label className={`${css.label} ${css.dateLabel}`}>
+              <label className={`${css.label} ${css.dateLabel}`}  htmlFor={`${fieldId}-dueDate`}>
                 Планова дата пологів
 
                 <div className={css.dateWrapper}>
