@@ -45,13 +45,15 @@
 }
 
 .week:hover:not(.disabled) {
-  background: #ffcbd3;
+  /* background: #ffcbd3; */
   opacity: 1;
+  background: #fff4f6;
 }
 
 .week:focus-visible:not(.disabled) {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 143, 163, 0.55);
+  border: 4px solid #ffdae0;
+  /* box-shadow: 0 0 0 3px rgba(255, 143, 163, 0.55); */
 }
 
 .week:active:not(.disabled) {
