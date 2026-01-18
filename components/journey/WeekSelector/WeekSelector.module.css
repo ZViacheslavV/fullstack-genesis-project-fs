@@ -74,12 +74,6 @@
   border-color: transparent;
 }
 
-.week:hover:not(.disabled) {
-  background: #fff4f6;
-  opacity: 1;
-  border-color: #ffdae0;
-}
-
 .current {
   background: #ffcbd3;
   opacity: 1;
@@ -87,14 +81,20 @@
 }
 
 .active {
-  opacity: 1;
   background: #fff4f6;
-  border-color: transparent;
+  opacity: 1;
+  border-color: #ffdae0;
 }
 
 .current.active {
   background: #ffcbd3;
   border-color: rgba(0, 0, 0, 0.15);
+}
+
+.week:not(.disabled):not(.current):hover {
+  background: #fff4f6;
+  opacity: 1;
+  border-color: #ffdae0;
 }
 
 .week.disabled {
