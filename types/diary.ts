@@ -1,8 +1,19 @@
+export type EmotionObj = {
+  _id: string;
+  title: string;
+};
+
+export type EmotionsResponse = {
+  status: number;
+  message: string;
+  data: EmotionObj[];
+};
+
 export type DiaryEntry = {
   _id: string;
   title: string;
   description: string;
-  emotions: Array<{ _id: string; title: string }> | string[];
+  emotions: EmotionObj[] | string[];
   date?: string;
   createdAt: string;
   updatedAt: string;
