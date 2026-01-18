@@ -37,6 +37,10 @@ color: #c60000;
   background: var(--opacity-neutral-darkest-5);
 }
 
+.field:hover, 
+.field:focus {
+    border-color: #ffcbd3;
+}
 /* =========================
    DATE PICKER
 ========================= */
@@ -168,6 +172,37 @@ color: #c60000;
   border-bottom-width: 2px;
 }
 
+
+
+
+/* MODAL  */
+.modalSize {
+  max-width: 360px;
+}
+.modalPosition {
+padding: 64px 32px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 48px;
+}
+
+.modalText {
+font-family: "Comfortaa", sans-serif;
+font-weight: 700;
+font-size: 24px;
+line-height: 120%;
+letter-spacing: 0.01em;
+text-align: center;
+color: #000;
+
+}
+.modalActions {
+display: flex;
+gap: 8px;
+}
+
 /* =========================
    REACT DATEPICKER GLOBAL FIXES
 ========================= */
@@ -185,7 +220,9 @@ color: #c60000;
 ========================= */
 
 @media only screen and (min-width: 768px) {
-
+.modalSize {
+  max-width: 540px;
+}
   .label,
   .field,
   .dateWrapper {
@@ -197,6 +234,13 @@ color: #c60000;
     gap: 16px;
     justify-content: flex-end;
   }
+
+  .modalActions {
+gap: 24px;
+}
+.modalText {
+  font-size: 36px;
+}
 }
 
 /* =========================
@@ -214,9 +258,10 @@ color: #c60000;
   .dateWrapper {
     width: 580px;
   }
-
+.modalSize {
+  max-width: 800px;
 }
-
+}
 
 
 .fieldError {
@@ -224,28 +269,3 @@ border: 1px solid #c60000;
 color: #c60000;
 }
 
-
-/* MODAL  */
-.modalPosition {
-padding: 64px 32px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 48px;
-}
-
-.modalText {
-font-family: "Comfortaa", sans-serif;
-font-weight: 700;
-font-size: 36px;
-line-height: 120%;
-letter-spacing: 0.01em;
-text-align: center;
-color: #000;
-
-}
-.modalActions {
-display: flex;
-gap: 16px;
-}

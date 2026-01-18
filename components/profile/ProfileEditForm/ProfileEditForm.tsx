@@ -177,7 +177,8 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
         isOpen={isConfirmOpen}
         onClose={() => setIsConfirmOpen(false)}
         closeOnBackdrop={!loading}
-        closeOnEsc={!loading}
+              closeOnEsc={!loading}
+              modalClassName={css.modalSize}
       >
         <div className={css.modalPosition}>
         <p className={css.modalText}>
