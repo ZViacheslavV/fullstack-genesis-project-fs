@@ -1,4 +1,4 @@
-.overlay {
+/* .overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -11,7 +11,8 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 
-  pointer-events: all;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .fadeIn {
@@ -22,6 +23,44 @@
   animation: fadeOut 0.3s ease-in forwards;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+} */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  pointer-events: none;
+}
+
 .player {
   display: flex;
   align-items: center;
@@ -30,6 +69,14 @@
 
   width: 200px;
   height: 200px;
+}
+
+.fadeIn {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.fadeOut {
+  animation: fadeOut 0.3s ease-in forwards;
 }
 
 @keyframes fadeIn {

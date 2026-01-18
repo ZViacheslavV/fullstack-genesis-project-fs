@@ -6,6 +6,7 @@ import Image from 'next/image';
 import styles from './Baby.module.css';
 
 const FADE_DURATION = 300;
+const MIN_SHOW_TIME = 2000;
 
 export default function Baby() {
   const pathname = usePathname();
@@ -27,11 +28,11 @@ export default function Baby() {
 
     const hideTimer = setTimeout(() => {
       setVisible(false);
-    }, 500);
+    }, MIN_SHOW_TIME);
 
     const unmountTimer = setTimeout(() => {
       setShouldRender(false);
-    }, 500 + FADE_DURATION);
+    }, MIN_SHOW_TIME + FADE_DURATION);
 
     return () => {
       clearTimeout(hideTimer);
@@ -46,11 +47,12 @@ export default function Baby() {
       className={`${styles.overlay} ${
         visible ? styles.fadeIn : styles.fadeOut
       }`}
+      style={{ zIndex: 9998 }}
     >
       <div className={styles.loader}>
         <Image
           src="/Baby.gif"
-          alt="Loading..."
+          alt="Завантаження сторінки..."
           width={140}
           height={140}
           priority
@@ -59,49 +61,3 @@ export default function Baby() {
     </div>
   );
 }
-
-// 'use client';
-
-// import { useEffect, useRef, useState } from 'react';
-// import { usePathname } from 'next/navigation';
-// import Image from 'next/image';
-// import styles from './Baby.module.css';
-
-// export default function Baby() {
-//   const pathname = usePathname();
-//   const [loading, setLoading] = useState(false);
-//   const isFirstLoad = useRef(true);
-
-//   useEffect(() => {
-//
-//     if (isFirstLoad.current) {
-//       isFirstLoad.current = false;
-//       return;
-//     }
-
-//     // eslint-disable-next-line react-hooks/set-state-in-effect
-//     setLoading(true);
-
-//     const timer = setTimeout(() => {
-//       setLoading(false);
-//     }, 500);
-
-//     return () => clearTimeout(timer);
-//   }, [pathname]);
-
-//   if (!loading) return null;
-
-//   return (
-//     <div className={styles.overlay}>
-//       <div className={styles.loader}>
-//         <Image
-//           src="/Baby.gif"
-//           alt="Loading..."
-//           width={140}
-//           height={140}
-//           priority
-//         />
-//       </div>
-//     </div>
-//   );
-// }
