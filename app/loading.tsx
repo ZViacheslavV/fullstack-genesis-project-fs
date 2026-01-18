@@ -1,5 +1,3 @@
-// 'use client';
-
 import LoaderBaby from '@/components/common/Loader/LoaderBaby';
 import styles from './loading.module.css';
 

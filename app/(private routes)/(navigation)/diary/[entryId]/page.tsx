@@ -8,7 +8,7 @@ import { useDiaryStore } from '@/lib/store/diaryStore';
 
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
 
-import { Baby } from '@/components/common/Loader';
+// import { Baby } from '@/components/common/Loader';
 
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
 import DiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
@@ -89,9 +89,7 @@ export default function DiaryEntryPage() {
       <GreetingBlock />
 
       {isLoading && entries.length === 0 ? (
-        <div className={css.loader}>
-          <Baby />
-        </div>
+        <div className={css.loader}>{/* <Baby /> */}</div>
       ) : entry ? (
         <>
           <div className={css.card}>
