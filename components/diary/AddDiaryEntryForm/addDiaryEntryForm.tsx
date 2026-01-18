@@ -32,7 +32,7 @@ type FormValues = {
 };
 
 const MAX_EMOTIONS = 12;
-const MAX_CHARS = 2500;
+const MAX_CHARS = 1000;
 const MAX_TITLE_CHARS = 64; 
 
 const schema: Yup.ObjectSchema<FormValues> = Yup.object({
@@ -110,11 +110,13 @@ export default function AddDiaryEntryForm({
               emotions: values.emotions,
             };
 
+            const fullEmotions = emotions.filter(e => values.emotions.includes(e._id));
+
             if (mode === "edit") {
               if (!entryId) throw new Error("Не знайдено id запису");
-              await editEntry(entryId, payload);
+              await editEntry(entryId, payload, fullEmotions);
             } else {
-              await addEntry(payload);
+              await addEntry(payload, fullEmotions);
             }
 
             onSuccess();

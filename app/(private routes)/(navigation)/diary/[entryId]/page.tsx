@@ -103,7 +103,6 @@ export default function DiaryEntryPage() {
             isOpen={isEntryModalOpen}
             onClose={() => setIsEntryModalOpen(false)}
             onSuccess={() => {
-              fetchEntries();
               showToast('Запис оновлено', 'success');
             }}
             mode={entryModalMode}

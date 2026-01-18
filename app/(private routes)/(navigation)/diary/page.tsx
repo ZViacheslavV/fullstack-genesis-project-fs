@@ -135,7 +135,6 @@ export default function DiaryPage() {
             isOpen={isEntryModalOpen}
             onClose={() => setIsEntryModalOpen(false)}
             onSuccess={() => {
-              fetchEntries(true);
               showToast(
                 entryModalMode === 'create'
                   ? 'Запис створено'
