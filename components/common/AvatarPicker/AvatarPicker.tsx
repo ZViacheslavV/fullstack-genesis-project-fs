@@ -83,7 +83,7 @@ function AvatarPicker({
         {children}
 
         <label className={`${css.changeButton} ${css[buttonVariant]}`}>
-          {loading ? 'Uploading...' : 'Завантажити нове фото'}
+          {loading ? 'Завантаження...' : 'Завантажити нове фото'}
           <input
             type="file"
             accept="image/*"

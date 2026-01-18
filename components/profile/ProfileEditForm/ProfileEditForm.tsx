@@ -10,6 +10,8 @@ import GenderSelect from '@/components/common/Select/Select';
 import { useRouter } from 'next/navigation';
 
 import css from './ProfileEditForm.module.css';
+import Toast from '@/components/common/Toast/Toast';
+import Modal from '@/components/common/Modal/Modal';
 
 interface ProfileEditFormProps {
   user: User;
@@ -22,12 +24,19 @@ interface FormValues {
   dueDate: string;
 }
 
+type ToastState = {
+  message: string;
+  type: 'success' | 'error';
+} | null;
+
 function ProfileEditForm({ user }: ProfileEditFormProps) {
   const router = useRouter();
   const fieldId = useId();
 
-  // 🔥 состояние ТОЛЬКО для иконки
   const [isDateFocused, setIsDateFocused] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState<ToastState>(null);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const initialValues: FormValues = {
     name: user.name,
@@ -45,11 +54,22 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
     if (values.gender !== null) payload.gender = values.gender;
     if (values.dueDate) payload.dueDate = values.dueDate;
 
-    try {
+    try {  setLoading(true);
       await updateMe(payload);
       router.refresh();
+      setToast({
+      message: 'Дані успішно збережено',
+      type: 'success',
+    });
     } catch (error) {
       console.error(error);
+        setToast({
+      message: 'Не вдалося зберегти зміни',
+      type: 'error',
+    });
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -61,34 +81,41 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
         enableReinitialize
         validationSchema={profileValidationSchema}
       >
-        {({ resetForm }) => (
+        {({ resetForm, errors, touched, dirty, submitForm, isValid }) => (
+          <>
           <Form>
+             {toast && (
+  <Toast message={toast.message} type={toast.type} />
+)}
             <div className={css.inputFields}>
-              {/* ІМʼЯ */}
+
               <label htmlFor={`${fieldId}-name`}  className={css.label}>
                 Ім`я
                 <Field
                   id={`${fieldId}-name`}
                   name="name"
                   type="text"
-                  className={css.field}
+                   className={`${css.field} ${
+    touched.name && errors.name ? css.fieldError : ''
+  }`}
                 />
-                <ErrorMessage name="name" component="p" />
+                <ErrorMessage name="name" component="p" className={css.error}/>
               </label>
 
-              {/* EMAIL */}
+
               <label htmlFor={`${fieldId}-email`} className={css.label}>
                 Пошта
                 <Field
                   id={`${fieldId}-email`}
                   name="email"
                   type="email"
-                  className={css.field}
+                   className={`${css.field} ${
+    touched.email && errors.email ? css.fieldError : ''
+  }`}
                 />
-                <ErrorMessage name="email" component="p" />
+                <ErrorMessage name="email" component="p" className={css.error} />
               </label>
 
-              {/* GENDER */}
               <label htmlFor={`${fieldId}-gender`} className={css.label}>
                 Стать дитини
                 <Field name="gender" id={`${fieldId}-gender`}>
@@ -101,10 +128,9 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                     />
                   )}
                 </Field>
-                <ErrorMessage name="gender" component="p" />
+                <ErrorMessage name="gender" component="p" className={css.error}/>
               </label>
 
-              {/* DATE */}
               <label className={`${css.label} ${css.dateLabel}`}  htmlFor={`${fieldId}-dueDate`}>
                 Планова дата пологів
 
@@ -127,26 +153,65 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
                   />
                 </div>
 
-                <ErrorMessage name="dueDate" component="p" />
+                <ErrorMessage name="dueDate" component="p" className={css.error}/>
               </label>
 
-              {/* BUTTONS */}
+
               <div className={css.buttonContainer}>
                 <button
                   type="button"
                   onClick={() => resetForm()}
                   className={css.undoChanges}
                 >
-                  Відмінити зміни
+                  {'Відмінити зміни'}
                 </button>
 
-                <button type="submit" className={css.saveChanges}>
-                  Зберегти зміни
+                <button type="button" onClick={() => setIsConfirmOpen(true)}  disabled={!dirty || !isValid || loading} className={css.saveChanges}>
+                  
+                  {loading ? 'Завантаження...' : 'Зберегти зміни'}
                 </button>
               </div>
             </div>
-          </Form>
+            </Form>
+             <Modal
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        closeOnBackdrop={!loading}
+        closeOnEsc={!loading}
+      >
+        <div className={css.modalPosition}>
+        <p className={css.modalText}>
+          Ви впевнені, що хочете зберегти внесені зміни?
+        </p>
+
+        <div className={css.modalActions}>
+          <button
+            type="button"
+            className={css.undoChanges}
+            onClick={() => setIsConfirmOpen(false)}
+            disabled={loading}
+          >
+            Скасувати
+          </button>
+
+          <button
+            type="button"
+            className={css.saveChanges}
+            disabled={loading}
+            onClick={async () => {
+            
+              await submitForm();
+                setIsConfirmOpen(false);
+            }}
+          >
+            Підтвердити
+          </button>
+                </div>
+                </div>
+      </Modal>
+          </>
         )}
+        
       </Formik>
     </div>
   );

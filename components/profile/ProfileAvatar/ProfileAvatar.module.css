@@ -6,6 +6,10 @@
   letter-spacing: 0.01em;
   text-align: center;
   color: var(--color-scheme-text);
+  max-width: 335px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .email {
@@ -16,6 +20,10 @@
   text-align: center;
   color: var(--color-scheme-text);
   margin-bottom: 16px;
+  max-width: 335px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Tablet & Desktop 768px+ */
@@ -27,9 +35,11 @@
     line-height: 140%;
     letter-spacing: 0.01em;
     color: var(--color-scheme-text);
+    max-width: 446px;
   }
   .email {
     text-align: left;
+    max-width: 446px;
   }
 }
 
@@ -41,5 +51,9 @@
     line-height: 140%;
     letter-spacing: 0.01em;
     color: var(--color-scheme-text);
+     max-width: 580px;
+  }
+  .email {
+    max-width: 580px;
   }
 }
