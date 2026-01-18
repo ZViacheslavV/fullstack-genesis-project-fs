@@ -2,6 +2,8 @@
   background: var(--color-scheme-foreground);
   border-radius: 16px;
   padding: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -10,6 +12,7 @@
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 12px;
+  flex-shrink: 0;
 }
 
 .heading {
@@ -23,20 +26,22 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   border: none;
   background: transparent;
   cursor: pointer;
-
   font-size: 14px;
-  font-weight: var(--second-family);
+  font-family: var(--second-family);
   padding: 6px 8px;
   border-radius: 10px;
+  transition: opacity 0.2s ease;
+}
 
+.addBtn:hover {
+  opacity: 0.8;
 }
 
 .addBtn:focus-visible {
-  outline: 2px solid var(--opacity-neutral-darkest-20);
+  outline: 2px solid var(--color-scheme-accent);
   outline-offset: 2px;
 }
 
@@ -46,21 +51,26 @@
   height: 22px;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
   background: var(--color-pastel-pink-lighter);
-  font-size: 16px;
-  line-height: 1;
+  box-shadow: none;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.addBtn:hover .plus,
+.addBtn:focus-visible .plus {
+  transform: scale(1.2);
 }
 
 .list {
   list-style: none;
   margin: 0;
   padding: 0;
-
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-height: 0;
+  flex: 1;
 }
 
 .item {
@@ -71,6 +81,7 @@
   padding: 18px 0;
   display: grid;
   place-items: center;
+  flex: 1;
 }
 
 .stateText {
@@ -83,8 +94,6 @@
 @media only screen and (max-width: 767px) {
   .wrapper {
     height: 670px;
-    display: grid;
-    grid-template-rows: auto 1fr;
   }
 
   .list {
@@ -97,26 +106,23 @@
 @media only screen and (min-width: 768px) and (max-width: 1439px) {
   .wrapper {
     height: 706px;
-    display: grid;
-    grid-template-rows: auto 1fr;
   }
 
   .heading {
     font-size: 18px;
   }
 
-    .list {
-      overflow-y: auto;
-      padding-right: 6px;
-      scrollbar-gutter: stable;
-    }
+  .list {
+    overflow-y: auto;
+    padding-right: 6px;
+    scrollbar-gutter: stable;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
   .wrapper {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    max-height: calc(6 * 100px + 5 * 16px + 40px);
+    height: 720px;
+    max-height: 720px;
   }
 
   .list {
@@ -130,7 +136,11 @@
   width: 6px;
 }
 
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .list::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--color-scheme-accent);
   border-radius: 4px;
 }
