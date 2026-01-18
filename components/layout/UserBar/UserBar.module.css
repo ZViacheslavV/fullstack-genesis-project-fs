@@ -1,11 +1,18 @@
 .userBar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 .userInfo {
   display: flex;
+  flex: 1;
   gap: 8px;
+  align-items: center;
+  min-width: 0;
 }
 
 .avatar {
@@ -19,6 +26,17 @@
   font-size: 12px;
   line-height: 160%;
   color: var(--color-scheme-text);
+  flex: 1;
+  min-width: 0;
+}
+
+.name,
+.email {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .logoutBtn {
