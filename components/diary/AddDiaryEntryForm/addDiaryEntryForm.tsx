@@ -32,10 +32,15 @@ type FormValues = {
 };
 
 const MAX_EMOTIONS = 12;
-const MAX_CHARS = 1000; 
+const MAX_CHARS = 2500;
+const MAX_TITLE_CHARS = 64; 
 
 const schema: Yup.ObjectSchema<FormValues> = Yup.object({
-  title: Yup.string().trim().min(1, "Мінімум 1 символ").max(64, "Максимум 64 символи").required("Вкажи заголовок"),
+  title: Yup.string()
+    .trim()
+    .min(1, "Мінімум 1 символ")
+    .max(MAX_TITLE_CHARS, `Максимум ${MAX_TITLE_CHARS} символи`)
+    .required("Вкажи заголовок"),
   description: Yup.string()
     .trim()
     .min(1, "Мінімум 1 символ")
@@ -127,13 +132,16 @@ export default function AddDiaryEntryForm({
                 Заголовок
                 <span className={styles.star}>*</span>
               </label>
+              
               <Field 
                 id="title" 
                 name="title" 
                 className={`${styles.input} ${errors.title && touched.title ? styles.errorInput : ''}`}
                 placeholder="Введіть заголовок запису" 
-                autoComplete="off" 
+                autoComplete="off"
+                maxLength={MAX_TITLE_CHARS} 
               />
+
               <ErrorMessage name="title" component="p" className={styles.error} />
             </div>
 

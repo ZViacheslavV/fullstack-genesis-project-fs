@@ -1,12 +1,12 @@
 .wrapper {
+  box-sizing: border-box;
   width: 100%;
-  border: 1px solid var(--color-scheme-foreground);
-  border-radius: 16px;
   background: var(--color-scheme-foreground);
+  border-radius: 20px;
   padding: 14px;
-
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .empty {
@@ -21,12 +21,12 @@
   color: var(--color-neutral-dark);
 }
 
-/* === HEADER LAYOUT (MOBILE FIRST) === */
 .header {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 12px;
+  flex-shrink: 0;
 }
 
 .left {
@@ -35,6 +35,7 @@
   gap: 8px;
   width: 100%;
   justify-content: flex-start;
+  min-width: 0;
 }
 
 .right {
@@ -51,35 +52,42 @@
   font-weight: var(--fw-semibold);
   font-size: 18px;
   line-height: 1.2;
-  word-break: break-word;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 .date {
   font-size: 12px;
   color: var(--color-neutral-dark);
   white-space: nowrap;
+  line-height: 1;
 }
 
 .iconBtn {
   width: 24px;
   height: 24px;
-  border-radius: 8px;
   border: none;
   background: transparent;
   cursor: pointer;
-
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: var(--color-neutral-dark);
-  transition: all 0.2s ease;
-  padding: 0;
+  flex-shrink: 0;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 .iconBtn:hover {
-  background: var(--opacity-neutral-darkest-10);
-  color: var(--color-primary);
+  background: transparent;
+  transform: scale(1.2);
+  color: var(--color-scheme-accent);
 }
 
 .noteBox {
@@ -87,6 +95,8 @@
   padding: 0;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
 .note {
@@ -105,6 +115,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  flex-shrink: 0;
 }
 
 .chip {
@@ -113,7 +124,7 @@
   height: 28px;
   padding: 0 12px;
   border-radius: 999px;
-  background: var(--color-scheme-foreground-alt);
+  background: var(--opacity-neutral-darkest-5);
   font-size: 12px;
   line-height: 1;
 }
@@ -122,33 +133,22 @@
   margin: 12px 0 0;
   font-size: 12px;
   color: var(--color-neutral);
+  flex-shrink: 0;
 }
 
-/* === MEDIA QUERIES === */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1439px) {
   .wrapper {
-    height: 603px;
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
+    height: auto;
+    min-height: 200px;
   }
 
   .noteBox {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-gutter: stable;
+    overflow: visible;
+    flex: 0 0 auto;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1439px) {
-  .wrapper {
-    height: 765px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-
   .header {
     flex-direction: row;
     justify-content: space-between;
@@ -157,9 +157,7 @@
 
   .left {
     width: auto;
-    justify-content: flex-start;
     flex: 1;
-    min-width: 0;
     gap: 8px;
   }
 
@@ -173,21 +171,15 @@
   .title {
     font-size: 22px;
   }
-
-  .noteBox {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-gutter: stable;
-  }
 }
 
 @media only screen and (min-width: 1440px) {
   .wrapper {
     height: 720px;
+    max-height: 720px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    padding: 24px;
   }
 
   .header {
@@ -198,9 +190,7 @@
 
   .left {
     width: auto;
-    justify-content: flex-start;
     flex: 1;
-    min-width: 0;
     gap: 8px;
   }
 
@@ -216,5 +206,14 @@
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-gutter: stable;
+  }
+
+  .noteBox::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .noteBox::-webkit-scrollbar-thumb {
+    background: var(--color-scheme-border);
+    border-radius: 4px;
   }
 }
