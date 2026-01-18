@@ -2,7 +2,7 @@
   border: 0px solid var(--color-scheme-border);
   border-radius: 32px;
   padding: 24px;
-  width: 311px;
+  width: 335px;
   background: var(--color-scheme-foreground);
 }
 
@@ -55,10 +55,9 @@
   .container_feel {
     width: 650px;
     height: 194px;
-    overflow: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-pastel-pink-dark)
-      var(--color-scheme-foreground);
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: var(--color-scheme-accent) transparent;
   }
 
   .title {
