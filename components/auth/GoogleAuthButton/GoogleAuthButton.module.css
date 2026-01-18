@@ -1,0 +1,54 @@
+.googleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+    border-radius: 100px;
+    padding: 10px 24px;
+    width: 335px;
+    height: 44px;
+    background: var(--opacity-neutral-darkest-5);
+    margin-top: 16px;
+    transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.googleButton:hover,
+.googleButton:focus-visible {
+    border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+    background: var(--color-scheme-foreground);
+}
+
+.googleButton:active {
+    background: var(--color-scheme-accent);
+    transform: translateY(1px);
+}
+
+.text {
+font-family: var(--second-family);;
+font-weight: 500;
+font-size: 14px;
+line-height: 160%;
+color: var(--color-scheme-text);
+}
+
+.icon {
+    fill: var(--color-scheme-text);
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .googleButton{
+        width: 480px;
+        font-size: 16px;
+    }
+
+@media (min-width: 1440px) {
+    .googleButton{
+        width: 480px;
+        font-size: 16px;
+    }  
+  }
+}

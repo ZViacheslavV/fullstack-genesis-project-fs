@@ -17,6 +17,7 @@ import type { User } from '@/types/user';
 import Toast from '@/components/common/Toast/Toast';
 import Button from '@/components/common/Button/Button';
 import css from './RegistrationForm.module.css';
+import GoogleAuthButton from '../GoogleAuthButton/GoogleAuthButton';
 
 //===============================================================
 
@@ -204,6 +205,8 @@ function RegistrationForm() {
           >
             {isSubmitting ? 'Зачекайте…' : 'Зареєструватись'}
           </Button>
+
+          <GoogleAuthButton text="Зареєструватись через Google" />
 
           <p className={css.helper}>
             Вже маєте акаунт?
