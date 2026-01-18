@@ -2,7 +2,11 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
-import type { DiaryEntry } from '@/types/diary';
+import type { 
+  DiaryEntry, 
+  EmotionObj, 
+  EmotionsResponse 
+} from '@/types/diary';
 
 import type {
   WeeksApiResponse,
@@ -254,6 +258,13 @@ export const updateCurrentUser = async (data: UpdateProfile) => {
 // ------------------------- Данило
 
 // ============================  DIARY  =============================
+
+export const getEmotions = async (): Promise<EmotionObj[]> => {
+  const { data } = await nextServer.get<EmotionsResponse>(API_ENDPOINTS.EMOTIONS);
+  return data.data ?? [];
+};
+
+/* --- ЗАПИСИ --- */
 
 export type DiaryPayload = {
   title: string;
