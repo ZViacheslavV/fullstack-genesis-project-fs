@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useCallback, useEffect } from 'react';
+import { useMemo, useCallback, useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import useEmblaCarousel from 'embla-carousel-react';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
@@ -24,12 +24,10 @@ function calcCurrentWeekFromDueDate(dueDate?: string | null) {
     Math.ceil((due.getTime() - today.getTime()) / MS_IN_DAY)
   );
 
-  const week = Math.min(
+  return Math.min(
     TOTAL_WEEKS,
     Math.max(1, TOTAL_WEEKS - Math.floor(daysLeft / 7))
   );
-
-  return week;
 }
 
 function clampWeek(n: number) {
@@ -64,14 +62,37 @@ export default function WeekSelector() {
     return Number.isFinite(n) && n >= 1 ? clampWeek(n) : 1;
   }, [weekNumber]);
 
+  const [isFirstOpen, setIsFirstOpen] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const key = 'journey-first-opened';
+    const already = window.sessionStorage.getItem(key);
+
+    if (already) {
+      setIsFirstOpen(false);
+    } else {
+     
+      window.sessionStorage.setItem(key, '1');
+      setIsFirstOpen(true);
+    }
+  }, []);
+
   useEffect(() => {
     setCurWeek(activeWeek);
   }, [activeWeek, setCurWeek]);
 
+
   useEffect(() => {
     if (!emblaApi) return;
-    emblaApi.scrollTo(activeWeek - 1, true);
-  }, [emblaApi, activeWeek]);
+    if (isFirstOpen === null) return;
+
+    const targetWeek = isFirstOpen ? currentWeek : activeWeek;
+    const index = targetWeek - 1;
+
+    emblaApi.scrollTo(index, !isFirstOpen); 
+  }, [emblaApi, currentWeek, activeWeek, isFirstOpen]);
 
   const goToWeek = useCallback(
     (week: number) => {
