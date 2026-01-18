@@ -48,7 +48,9 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
     <div className={css.wrapper}>
       <div className={css.header}>
         <div className={css.left}>
-          <h2 className={css.title}>{entry.title}</h2>
+          <h2 className={css.title} title={entry.title}>
+            {entry.title}
+          </h2>
 
           <button
             type="button"
