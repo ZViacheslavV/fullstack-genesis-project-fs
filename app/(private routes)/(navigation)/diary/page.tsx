@@ -111,7 +111,7 @@ export default function DiaryPage() {
       <GreetingBlock />
 
       {isLoading && entries.length === 0 ? (
-        <div className={css.loader}>{/* <Baby /> */}</div>
+        <div className={css.loader}>{/*<Baby />*/}</div>
       ) : (
         <>
           <div className={css.grid}>

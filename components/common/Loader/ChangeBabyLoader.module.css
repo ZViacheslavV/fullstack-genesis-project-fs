@@ -103,14 +103,14 @@
 
 @media (min-width: 768px) {
   .player {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 }
 
 @media (min-width: 1440px) {
   .player {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
   }
 }
