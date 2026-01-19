@@ -1,9 +1,12 @@
 .wrapper {
-  box-sizing: border-box;
+  /* 🔥 ВАЖЛИВО: Завжди займати всю ширину батьківського контейнера */
   width: 100%;
+  box-sizing: border-box;
+
   background: var(--color-scheme-foreground);
   border-radius: 20px;
   padding: 14px;
+
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -21,6 +24,7 @@
   color: var(--color-neutral-dark);
 }
 
+/* === HEADER === */
 .header {
   display: flex;
   flex-direction: column;
@@ -90,6 +94,7 @@
   color: var(--color-scheme-accent);
 }
 
+/* === CONTENT === */
 .noteBox {
   margin-top: 0;
   padding: 0;
@@ -97,17 +102,27 @@
   flex-direction: column;
   flex: 1;
   min-height: 0;
+
+  /* Гарантуємо, що блок займає 100% ширини картки */
+  width: 100%;
 }
 
 .note {
   margin: 0;
   font-size: 15px;
   line-height: 1.6;
+
+  /* Зберігаємо форматування абзаців */
   white-space: pre-wrap;
+
+  /* 🔥 ФІКС ДЛЯ ДОВГИХ СЛІВ (як на скріні 1) */
   word-break: break-word;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere; /* Найагресивніший перенос, розбиває будь-яке слово */
+
+  color: #000;
 }
 
+/* === EMOTIONS === */
 .emotions {
   margin: 12px 0 0;
   padding: 0;
@@ -135,6 +150,10 @@
   color: var(--color-neutral);
   flex-shrink: 0;
 }
+
+/* ========================================= */
+/*             MEDIA QUERIES                 */
+/* ========================================= */
 
 @media only screen and (max-width: 1439px) {
   .wrapper {
@@ -175,6 +194,7 @@
 
 @media only screen and (min-width: 1440px) {
   .wrapper {
+    /* Фіксована висота на десктопі */
     height: 720px;
     max-height: 720px;
     padding: 24px;
@@ -201,6 +221,7 @@
     gap: 8px;
   }
 
+  /* Скрол всередині */
   .noteBox {
     flex: 1;
     overflow-y: auto;
@@ -213,7 +234,7 @@
   }
 
   .noteBox::-webkit-scrollbar-thumb {
-    background: var(--color-scheme-border);
+    background: var(--color-scheme-accent);
     border-radius: 4px;
   }
 }
