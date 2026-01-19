@@ -176,10 +176,15 @@ export const getMomWeeks = async (
 };
 
 // ============================  USERS  =============================
+export interface currentUserResponse {
+  data: { user: User };
+}
 
 export const getMe = async () => {
-  const { data } = await nextServer.get<User>(API_ENDPOINTS.USER_CURRENT_GET);
-  return data;
+  const { data } = await nextServer.get<currentUserResponse>(
+    API_ENDPOINTS.USER_CURRENT_GET
+  );
+  return data.data;
 };
 
 export interface UpdateProfile {

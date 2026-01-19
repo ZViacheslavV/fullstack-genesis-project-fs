@@ -30,7 +30,7 @@ const AuthProvider = ({ children }: Props) => {
         if (!isMounted) return;
 
         if (isAuthenticated) {
-          const user = await getMe();
+          const { user } = await getMe();
           if (isMounted && user) setUser(user);
 
           console.log('User:', user); //TODO remove console.log
