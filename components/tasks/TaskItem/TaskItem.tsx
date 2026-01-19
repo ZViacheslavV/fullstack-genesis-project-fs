@@ -42,10 +42,6 @@ export default function TaskItem({ task }: TaskItemProps) {
         { duration: 5000 }
       );
     },
-
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['task'] });
-    },
   });
   const handleChange = () => {
     mutate({ id: task._id, isDone: !task.isDone });
