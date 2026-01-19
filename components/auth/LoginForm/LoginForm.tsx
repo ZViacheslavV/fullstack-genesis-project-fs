@@ -160,11 +160,16 @@ function LoginForm() {
 
           <GoogleAuthButton text="Увійти через Google" />
 
-
           <p className={css.helper}>
             Немає аккаунту?
             <Link className={css.link} href="/auth/register">
               Зареєструватися
+            </Link>
+          </p>
+
+          <p className={css.helper}>
+            <Link className={css.link} href="/auth/forgot-password">
+              Забули пароль?
             </Link>
           </p>
         </Form>
