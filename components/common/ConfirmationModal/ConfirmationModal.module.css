@@ -13,7 +13,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  /* gap: 32px; */
+  gap: 48px;
 }
 
 .title {
@@ -22,7 +23,8 @@
   font-family: var(--second-family);
   font-weight: 700;
   font-size: 36px;
-  line-height: 1.4;
+  /* line-height: 1.4; */
+  line-height: 120%;
   letter-spacing: 0.01em;
   text-align: center;
   color: var(--color-scheme-text);
@@ -32,13 +34,15 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  /* gap: 16px; */
+  gap: 24px;
   align-items: center;
 }
 
 .btn {
-  width: 100%;
-  max-width: 295px;
+  /* width: 100%;
+  max-width: 295px; */
+  width: 268px;
 }
 
 /* tablet */
@@ -52,18 +56,19 @@
     --modal-close-right: 32px;
   }
 
-  .title {
+  /* .title {
     line-height: 1.2;
-  }
+  } */
 
   .actions {
     flex-direction: row;
     justify-content: center;
-    gap: 32px;
+    /* gap: 32px; */
+    gap: 24px;
   }
 
   .btn {
-    max-width: 312px;
+    max-width: 268px;
   }
 }
 
@@ -80,6 +85,6 @@
 
   .title {
     font-size: 48px;
-    line-height: 1.2;
+    /* line-height: 1.2; */
   }
 }
