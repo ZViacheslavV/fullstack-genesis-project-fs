@@ -1,5 +1,5 @@
 
-## 🤰 [Leleka Genesis (web application)]([https://your-project-link.example](https://fullstack-genesis-project.vercel.app/))
+## 🤰 [Leleka Genesis (web application)](https://fullstack-genesis-project.vercel.app/)
 
 > A modern, responsive web application designed to support expectant mothers throughout their pregnancy journey.
 
