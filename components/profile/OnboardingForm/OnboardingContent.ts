@@ -76,7 +76,7 @@ export const genderSelectStyles: StylesConfig<GenderOption, false> = {
     padding: '12px 16px',
     cursor: 'pointer',
     backgroundColor: state.isSelected
-      ? '#e6e6e6'
+      ? '#edcfcf'
       : state.isFocused
         ? '#f7f7f7'
         : '#fff',

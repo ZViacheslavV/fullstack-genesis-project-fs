@@ -17,6 +17,12 @@
   margin-bottom: 24px;
 }
 
+.error {
+color: #c60000;
+}
+
+
+
 /* =========================
    TEXT INPUTS
 ========================= */
@@ -31,6 +37,10 @@
   background: var(--opacity-neutral-darkest-5);
 }
 
+.field:hover, 
+.field:focus {
+    border-color: #ffcbd3;
+}
 /* =========================
    DATE PICKER
 ========================= */
@@ -109,10 +119,10 @@
 }
 
 .saveChanges {
+  font-family: "Lato", sans-serif;
   width: 159px;
   height: 38px;
   padding: 8px 20px;
-
   border-radius: 100px;
   border-bottom: 4px solid var(--color-scheme-accent);
   background: var(--color-scheme-foreground-alt);
@@ -132,8 +142,14 @@
   border-bottom-width: 2px;
 }
 
+.saveChanges:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .undoChanges {
-  width: 159px;
+  font-family: "Lato", sans-serif;
+  width: 162px;
   height: 38px;
   padding: 8px 20px;
 
@@ -156,6 +172,37 @@
   border-bottom-width: 2px;
 }
 
+
+
+
+/* MODAL  */
+.modalSize {
+  max-width: 360px;
+}
+.modalPosition {
+padding: 64px 32px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 48px;
+}
+
+.modalText {
+font-family: "Comfortaa", sans-serif;
+font-weight: 700;
+font-size: 24px;
+line-height: 120%;
+letter-spacing: 0.01em;
+text-align: center;
+color: #000;
+
+}
+.modalActions {
+display: flex;
+gap: 8px;
+}
+
 /* =========================
    REACT DATEPICKER GLOBAL FIXES
 ========================= */
@@ -173,7 +220,9 @@
 ========================= */
 
 @media only screen and (min-width: 768px) {
-
+.modalSize {
+  max-width: 540px;
+}
   .label,
   .field,
   .dateWrapper {
@@ -185,6 +234,13 @@
     gap: 16px;
     justify-content: flex-end;
   }
+
+  .modalActions {
+gap: 24px;
+}
+.modalText {
+  font-size: 36px;
+}
 }
 
 /* =========================
@@ -202,10 +258,14 @@
   .dateWrapper {
     width: 580px;
   }
-
-  .buttonContainer {
-    display: flex;
-    gap: 16px;
-    justify-content: flex-end;
-  }
+.modalSize {
+  max-width: 800px;
 }
+}
+
+
+.fieldError {
+border: 1px solid #c60000;
+color: #c60000;
+}
+

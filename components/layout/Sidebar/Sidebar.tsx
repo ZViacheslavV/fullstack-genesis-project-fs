@@ -74,6 +74,7 @@ function SideBar() {
       />
 
       <aside className={`${css.root} ${isOpen ? css.open : ''}`}>
+        <h2 className="visually-hidden">Sidebar</h2>
         <div className={css.top}>
           <Link className={css.logoLink} href="/" onClick={close}>
             <Image

@@ -120,6 +120,8 @@
   flex-direction: column;
   gap: 16px;
   padding: 16px 16px 24px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 @media only screen and (min-width: 768px) {
@@ -130,7 +132,11 @@
 
 @media only screen and (min-width: 1440px) {
   .root {
-    width: 312px;
+    position: sticky;
+    top: 0;
+    left: auto;
+    height: 100vh;
+    min-width: 312px;
     border-right: 1px solid var(--color-scheme-border);
     transform: none;
     transition: none;

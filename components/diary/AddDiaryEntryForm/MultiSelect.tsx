@@ -59,19 +59,19 @@ export default function MultiSelect({
         aria-expanded={open}
         disabled={disabled}
       >
-        <div className={styles.dropdownValue}>
+        <span className={styles.dropdownValue}>
           {selectedTitles.length === 0 ? (
             <span className={styles.placeholder}>{placeholder}</span>
           ) : (
-            <div className={styles.chips}>
+            <span className={styles.chips}>
               {selectedTitles.map((t) => (
                 <span key={t} className={styles.chip}>
                   {t}
                 </span>
               ))}
-            </div>
+            </span>
           )}
-        </div>
+        </span>
 
         <span className={`${styles.chevron} ${open ? styles.chevronOpen : ""}`} />
       </button>

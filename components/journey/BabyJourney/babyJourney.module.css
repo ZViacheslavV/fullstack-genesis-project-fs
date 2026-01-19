@@ -6,6 +6,7 @@
   width: 335px;
   width: 100%;
   background: var(--color-scheme-foreground);
+  margin-bottom: 24px;
 }
 
 .container_image {
@@ -123,19 +124,17 @@
   .container_text {
     width: 523px;
     height: 280px;
-    overflow: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-pastel-pink-dark)
-      var(--color-scheme-foreground);
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: var(--color-scheme-accent) transparent;
   }
 
   .container_fact {
     width: 523px;
     height: 104px;
-    overflow: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-pastel-pink-dark)
-      var(--color-scheme-foreground);
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: var(--color-scheme-accent) transparent;
   }
 
   .fact_title {

@@ -40,6 +40,7 @@
 }
 
 .changeButton {
+  font-family: 'Lato', sans-serif;
   width: 335px;
   height: 38px;
   border-bottom: 4px solid var(--opacity-neutral-darkest-15);

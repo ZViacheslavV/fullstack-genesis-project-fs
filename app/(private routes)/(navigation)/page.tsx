@@ -59,19 +59,23 @@ const Home = async () => {
   const cookieStore = await cookies();
   const hasAuth = cookieStore.has('accessToken');
 
-  await queryClient.prefetchQuery({
-    queryKey: ['weeks'],
-    queryFn: () => (hasAuth ? getWeeksCurrentServer() : getWeeksDemoServer()),
-    staleTime: 60_000,
-  });
+  const prefetches = [
+    queryClient.prefetchQuery({
+      queryKey: ['weeks'],
+      queryFn: () => (hasAuth ? getWeeksCurrentServer() : getWeeksDemoServer()),
+    }),
+  ];
 
   if (hasAuth) {
-    await queryClient.prefetchQuery({
-      queryKey: ['task'],
-      queryFn: getServerTasks,
-      staleTime: 60_000,
-    });
+    prefetches.push(
+      queryClient.prefetchQuery({
+        queryKey: ['task'],
+        queryFn: getServerTasks,
+      })
+    );
   }
+
+  await Promise.all(prefetches);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

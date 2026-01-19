@@ -25,7 +25,7 @@ function PageTitle() {
 
   const greeting = `${getGreeting()}, ${userName}!`;
 
-  return <h1 className={css.title}>{greeting}</h1>;
+  return <h2 className={css.title}>{greeting}</h2>;
 }
 
 export default PageTitle;

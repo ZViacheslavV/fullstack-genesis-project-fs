@@ -1,3 +1,5 @@
+'use client';
+
 import css from './DiaryEntryDetails.module.css';
 import type { DiaryEntry } from '@/types/diary';
 
@@ -43,11 +45,12 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
   const dateLabel = formatDate(entry.createdAt);
 
   return (
-    <section className={css.wrapper} aria-label="Деталі запису">
+    <div className={css.wrapper}>
       <div className={css.header}>
-        {/* ЛІВА ЧАСТИНА */}
         <div className={css.left}>
-          <h2 className={css.title}>{entry.title}</h2>
+          <h2 className={css.title} title={entry.title}>
+            {entry.title}
+          </h2>
 
           <button
             type="button"
@@ -55,13 +58,12 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
             onClick={() => onEdit?.(entry)}
             aria-label="Редагувати запис"
           >
-            <svg width="20" height="20">
+            <svg width="24" height="24">
               <use href="/icons.svg#icon-edit-square" />
             </svg>
           </button>
         </div>
 
-        {/* ПРАВА ЧАСТИНА */}
         <div className={css.right}>
           {dateLabel ? <span className={css.date}>{dateLabel}</span> : null}
 
@@ -71,7 +73,7 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
             onClick={() => onDelete?.(entry._id)}
             aria-label="Видалити запис"
           >
-            <svg width="20" height="20">
+            <svg width="24" height="24">
               <use href="/icons.svg#icon-delete-forever" />
             </svg>
           </button>
@@ -103,6 +105,6 @@ export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
           <p className={css.noEmotions}>Емоції не обрані</p>
         )}
       </div>
-    </section>
+    </div>
   );
 }
