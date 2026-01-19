@@ -2,11 +2,7 @@ import { childGender, User } from '@/types/user';
 import { API_ENDPOINTS, nextServer } from './api';
 // import { type AxiosResponse } from 'axios';
 
-import type { 
-  DiaryEntry, 
-  EmotionObj, 
-  EmotionsResponse 
-} from '@/types/diary';
+import type { DiaryEntry, EmotionObj, EmotionsResponse } from '@/types/diary';
 
 import type {
   WeeksApiResponse,
@@ -37,7 +33,7 @@ interface CheckSessionRequest {
 }
 
 export const checkSession = async () => {
-  const { data } = await nextServer.get<CheckSessionRequest>(
+  const { data } = await nextServer.post<CheckSessionRequest>(
     API_ENDPOINTS.REFRESH
   );
   return data.success;
@@ -260,7 +256,9 @@ export const updateCurrentUser = async (data: UpdateProfile) => {
 // ============================  DIARY  =============================
 
 export const getEmotions = async (): Promise<EmotionObj[]> => {
-  const { data } = await nextServer.get<EmotionsResponse>(API_ENDPOINTS.EMOTIONS);
+  const { data } = await nextServer.get<EmotionsResponse>(
+    API_ENDPOINTS.EMOTIONS
+  );
   return data.data ?? [];
 };
 
