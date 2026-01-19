@@ -76,7 +76,7 @@
 }
 
 .fadeOut {
-  animation: fadeOut 0.3s ease-in forwards;
+  animation: fadeOut 0.1s ease-in forwards;
 }
 
 @keyframes fadeIn {
