@@ -45,31 +45,20 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import styles from './LoaderBaby.module.css';
 
 const Player = dynamic(
-  () => import('@lottiefiles/react-lottie-player').then((m) => m.Player),
+  () => import('@lottiefiles/react-lottie-player').then(({ Player }) => Player),
   { ssr: false }
 );
 
 interface LoaderBabyProps {
-  size?: 'sm' | 'md' | 'lg';
-  fullscreen?: boolean;
   className?: string;
 }
 
-const sizeMap = {
-  sm: 'w-16 h-16',
-  md: 'w-32 h-32',
-  lg: 'w-64 h-64',
-};
-
-export default function LoaderBaby({
-  size = 'md',
-  fullscreen = false,
-  className = '',
-}: LoaderBabyProps) {
-  const player = (
-    <div className={`${sizeMap[size]} ${className}`}>
+export default function LoaderBaby({ className = '' }: LoaderBabyProps) {
+  return (
+    <div className={`${styles.player} ${className}`}>
       <Player
         autoplay
         loop
@@ -78,14 +67,4 @@ export default function LoaderBaby({
       />
     </div>
   );
-
-  if (fullscreen) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/80 z-50">
-        {player}
-      </div>
-    );
-  }
-
-  return player;
 }
