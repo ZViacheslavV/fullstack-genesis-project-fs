@@ -23,7 +23,7 @@ The application focuses on clarity, emotional comfort, and practical value, comb
 
 ---
 
-## 🌸 Key Features
+## 🎼 Key Features
 
 - **Personalized pregnancy timeline** — week-by-week information about baby development and maternal health.
 - **Daily diary and mood tracking** — private space for notes, reflections, and emotional check-ins.
