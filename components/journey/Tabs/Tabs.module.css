@@ -30,7 +30,7 @@
 }
 
 .slider_mom {
-  transform: translateX(162px);
+  transform: translateX(180px);
 }
 
 .button {
@@ -73,15 +73,15 @@
   }
 
   .slider {
-    width: 347px;
+    width: 340px;
   }
 
   .slider_mom {
-    transform: translateX(347px);
+    transform: translateX(350px);
   }
 
   .button {
-    width: 347px;
+    width: 348px;
   }
 }
 
@@ -94,16 +94,16 @@
   }
 
   .slider {
-    width: 290px;
+    width: 270px;
     height: 46px;
   }
 
   .slider_mom {
-    transform: translateX(275px);
+    transform: translateX(292px);
   }
 
   .button {
-    width: 275px;
+    width: 284px;
     height: 46px;
   }
 }
