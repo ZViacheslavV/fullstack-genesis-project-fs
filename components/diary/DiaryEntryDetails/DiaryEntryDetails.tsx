@@ -2,6 +2,7 @@
 
 import css from './DiaryEntryDetails.module.css';
 import type { DiaryEntry } from '@/types/diary';
+import { useEffect } from 'react';
 
 type EmotionObj = { _id: string; title: string };
 type EmotionValue = EmotionObj | string;
@@ -31,6 +32,16 @@ function getEmotionLabel(e: EmotionValue) {
 }
 
 export default function DiaryEntryDetails({ entry, onEdit, onDelete }: Props) {
+  useEffect(() => {
+    if (!entry) return;
+    document.body.dataset.diaryId = entry._id;
+    document.body.dataset.diaryTitle = entry.title;
+    return () => {
+      delete document.body.dataset.diaryId;
+      delete document.body.dataset.diaryTitle;
+    };
+  }, [entry]);
+  
   if (!entry) {
     return (
       <div className={css.empty}>
