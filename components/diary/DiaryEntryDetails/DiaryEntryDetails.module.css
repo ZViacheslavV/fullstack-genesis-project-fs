@@ -1,6 +1,6 @@
 .wrapper {
-  box-sizing: border-box;
   width: 100%;
+  box-sizing: border-box;
   background: var(--color-scheme-foreground);
   border-radius: 20px;
   padding: 14px;
@@ -97,6 +97,7 @@
   flex-direction: column;
   flex: 1;
   min-height: 0;
+  width: 100%;
 }
 
 .note {
@@ -105,7 +106,8 @@
   line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
+  color: #000;
 }
 
 .emotions {
@@ -213,7 +215,7 @@
   }
 
   .noteBox::-webkit-scrollbar-thumb {
-    background: var(--color-scheme-border);
+    background: var(--color-scheme-accent);
     border-radius: 4px;
   }
 }
