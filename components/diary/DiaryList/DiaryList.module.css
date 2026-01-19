@@ -2,11 +2,8 @@
   background: var(--color-scheme-foreground);
   border-radius: 16px;
   padding: 16px;
-
   display: flex;
   flex-direction: column;
-
-  /* Запобігає розтягуванню flex-елементів */
   min-width: 0;
   box-sizing: border-box;
 }
@@ -27,21 +24,17 @@
   font-family: var(--second-family);
 }
 
-/* === КНОПКА ДОДАВАННЯ === */
 .addBtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   border: none;
   background: transparent;
   cursor: pointer;
-
   font-size: 14px;
   font-family: var(--second-family);
   padding: 6px 8px;
   border-radius: 10px;
-
   transition: opacity 0.2s ease;
 }
 
@@ -60,7 +53,6 @@
   height: 22px;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
   background: var(--color-pastel-pink-lighter);
   box-shadow: none;
@@ -72,17 +64,13 @@
   transform: scale(1.2);
 }
 
-/* === СПИСОК === */
 .list {
   list-style: none;
   margin: 0;
   padding: 0;
-
   display: flex;
   flex-direction: column;
   gap: 16px;
-
-  /* Це потрібно тільки для десктопу, на мобільному перезапишемо */
   flex: 1;
 }
 
@@ -90,7 +78,6 @@
   min-width: 0;
 }
 
-/* === EMPTY STATE === */
 .state {
   padding: 18px 0;
   display: grid;
@@ -105,29 +92,20 @@
   font-size: 14px;
 }
 
-/* ========================================= */
-/*             MEDIA QUERIES                 */
-/* ========================================= */
-
-/* MOBILE (до 767px) */
 @media only screen and (max-width: 767px) {
   .wrapper {
-    /* 🔥 ПРИБРАЛИ фіксовану висоту */
     height: auto;
-    min-height: 200px; /* Мінімальна висота, якщо пусто */
+    min-height: 200px;
   }
 
   .list {
-    /* 🔥 ПРИБРАЛИ внутрішній скрол */
     overflow: visible;
     padding-right: 0;
   }
 }
 
-/* TABLET (768px - 1439px) */
 @media only screen and (min-width: 768px) and (max-width: 1439px) {
   .wrapper {
-    /* 🔥 ПРИБРАЛИ фіксовану висоту */
     height: auto;
     min-height: 200px;
   }
@@ -137,30 +115,24 @@
   }
 
   .list {
-    /* 🔥 ПРИБРАЛИ внутрішній скрол */
     overflow: visible;
     padding-right: 0;
   }
 }
 
-/* DESKTOP (1440px+) */
 @media only screen and (min-width: 1440px) {
   .wrapper {
-    /* 🔥 ТУТ ЛИШАЄМО ФІКСОВАНУ ВИСОТУ (за ТЗ) */
     height: 720px;
     max-height: 720px;
   }
 
   .list {
-    /* 🔥 ТУТ ВКЛЮЧАЄМО СКРОЛ */
     overflow-y: auto;
     padding-right: 6px;
     scrollbar-gutter: stable;
-    /* Важливо для скролу */
     min-height: 0;
   }
 
-  /* Стилізація скролу (тільки для десктопу) */
   .list::-webkit-scrollbar {
     width: 6px;
   }

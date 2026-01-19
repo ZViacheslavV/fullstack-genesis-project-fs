@@ -4,20 +4,10 @@
   gap: 24px;
 }
 
-/* ===== DESKTOP (1440px і більше) ===== */
 @media (min-width: 1440px) {
   .grid {
     display: grid;
-
-    /* 🔥 БУЛО: 360px 1fr */
-    /* 🔥 СТАЛО: 360px minmax(0, 1fr) */
-
-    /* minmax(0, 1fr) каже браузеру: 
-       "Ця колонка може стискатися до 0, якщо треба, 
-       але намагається зайняти 1fr вільного місця". 
-       Це змушує довгий текст всередині переноситися, а не розпирати блок. */
     grid-template-columns: 360px minmax(0, 1fr);
-
     gap: 32px;
     align-items: start;
   }
@@ -25,24 +15,21 @@
   .details {
     display: block;
     min-height: 520px;
-    width: 100%; /* Обов'язково */
+    width: 100%;
   }
 }
 
-/* ===== TABLET + MOBILE (до 1439px) ===== */
 @media (max-width: 1439px) {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
   }
 
-  /* ховаємо */
   .grid > :nth-child(2) {
     display: none;
   }
 }
 
-/* LOADER + INFO TEXT */
 .loader {
   display: grid;
   place-items: center;
@@ -54,7 +41,6 @@
   color: #888;
 }
 
-/* ===== TOAST ANIMATION ===== */
 .toastWrapper {
   transition: all 0.3s ease-in-out;
 }
