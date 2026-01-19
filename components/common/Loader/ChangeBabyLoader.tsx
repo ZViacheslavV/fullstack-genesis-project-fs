@@ -555,7 +555,7 @@ import { usePathname } from 'next/navigation';
 import LoaderBaby from './LoaderBaby';
 import styles from './ChangeBabyLoader.module.css';
 
-const FADE_DURATION = 300;
+const FADE_DURATION = 0;
 
 export default function ChangeBabyLoader() {
   const pathname = usePathname();
@@ -580,12 +580,12 @@ export default function ChangeBabyLoader() {
 
     const hideTimer = setTimeout(() => {
       setVisible(false);
-    }, 400);
+    }, /* 40 */ 0);
 
     const unmountTimer = setTimeout(() => {
       setShouldRender(false);
       isLoading.current = false;
-    }, 400 + FADE_DURATION);
+    }, /* 40 */ 0 + FADE_DURATION);
 
     return () => {
       clearTimeout(hideTimer);
