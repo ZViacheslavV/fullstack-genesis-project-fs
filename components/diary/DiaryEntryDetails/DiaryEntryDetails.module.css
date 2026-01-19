@@ -177,6 +177,7 @@
 
 @media only screen and (min-width: 1440px) {
   .wrapper {
+    width: 643px;
     height: 720px;
     max-height: 720px;
     padding: 24px;
