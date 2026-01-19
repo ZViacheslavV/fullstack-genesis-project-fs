@@ -1,6 +1,8 @@
 .navLayout {
   @media only screen and (min-width: 1440px) {
-    margin-left: 312px;
+    /* margin-left: 312px; */
+    display: flex;
+    align-items: stretch;
   }
 }
 
@@ -47,3 +49,9 @@
     padding: 0;
   }
 } */
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    padding: 0 32px;
+  }
+}
