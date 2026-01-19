@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { useDiaryStore } from '@/lib/store/diaryStore';
 
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
-// import { Baby } from '@/components/common/Loader';
+import { Baby } from '@/components/common/Loader';
 
 import DiaryList from '@/components/diary/DiaryList/DiaryList';
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
@@ -111,7 +111,9 @@ export default function DiaryPage() {
       <GreetingBlock />
 
       {isLoading && entries.length === 0 ? (
-        <div className={css.loader}>{/*<Baby />*/}</div>
+        <div className={css.loader}>
+          <Baby />
+        </div>
       ) : (
         <>
           <div className={css.grid}>
@@ -133,7 +135,6 @@ export default function DiaryPage() {
             isOpen={isEntryModalOpen}
             onClose={() => setIsEntryModalOpen(false)}
             onSuccess={() => {
-              fetchEntries(true);
               showToast(
                 entryModalMode === 'create'
                   ? 'Запис створено'
