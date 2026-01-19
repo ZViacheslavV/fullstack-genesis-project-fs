@@ -4,30 +4,32 @@
   gap: 24px;
 }
 
-/* ===== DESKTOP (1440px і більше) ===== */
 @media (min-width: 1440px) {
   .grid {
     display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: 24px;
+    grid-template-columns: 360px minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
   }
 
+  .details {
+    display: block;
+    min-height: 520px;
+    width: 100%;
+  }
 }
 
-/* ===== TABLET + MOBILE (до 1439px) ===== */
 @media (max-width: 1439px) {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
   }
 
-  /* ховаємо */
-  .grid> :nth-child(2) {
+  .grid > :nth-child(2) {
     display: none;
   }
 }
 
-/* LOADER + INFO TEXT */
 .loader {
   display: grid;
   place-items: center;
@@ -39,7 +41,6 @@
   color: #888;
 }
 
-/* ===== TOAST ANIMATION ===== */
 .toastWrapper {
   transition: all 0.3s ease-in-out;
 }
