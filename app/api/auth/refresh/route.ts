@@ -14,7 +14,7 @@ export async function GET() {
       return NextResponse.json({ success: false });
     }
 
-    const apiRes = await api.get(API_ENDPOINTS.REFRESH, {
+    const apiRes = await api.post(API_ENDPOINTS.REFRESH, {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -64,7 +64,7 @@ import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../../_utils/utils';
 import { API_ENDPOINTS } from '@/lib/api/api';
 
-export async function GET() {
+export async function POST() {
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get('accessToken')?.value;
@@ -75,7 +75,7 @@ export async function GET() {
     }
 
     if (refreshToken) {
-      const apiRes = await api.get(API_ENDPOINTS.REFRESH, {
+      const apiRes = await api.post(API_ENDPOINTS.REFRESH, null, {
         headers: {
           Cookie: cookieStore.toString(),
         },

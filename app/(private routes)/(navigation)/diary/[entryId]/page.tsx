@@ -86,7 +86,6 @@ export default function DiaryEntryPage() {
 
   return (
     <div className={css.page}>
-      <GreetingBlock />
 
       {isLoading && entries.length === 0 ? (
         <div className={css.loader}>{/* <Baby /> */}</div>
@@ -104,7 +103,6 @@ export default function DiaryEntryPage() {
             isOpen={isEntryModalOpen}
             onClose={() => setIsEntryModalOpen(false)}
             onSuccess={() => {
-              fetchEntries();
               showToast('Запис оновлено', 'success');
             }}
             mode={entryModalMode}
