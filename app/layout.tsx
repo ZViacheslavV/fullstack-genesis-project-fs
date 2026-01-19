@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { Lato, Comfortaa } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import InitialLoader from '@/components/common/Loader/InitialLoader';
-import Baby from '@/components/common/Loader/Baby';
-// import Loading from './loading';
+
+import ChangeBabyLoader from '@/components/common/Loader/ChangeBabyLoader';
+
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
@@ -79,7 +80,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
         <TanStackProvider>
           <InitialLoader>
             <AuthProvider>
-              <Baby />
+              <ChangeBabyLoader />
               <div className="container">
                 {children}
                 <Toaster position="top-right" />
