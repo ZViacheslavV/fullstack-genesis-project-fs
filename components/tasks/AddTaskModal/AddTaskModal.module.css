@@ -6,7 +6,7 @@
   --modal-max-h: calc(100vh - 32px);
 
   --modal-padding-y: 64px;
-  --modal-padding-x: 64px;
+  /* --modal-padding-x: 64px; */
 
   --modal-overflow: auto;
 
@@ -26,6 +26,7 @@
     --modal-max-w: 704px;
     --modal-close-top: 32px;
     --modal-close-right: 32px;
+    --modal-padding-x: 32px;
   }
 }
 
@@ -33,7 +34,7 @@
 @media (min-width: 1440px) {
   .modal {
     --modal-max-w: 768px;
-        --modal-padding-y: 64px;
+    --modal-padding-y: 64px;
     --modal-padding-x: 64px;
     --modal-close-top: 25px;
     --modal-close-right: 32px;

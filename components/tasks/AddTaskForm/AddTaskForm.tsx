@@ -6,7 +6,7 @@ import css from './AddTaskForm.module.css';
 import { useId } from 'react';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { TaskFormData } from '@/types/task';
+import { Task, TaskFormData } from '@/types/task';
 import { createTask } from '@/lib/api/clientApi';
 import toast from 'react-hot-toast';
 import { useTaskStore } from '@/lib/store/taskStore';
@@ -27,7 +27,7 @@ const TaskFormSchema = Yup.object().shape({
   name: Yup.string()
     .trim()
     .min(1, 'Завдання має містити хоча б 1 символ')
-    .max(96, 'Завдання надто довге')
+    .max(96, 'Завдання не може бути довшим за 96 символів')
     .required('Введіть текст завдання'),
   date: Yup.string()
     .matches(/^\d{4}-\d{2}-\d{2}$/, 'Format must be YYYY-MM-DD')
@@ -55,10 +55,24 @@ export default function AddTaskForm({ afterSubmit }: AddTaskFormProps) {
   const { mutate, isPending } = useMutation({
     mutationFn: async (TaskFormData: TaskFormData) =>
       await createTask(TaskFormData),
-    onSuccess() {
-      queryClient.invalidateQueries({
-        queryKey: ['task'],
+    onSuccess(newTask: Task) {
+      queryClient.setQueryData<Task[]>(['task'], (oldTasks) => {
+        const newTasks = (oldTasks || []).slice();
+        // newTasks.push(newTask);
+        const insertAt =
+          newTasks.findIndex((task) => task.date >= newTask.date) ||
+          newTasks.length;
+        newTasks.splice(insertAt, 0, newTask);
+        // newTasks.sort((a, b) => {
+        //   if (a.date < b.date) return -1;
+        //   if (a.date > b.date) return 1;
+        //   return 0;
+        // });
+        return newTasks;
       });
+      // queryClient.invalidateQueries({
+      //   queryKey: ['task'],
+      // });
       toast.custom(
         () => <Toast type="success" message="Завдання успішно додано" />,
         { duration: 5000 }
