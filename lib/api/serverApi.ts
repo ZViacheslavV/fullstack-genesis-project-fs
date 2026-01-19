@@ -15,7 +15,7 @@ const cookieHeaders = async () => {
 // ---------------- AUTH --------------------------------------------------
 export const checkServerSession = async () => {
   const headers = await cookieHeaders();
-  const res = await nextServer.get<User | null>(API_ENDPOINTS.REFRESH, {
+  const res = await nextServer.post<User | null>(API_ENDPOINTS.REFRESH, {
     headers,
   });
   return res;
