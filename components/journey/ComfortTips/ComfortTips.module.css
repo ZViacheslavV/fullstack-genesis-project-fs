@@ -70,13 +70,17 @@
   .container_tips {
     width: 650px;
     height: 322px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-color: var(--color-scheme-accent) transparent;
   }
 
   .title {
     font-size: 20px;
+  }
+
+  .item {
+    height: 238px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: var(--color-scheme-accent) transparent;
   }
 
   .item_title {

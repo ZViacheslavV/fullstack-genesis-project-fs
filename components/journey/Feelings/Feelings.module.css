@@ -55,9 +55,9 @@
   .container_feel {
     width: 650px;
     height: 194px;
-    overflow-x: hidden;
+    /* overflow-x: hidden;
     overflow-y: auto;
-    scrollbar-color: var(--color-scheme-accent) transparent;
+    scrollbar-color: var(--color-scheme-accent) transparent; */
   }
 
   .title {
@@ -71,5 +71,9 @@
 
   .text {
     font-size: 16px;
+    height: 72px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: var(--color-scheme-accent) transparent;
   }
 }
