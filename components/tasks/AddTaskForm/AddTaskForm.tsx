@@ -1,7 +1,7 @@
 'use client';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 import css from './AddTaskForm.module.css';
 import { useId } from 'react';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';

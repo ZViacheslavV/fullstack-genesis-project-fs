@@ -45,7 +45,11 @@ function TasksReminderCard({ hasAuth }: Props) {
   }, [isError, isAuthenticated]);
 
   const handleCreateTaskBtnClick = () => {
-    router.push('/auth/register');
+    if (isAuthenticated) {
+      setIsModalOpen(true);
+    } else {
+      router.push('/auth/register');
+    }
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -125,6 +129,19 @@ function TasksReminderCard({ hasAuth }: Props) {
       </div>
     );
   };
+  function EmptyTaskList() {
+    return (
+      <ul className={css.taskList}>
+        <li>
+          <p className={css.subTitleTaskList}>Наразі немає жодних завдань</p>
+          <p>Створіть мерщій нове завдання!</p>
+        </li>
+        <li>
+          <Button onClick={handleCreateTaskBtnClick}>Створити завдання</Button>
+        </li>
+      </ul>
+    );
+  }
   function TaskList() {
     return (
       <div className={css.tasksWrapper}>
@@ -136,9 +153,8 @@ function TasksReminderCard({ hasAuth }: Props) {
         {overdueTasks.length === 0 &&
           todayTasks.length === 0 &&
           weekTasks.length === 0 &&
-          futureTasks.length === 0 && (
-            <p className={css.emptyState}>Немає актуальних завдань</p>
-          )}
+          futureTasks.length === 0 &&
+          EmptyTaskList()}
       </div>
     );
   }
@@ -147,7 +163,7 @@ function TasksReminderCard({ hasAuth }: Props) {
     <>
       <div className={css.taskCard}>
         <div className={css.taskCardHeader}>
-          <h3 className={css.taskCardTitle}>Важливі завдання</h3>
+          <h2 className={css.taskCardTitle}>Важливі завдання</h2>
           <button
             onClick={openModal}
             className={css.addTaskBtn}
@@ -167,31 +183,7 @@ function TasksReminderCard({ hasAuth }: Props) {
 
         <AddTaskModal isOpen={isModalOpen} onClose={closeModal}></AddTaskModal>
 
-        {isAuthenticated ? (
-          <>
-            {isPending ? (
-              <p className={css.loading}>Завантаження завдань...</p>
-            ) : isSuccess && data?.length > 0 ? (
-              TaskList()
-            ) : (
-              <p className={css.emptyState}>У вас поки немає завдань</p>
-            )}
-          </>
-        ) : (
-          <ul className={css.taskList}>
-            <li>
-              <p className={css.subTitleTaskList}>
-                Наразі немає жодних завдань
-              </p>
-              <p>Створіть мерщій нове завдання!</p>
-            </li>
-            <li>
-              <Button onClick={handleCreateTaskBtnClick}>
-                Створити завдання
-              </Button>
-            </li>
-          </ul>
-        )}
+        {isAuthenticated && isSuccess && data ? TaskList() : EmptyTaskList()}
         <Toaster position="top-right" reverseOrder={false} />
       </div>
     </>
