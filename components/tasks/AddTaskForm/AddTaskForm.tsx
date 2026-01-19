@@ -27,7 +27,7 @@ const TaskFormSchema = Yup.object().shape({
   name: Yup.string()
     .trim()
     .min(1, 'Завдання має містити хоча б 1 символ')
-    .max(96, 'Завдання надто довге')
+    .max(96, 'Завдання не може бути довшим за 96 символів')
     .required('Введіть текст завдання'),
   date: Yup.string()
     .matches(/^\d{4}-\d{2}-\d{2}$/, 'Format must be YYYY-MM-DD')
