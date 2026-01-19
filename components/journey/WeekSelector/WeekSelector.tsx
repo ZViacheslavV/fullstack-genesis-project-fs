@@ -42,6 +42,7 @@ export default function WeekSelector() {
 
   const user = useAuthUserStore((s) => s.user);
   const dueDate = user?.dueDate;
+  const userId = user?._id ?? 'anon';
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -56,8 +57,7 @@ export default function WeekSelector() {
     () => calcCurrentWeekFromDueDate(dueDate),
     [dueDate]
   );
-
-  const activeWeek = useMemo(() => {
+  const urlWeek = useMemo(() => {
     const n = Number(weekNumber);
     return Number.isFinite(n) && n >= 1 ? clampWeek(n) : 1;
   }, [weekNumber]);
@@ -67,32 +67,42 @@ export default function WeekSelector() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const key = 'journey-first-opened';
+    const key = `journey-first-open-${userId}`;
     const already = window.sessionStorage.getItem(key);
 
     if (already) {
       setIsFirstOpen(false);
     } else {
-     
       window.sessionStorage.setItem(key, '1');
       setIsFirstOpen(true);
     }
-  }, []);
+  }, [userId]);
+
+  const defaultWeek = useMemo(
+    () => (dueDate ? currentWeek : 1),
+    [dueDate, currentWeek]
+  );
+  useEffect(() => {
+    if (isFirstOpen !== true) return;
+
+    const desiredWeek = defaultWeek;
+
+    if (urlWeek !== desiredWeek) {
+      router.replace(`/journey/${desiredWeek}`, { scroll: false });
+    }
+  }, [isFirstOpen, defaultWeek, urlWeek, router]);
+
+  const effectiveWeek = isFirstOpen === true ? defaultWeek : urlWeek;
 
   useEffect(() => {
-    setCurWeek(activeWeek);
-  }, [activeWeek, setCurWeek]);
-
+    setCurWeek(effectiveWeek);
+  }, [effectiveWeek, setCurWeek]);
 
   useEffect(() => {
     if (!emblaApi) return;
-    if (isFirstOpen === null) return;
-
-    const targetWeek = isFirstOpen ? currentWeek : activeWeek;
-    const index = targetWeek - 1;
-
-    emblaApi.scrollTo(index, !isFirstOpen); 
-  }, [emblaApi, currentWeek, activeWeek, isFirstOpen]);
+    const index = effectiveWeek - 1;
+    emblaApi.scrollTo(index, isFirstOpen !== true);
+  }, [emblaApi, effectiveWeek, isFirstOpen]);
 
   const goToWeek = useCallback(
     (week: number) => {
@@ -113,7 +123,7 @@ export default function WeekSelector() {
       <div ref={emblaRef} className={styles.viewport}>
         <div className={styles.container}>
           {weeks.map((week) => {
-            const isActive = week === activeWeek;
+            const isActive = week === effectiveWeek;
             const isCurrent = week === currentWeek;
             const isPast = week < currentWeek;
             const isDisabled = week > currentWeek;
