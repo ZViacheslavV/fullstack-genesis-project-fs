@@ -9,6 +9,8 @@ export const API_ENDPOINTS = {
   REGISTER: '/auth/register',
   LOGOUT: '/auth/logout',
   REFRESH: '/auth/refresh',
+  REQUEST_RESET_PASSWORD: '/auth/request-reset-password-email',
+  RESET_PASSWORD: '/auth/reset-password',
 
   WEEKS_GET: '/weeks',
   WEEKS_MOM_WEEK_NUMB: '/weeks/mom/',

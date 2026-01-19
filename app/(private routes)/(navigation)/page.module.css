@@ -53,5 +53,7 @@
 @media only screen and (min-width: 1440px) {
   .container {
     padding: 0 32px;
+    min-width: 0;
+    flex: 1; 
   }
 }
