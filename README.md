@@ -52,5 +52,29 @@ The application focuses on clarity, emotional comfort, and practical value, comb
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-team/pregnancy-tracker
-cd pregnancy-tracker
+git clone https://github.com/ZViacheslavV/fullstack-genesis-project-fs
+```
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the development server
+
+```bash
+npm run dev
+```
+
+The application will be available at:
+http://localhost:3000
+
+### 4. Build and run for production
+
+```bash
+npm run build
+npm run start
+```
+
+
+
