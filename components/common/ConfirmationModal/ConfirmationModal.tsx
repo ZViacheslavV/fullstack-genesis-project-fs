@@ -40,7 +40,7 @@ function ConfirmationModal({
 
         <div className={css.actions}>
           <Button
-            variant="cancel"
+            variant="normal"
             size="md"
             onClick={onCancel}
             disabled={isLoading}
@@ -50,7 +50,7 @@ function ConfirmationModal({
           </Button>
 
           <Button
-            variant="normal"
+            variant="cancel"
             size="md"
             onClick={onConfirm}
             isLoading={isLoading}
