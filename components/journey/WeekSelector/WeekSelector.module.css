@@ -118,6 +118,9 @@
   .weekLabel {
     font-size: 14px;
   }
+  .slide:last-child {
+    margin-right: 450px;
+  }
 }
 
 @media (min-width: 1440px) {
