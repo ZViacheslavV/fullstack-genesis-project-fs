@@ -1,8 +1,6 @@
 .wrapper {
   margin-top: 24px;
   margin-bottom: 32px;
-  margin-left: -20px;
-  margin-right: -20px;
 }
 
 .viewport {
@@ -118,15 +116,11 @@
   outline: none;
 }
 
+/* Tablet */
 @media (min-width: 768px) {
   .container {
     gap: 16px;
   }
-
-  .wrapper {
-  margin-left: -32px;
-  margin-right: -32px;
-}
 
   .week {
     padding: 16px;
