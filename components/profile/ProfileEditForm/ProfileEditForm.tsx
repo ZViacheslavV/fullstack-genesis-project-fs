@@ -194,7 +194,7 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
             <div className={css.changePasswordWrapper}>
               <Button
                 type="button"
-                className={css.changePasswordButton}
+                className={css.undoChanges}
                 onClick={() => router.push('/auth/reset-password')}
               >
                 Змінити пароль
