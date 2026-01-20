@@ -1,5 +1,3 @@
-
-
 .inputFields {
   display: flex;
   flex-direction: column;
@@ -13,15 +11,13 @@
   gap: 8px;
 }
 
-.dateLabel{
+.dateLabel {
   margin-bottom: 24px;
 }
 
 .error {
-color: #c60000;
+  color: #c60000;
 }
-
-
 
 /* =========================
    TEXT INPUTS
@@ -37,9 +33,9 @@ color: #c60000;
   background: var(--opacity-neutral-darkest-5);
 }
 
-.field:hover, 
+.field:hover,
 .field:focus {
-    border-color: #ffcbd3;
+  border-color: #ffcbd3;
 }
 /* =========================
    DATE PICKER
@@ -69,7 +65,6 @@ color: #c60000;
   border-color: #ffcbd3;
 }
 
-
 /* .dateIcon {
   position: absolute;
   right: 16px;
@@ -78,7 +73,6 @@ color: #c60000;
   pointer-events: none;
   color: rgba(0, 0, 0, 0.6);
 } */
-
 
 .dateIcon {
   position: absolute;
@@ -91,7 +85,7 @@ color: #c60000;
 }
 
 .dateIcon::before {
-  content: "";
+  content: '';
   display: block;
   width: 8px;
   height: 8px;
@@ -101,7 +95,9 @@ color: #c60000;
 
   transform: rotate(45deg);
   margin: 4px auto 0;
-  transition: transform 0.2s ease, margin-top 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    margin-top 0.2s ease;
 }
 
 .dateIconOpen::before {
@@ -119,7 +115,7 @@ color: #c60000;
 }
 
 .saveChanges {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   width: 159px;
   height: 38px;
   padding: 8px 20px;
@@ -148,7 +144,7 @@ color: #c60000;
 }
 
 .undoChanges {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   width: 162px;
   height: 38px;
   padding: 8px 20px;
@@ -172,35 +168,37 @@ color: #c60000;
   border-bottom-width: 2px;
 }
 
-
-
+.changePasswordWrapper {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
 
 /* MODAL  */
 .modalSize {
   max-width: 360px;
 }
 .modalPosition {
-padding: 64px 32px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 48px;
+  padding: 64px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
 }
 
 .modalText {
-font-family: "Comfortaa", sans-serif;
-font-weight: 700;
-font-size: 24px;
-line-height: 120%;
-letter-spacing: 0.01em;
-text-align: center;
-color: #000;
-
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 120%;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #000;
 }
 .modalActions {
-display: flex;
-gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 /* =========================
@@ -220,9 +218,9 @@ gap: 8px;
 ========================= */
 
 @media only screen and (min-width: 768px) {
-.modalSize {
-  max-width: 540px;
-}
+  .modalSize {
+    max-width: 540px;
+  }
   .label,
   .field,
   .dateWrapper {
@@ -236,11 +234,15 @@ gap: 8px;
   }
 
   .modalActions {
-gap: 24px;
-}
-.modalText {
-  font-size: 36px;
-}
+    gap: 24px;
+  }
+  .modalText {
+    font-size: 36px;
+  }
+
+  .changePasswordWrapper {
+    justify-content: flex-end;
+  }
 }
 
 /* =========================
@@ -248,24 +250,21 @@ gap: 24px;
 ========================= */
 
 @media only screen and (min-width: 1440px) {
-
   .fullLowerContent {
-      max-width: 583px;
-    }
+    max-width: 583px;
+  }
 
   .label,
   .field,
   .dateWrapper {
     width: 580px;
   }
-.modalSize {
-  max-width: 800px;
+  .modalSize {
+    max-width: 800px;
+  }
 }
-}
-
 
 .fieldError {
-border: 1px solid #c60000;
-color: #c60000;
+  border: 1px solid #c60000;
+  color: #c60000;
 }
-
