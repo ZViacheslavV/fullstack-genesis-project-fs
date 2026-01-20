@@ -116,11 +116,11 @@ function TasksReminderCard({ hasAuth }: Props) {
     if (!tasks || tasks.length === 0) return null;
     return (
       <div className={css.sectionContainer}>
-        <h4
+        <h3
           className={`${css.sectionTitle} ${isOverdue ? css.overdueTitle : ''}`}
         >
           {title}
-        </h4>
+        </h3>
         <ul className={css.taskList}>
           {tasks.map((task) => (
             <TaskItem key={task._id} task={task} />
@@ -161,7 +161,7 @@ function TasksReminderCard({ hasAuth }: Props) {
 
   return (
     <>
-      <div className={css.taskCard}>
+      <section className={css.taskCard}>
         <div className={css.taskCardHeader}>
           <h2 className={css.taskCardTitle}>Важливі завдання</h2>
           <button
@@ -185,7 +185,7 @@ function TasksReminderCard({ hasAuth }: Props) {
 
         {isAuthenticated && isSuccess && data ? TaskList() : EmptyTaskList()}
         <Toaster position="top-right" reverseOrder={false} />
-      </div>
+      </section>
     </>
   );
 }

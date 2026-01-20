@@ -34,13 +34,13 @@ function FeelRecommendationCard({
     <>
       <section className={`${css.card} ${className}`}>
         <div className={css.content}>
-          <h3 className={css.title}>Як ви себе почуваєте?</h3>
+          <h2 className={css.title}>Як ви себе почуваєте?</h2>
 
-          <p className={css.text}>
-            <span className={css.lead}>Рекомендація на сьогодні:</span>
-            <br />
-            <span className={css.desc}>{recommendationText}</span>
-          </p>
+          <div className={css.text}>
+            <p className={css.lead}>Рекомендація на сьогодні:</p>
+
+            <p className={css.desc}>{recommendationText}</p>
+          </div>
 
           <Button
             className={css.btn}
@@ -52,7 +52,7 @@ function FeelRecommendationCard({
           </Button>
         </div>
 
-        <div className={css.side} aria-hidden="true" />
+        {/* <div className={css.side} aria-hidden="true" /> */}
       </section>
 
       <DiaryEntryModal

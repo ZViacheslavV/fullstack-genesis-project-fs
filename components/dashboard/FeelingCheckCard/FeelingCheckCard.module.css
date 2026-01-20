@@ -1,11 +1,9 @@
 .card {
   background: var(--color-scheme-foreground);
   border-radius: 24px;
-
   width: 100%;
   max-width: 342px;
-  padding: 16px;
-
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -13,13 +11,11 @@
 
 .title {
   margin: 0 0 8px 0;
-
   font-family: var(--second-family);
   font-weight: 700;
   font-size: 20px;
   line-height: 140%;
   letter-spacing: 0.01em;
-
   color: var(--color-scheme-text);
 }
 
@@ -29,24 +25,27 @@
 }
 
 .lead {
-  font-family: var(--font-family);
+  /* font-family: var(--font-family); */
   font-weight: 600;
   font-size: 14px;
-  line-height: 150%;
+  line-height: 160%;
 }
 
 .desc {
-  font-family: var(--font-family);
+  /* font-family: var(--font-family); */
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
 }
 
-.btn.btn {
+.content>.btn {
   width: fit-content;
   align-self: center;
-  --btn-height: 46px;
+  --btn-height: 42px;
   --btn-font-size: 14px;
+  /* font-family: var(--font-family); */
+  font-weight: 500;
+  line-height: 160%;
 }
 
 /* tablet */
@@ -57,16 +56,36 @@
     width: min(704px, 100%);
     max-width: none;
   }
-
-  .btn.btn {
-    width: fit-content;
-    --btn-height: 42px;
-    --btn-font-size: 14px;
-  }
 }
 
 @media (min-width: 1440px) {
   .card {
     height: 210px;
+  }
+
+  .text {
+    height: 50px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: var(--color-scheme-accent) transparent;
+    margin-bottom: 24px;
+  }
+
+  .content>.btn {
+    width: fit-content;
+    height: 46px;
+
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .lead {
+    font-size: 16px;
+  }
+
+  .desc {
+    font-size: 16px;
   }
 }
