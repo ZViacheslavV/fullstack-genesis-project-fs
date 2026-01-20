@@ -38,11 +38,12 @@ export default function WeekSelector() {
   const router = useRouter();
   const { weekNumber } = useParams<{ weekNumber?: string }>();
 
+  const storeWeek = useWeekStore((s) => s.weekNumb);
   const setCurWeek = useWeekStore((s) => s.setCurWeek);
 
   const user = useAuthUserStore((s) => s.user);
-  const dueDate = user?.dueDate;
-  const userId = user?._id ?? 'anon';
+  const dueDate = user?.dueDate ?? null;
+  const userId = user?._id ?? null;
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -57,6 +58,7 @@ export default function WeekSelector() {
     () => calcCurrentWeekFromDueDate(dueDate),
     [dueDate]
   );
+
   const urlWeek = useMemo(() => {
     const n = Number(weekNumber);
     return Number.isFinite(n) && n >= 1 ? clampWeek(n) : 1;
@@ -65,32 +67,42 @@ export default function WeekSelector() {
   const [isFirstOpen, setIsFirstOpen] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (!userId) {
+      setIsFirstOpen(null);
+      return;
+    }
 
     const key = `journey-first-open-${userId}`;
-    const already = window.sessionStorage.getItem(key);
+    const already = sessionStorage.getItem(key);
 
     if (already) {
       setIsFirstOpen(false);
     } else {
-      window.sessionStorage.setItem(key, '1');
+      sessionStorage.setItem(key, '1');
       setIsFirstOpen(true);
     }
   }, [userId]);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    if (!dueDate && storeWeek !== 1) {
+      setCurWeek(1);
+    }
+  }, [userId, dueDate, storeWeek, setCurWeek]);
 
   const defaultWeek = useMemo(
     () => (dueDate ? currentWeek : 1),
     [dueDate, currentWeek]
   );
+
   useEffect(() => {
     if (isFirstOpen !== true) return;
 
-    const desiredWeek = defaultWeek;
-
-    if (urlWeek !== desiredWeek) {
-      router.replace(`/journey/${desiredWeek}`, { scroll: false });
+    if (urlWeek !== defaultWeek) {
+      router.replace(`/journey/${defaultWeek}`, { scroll: false });
     }
-  }, [isFirstOpen, defaultWeek, urlWeek, router]);
+  }, [isFirstOpen, urlWeek, defaultWeek, router]);
 
   const effectiveWeek = isFirstOpen === true ? defaultWeek : urlWeek;
 
@@ -100,14 +112,12 @@ export default function WeekSelector() {
 
   useEffect(() => {
     if (!emblaApi) return;
-    const index = effectiveWeek - 1;
-    emblaApi.scrollTo(index, isFirstOpen !== true);
-  }, [emblaApi, effectiveWeek, isFirstOpen]);
+    emblaApi.scrollTo(effectiveWeek - 1, false);
+  }, [emblaApi, effectiveWeek]);
 
   const goToWeek = useCallback(
     (week: number) => {
       const safe = clampWeek(week);
-
       if (safe > currentWeek) return;
 
       setCurWeek(safe);
@@ -142,19 +152,9 @@ export default function WeekSelector() {
               <div key={week} className={styles.slide}>
                 <button
                   type="button"
-                  aria-disabled={isDisabled}
-                  tabIndex={isDisabled ? -1 : 0}
-                  onClick={() => {
-                    if (isDisabled) return;
-                    goToWeek(week);
-                  }}
+                  onClick={() => !isDisabled && goToWeek(week)}
                   className={className}
                   aria-current={isActive ? 'page' : undefined}
-                  title={
-                    isDisabled
-                      ? 'Недоступно: тижні після поточного заблоковані'
-                      : undefined
-                  }
                 >
                   <span className={styles.weekNumber}>{week}</span>
                   <span className={styles.weekLabel}>Тиждень</span>
