@@ -12,6 +12,7 @@
   display: flex;
   gap: 12px;
   padding: 4px 2px 8px;
+  margin-top: 8px;
   align-items: stretch;
   will-change: transform;
   touch-action: pan-y;
@@ -118,6 +119,7 @@
     font-size: 14px;
   }
 }
+
 @media (min-width: 1440px) {
   .week {
     height: 101px;
