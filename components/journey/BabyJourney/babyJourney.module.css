@@ -142,7 +142,7 @@
   }
 
   .text {
-    height: 48px;
+    height: auto;
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-color: var(--color-scheme-accent) transparent;

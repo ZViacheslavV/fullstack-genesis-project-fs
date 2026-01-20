@@ -143,7 +143,6 @@
     height: auto;
     min-height: 200px;
   }
-
   .noteBox {
     overflow: visible;
     flex: 0 0 auto;
@@ -156,20 +155,17 @@
     justify-content: space-between;
     align-items: center;
   }
-
   .left {
     width: auto;
     flex: 1;
     gap: 8px;
   }
-
   .right {
     width: auto;
     justify-content: flex-end;
     flex-shrink: 0;
     gap: 8px;
   }
-
   .title {
     font-size: 22px;
   }
@@ -177,43 +173,38 @@
 
 @media only screen and (min-width: 1440px) {
   .wrapper {
+    width: 643px;
     height: 720px;
     max-height: 720px;
     padding: 24px;
     display: flex;
     flex-direction: column;
   }
-
   .header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
-
   .left {
     width: auto;
     flex: 1;
     gap: 8px;
   }
-
   .right {
     width: auto;
     justify-content: flex-end;
     flex-shrink: 0;
     gap: 8px;
   }
-
   .noteBox {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-gutter: stable;
   }
-
   .noteBox::-webkit-scrollbar {
     width: 6px;
   }
-
   .noteBox::-webkit-scrollbar-thumb {
     background: var(--color-scheme-accent);
     border-radius: 4px;
