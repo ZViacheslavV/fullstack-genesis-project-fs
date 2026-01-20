@@ -21,6 +21,7 @@
 //     </>
 //   );
 // }
+
 'use client';
 
 import { useEffect, useMemo } from 'react';
@@ -41,7 +42,6 @@ function clampWeek(n: number) {
 export default function JourneyPageClient() {
   const { weekNumber } = useParams<{ weekNumber?: string }>();
 
-  const weekFromStore = useWeekStore((s) => s.weekNumb);
   const setCurWeek = useWeekStore((s) => s.setCurWeek);
 
   const weekFromUrl = useMemo(() => {
@@ -55,20 +55,15 @@ export default function JourneyPageClient() {
   }
 
   useEffect(() => {
-    if (!weekFromUrl) return;
-    if (weekFromStore !== weekFromUrl) {
-      setCurWeek(weekFromUrl);
-    }
-  }, [weekFromUrl, weekFromStore, setCurWeek]);
-
-  const effectiveWeek = weekFromStore ?? weekFromUrl!;
+    setCurWeek(weekFromUrl);
+  }, [weekFromUrl, setCurWeek]);
 
   return (
     <>
       <WeekSelector />
       <JourneyDetails
-        baby={<BabyJourney weekNumber={effectiveWeek} />}
-        mom={<MomyJourney weekNumber={effectiveWeek} />}
+        baby={<BabyJourney weekNumber={weekFromUrl} />}
+        mom={<MomyJourney weekNumber={weekFromUrl} />}
       />
     </>
   );
