@@ -33,7 +33,7 @@ type FormValues = {
 
 const MAX_EMOTIONS = 12;
 const MAX_CHARS = 1000;
-const MAX_TITLE_CHARS = 64; 
+const MAX_TITLE_CHARS = 64;
 
 const schema: Yup.ObjectSchema<FormValues> = Yup.object({
   title: Yup.string()
@@ -63,7 +63,7 @@ function normalizeEmotionIds(emotions?: (string | { _id: string })[]): string[] 
 function getErrorMessage(e: unknown, fallback: string) {
   if (axios.isAxiosError(e)) {
     const data = e.response?.data;
-    if (data && typeof data === 'object' && 'message' in data) {
+    if (data && typeof data === "object" && "message" in data) {
       return (data as { message: string }).message;
     }
     return e.message || fallback;
@@ -78,7 +78,7 @@ export default function AddDiaryEntryForm({
   mode = "create",
 }: AddDiaryEntryFormProps) {
   const entryId = initialValues?._id;
-  
+
   const { addEntry, editEntry, emotions, fetchEmotions } = useDiaryStore();
 
   useEffect(() => {
@@ -110,7 +110,9 @@ export default function AddDiaryEntryForm({
               emotions: values.emotions,
             };
 
-            const fullEmotions = emotions.filter(e => values.emotions.includes(e._id));
+            const fullEmotions = emotions.filter((e) =>
+              values.emotions.includes(e._id)
+            );
 
             if (mode === "edit") {
               if (!entryId) throw new Error("Не знайдено id запису");
@@ -128,73 +130,99 @@ export default function AddDiaryEntryForm({
       >
         {({ values, setFieldValue, isSubmitting, errors, touched }) => (
           <Form className={styles.form}>
-            {/* --- ЗАГОЛОВОК --- */}
             <div className={styles.field}>
               <label className={styles.label} htmlFor="title">
                 Заголовок
                 <span className={styles.star}>*</span>
               </label>
-              
-              <Field 
-                id="title" 
-                name="title" 
-                className={`${styles.input} ${errors.title && touched.title ? styles.errorInput : ''}`}
-                placeholder="Введіть заголовок запису" 
+
+              <Field
+                id="title"
+                name="title"
+                className={`${styles.input} ${
+                  errors.title && touched.title ? styles.errorInput : ""
+                }`}
+                placeholder="Введіть заголовок запису"
                 autoComplete="off"
-                maxLength={MAX_TITLE_CHARS} 
+                maxLength={MAX_TITLE_CHARS}
               />
 
-              <ErrorMessage name="title" component="p" className={styles.error} />
+              <ErrorMessage
+                name="title"
+                component="p"
+                className={styles.error}
+              />
             </div>
 
-            {/* --- КАТЕГОРІЇ --- */}
             <div className={styles.field}>
               <p className={styles.label}>
                 Категорії
                 <span className={styles.star}>*</span>
               </p>
-              <div className={errors.emotions && touched.emotions ? styles.errorInput : ''} style={{ borderRadius: '12px' }}>
+              <div
+                className={
+                  errors.emotions && touched.emotions ? styles.errorInput : ""
+                }
+                style={{ borderRadius: "12px" }}
+              >
                 <MultiSelect
-                  placeholder={emotions.length === 0 ? "Завантаження..." : "Оберіть категорію"}
+                  placeholder={
+                    emotions.length === 0
+                      ? "Завантаження..."
+                      : "Оберіть категорію"
+                  }
                   options={emotions}
                   value={values.emotions}
                   disabled={emotions.length === 0}
                   onChange={(next) => {
                     if (next.length > MAX_EMOTIONS) {
-                      toast.error(`Можна обрати максимум ${MAX_EMOTIONS} емоцій`);
+                      toast.error(
+                        `Можна обрати максимум ${MAX_EMOTIONS} емоцій`
+                      );
                       return;
                     }
                     setFieldValue("emotions", next);
                   }}
                 />
               </div>
-              <ErrorMessage name="emotions" component="p" className={styles.error} />
+              <ErrorMessage
+                name="emotions"
+                component="p"
+                className={styles.error}
+              />
             </div>
 
-            {/* --- ЗАПИС --- */}
             <div className={styles.field}>
               <label className={styles.label} htmlFor="description">
                 Запис
                 <span className={styles.star}>*</span>
               </label>
-              
+
               <div className={styles.textareaWrapper}>
-                <Field 
-                  as="textarea" 
-                  id="description" 
-                  name="description" 
-                  className={`${styles.textarea} ${errors.description && touched.description ? styles.errorInput : ''}`}
-                  placeholder="Запишіть, як ви себе відчуваєте" 
+                <Field
+                  as="textarea"
+                  id="description"
+                  name="description"
+                  className={`${styles.textarea} ${
+                    errors.description && touched.description
+                      ? styles.errorInput
+                      : ""
+                  }`}
+                  placeholder="Запишіть, як ви себе відчуваєте"
                   rows={6}
                   maxLength={MAX_CHARS}
                 />
-                
+
                 <div className={styles.charCounter}>
                   {values.description.length} / {MAX_CHARS}
                 </div>
               </div>
 
-              <ErrorMessage name="description" component="p" className={styles.error} />
+              <ErrorMessage
+                name="description"
+                component="p"
+                className={styles.error}
+              />
             </div>
 
             <Button
