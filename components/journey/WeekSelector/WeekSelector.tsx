@@ -44,12 +44,13 @@ export default function WeekSelector() {
   const user = useAuthUserStore((s) => s.user);
   const dueDate = user?.dueDate ?? null;
   const userId = user?._id ?? null;
-
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
-      dragFree: true,
-      containScroll: 'trimSnaps',
+      loop: false,
       align: 'start',
+      containScroll: 'keepSnaps',
+      dragFree: false,
+      slidesToScroll: 1,
     },
     [WheelGesturesPlugin({ forceWheelAxis: 'y' })]
   );
