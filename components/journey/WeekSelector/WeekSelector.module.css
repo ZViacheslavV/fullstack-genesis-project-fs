@@ -124,4 +124,7 @@
   .week {
     height: 101px;
   }
+  .slide:last-child {
+    margin-right: 450px;
+  }
 }
