@@ -1,3 +1,66 @@
+import { NextResponse } from 'next/server';
+import { api } from '../../api';
+import { cookies } from 'next/headers';
+import { parse } from 'cookie';
+import { API_ENDPOINTS } from '@/lib/api/api';
+
+export async function POST() {
+  const cookieData = await cookies();
+  const accessToken = cookieData.get('accessToken')?.value;
+  const refreshToken = cookieData.get('refreshToken')?.value;
+
+  if (accessToken) {
+    return NextResponse.json({ success: true });
+  }
+
+  if (refreshToken) {
+    try {
+      const response = await api.post(
+        API_ENDPOINTS.REFRESH,
+        {},
+        {
+          headers: { Cookie: cookieData.toString() },
+        }
+      );
+
+      const setCookies = response.headers['set-cookie'];
+
+      if (setCookies) {
+        const cookiesArray = Array.isArray(setCookies)
+          ? setCookies
+          : [setCookies];
+
+        for (const newCookieString of cookiesArray) {
+          const parsedCookie = parse(newCookieString);
+          const options = {
+            path: parsedCookie.Path,
+            maxAge: Number(parsedCookie['Max-Age']),
+            expires: parsedCookie.Expires
+              ? new Date(parsedCookie.Expires)
+              : undefined,
+            httpOnly: true,
+            secure: true,
+          };
+
+          if (parsedCookie.accessToken) {
+            cookieData.set('accessToken', parsedCookie.accessToken, options);
+          }
+
+          if (parsedCookie.refreshToken) {
+            cookieData.set('refreshToken', parsedCookie.refreshToken, options);
+          }
+        }
+
+        return NextResponse.json({ success: true });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return NextResponse.json({ success: false });
+}
+
 /* import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { api } from '../../api';
@@ -56,7 +119,8 @@ export async function GET() {
   }
 } */
 
-import { cookies } from 'next/headers';
+//LAST one
+/* import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { api } from '../../api';
 import { parse } from 'cookie';
@@ -112,3 +176,4 @@ export async function POST() {
     return NextResponse.json({ success: false }, { status: 200 });
   }
 }
+ */
