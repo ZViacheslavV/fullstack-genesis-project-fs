@@ -318,16 +318,10 @@ export const deleteDiary = async (id: string): Promise<void> => {
 };
 
 /* ==================Profile===================*/
-export const changePassword = (data: {
+export const changePassword = async (data: {
   currentPassword: string;
   newPassword: string;
 }) => {
-  return fetch('/api/auth/change-password', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  }).then((res) => {
-    if (!res.ok) throw new Error('Change password failed');
-    return res.json();
-  });
+  const res = await nextServer.post(API_ENDPOINTS.CHANGE_PASSWORD, data);
+  return res.data;
 };

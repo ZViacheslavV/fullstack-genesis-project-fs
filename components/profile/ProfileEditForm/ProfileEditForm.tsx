@@ -195,7 +195,7 @@ function ProfileEditForm({ user }: ProfileEditFormProps) {
               <Button
                 type="button"
                 className={css.undoChanges}
-                onClick={() => router.push('/profile/reset-password')}
+                onClick={() => router.push('/profile/change-password')}
               >
                 Змінити пароль
               </Button>
