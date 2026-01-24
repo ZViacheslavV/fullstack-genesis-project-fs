@@ -58,7 +58,7 @@ export default function ResetPassword() {
         message: 'Пароль змінено, увійдіть з новим паролем',
       });
 
-      setTimeout(() => router.push('/login'), 1500);
+      setTimeout(() => router.push('/auth/login'), 1500);
     } catch {
       setToast({
         type: 'error',
