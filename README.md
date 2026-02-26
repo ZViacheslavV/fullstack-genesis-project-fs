@@ -1,6 +1,8 @@
 
 ## 🤰 [Leleka Genesis (web application)](https://fullstack-genesis-project.vercel.app/)
 
+<img src="public/leleka-og-meta.jpg" width="1100" height="500" alt="App Baby"/>
+
 <table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
 <tr>
 <td width="75%" valign="top">
