@@ -1,13 +1,24 @@
 
 ## 🤰 [Leleka Genesis (web application)](https://fullstack-genesis-project.vercel.app/)
 
-<img src="./public/Baby.gif" align="right" height="300" alt="App Baby"/>
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+<tr>
+<td width="75%" valign="top">
 
 > A modern, responsive web application designed to support expectant mothers throughout their pregnancy journey.
 
 **Pregnancy Tracker** provides a calm, intuitive, and personalized digital space where users can monitor pregnancy progress, manage daily tasks, record thoughts and moods, and receive relevant guidance — all across devices.
 
 The application focuses on clarity, emotional comfort, and practical value, combining thoughtful UX with a scalable technical foundation.
+
+</td>
+<td width="25%" align="center">
+
+<img src="public/Baby.gif" width="200" alt="App Baby"/>
+
+</td>
+</tr>
+</table>
 
 ---
 
