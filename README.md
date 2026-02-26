@@ -1,8 +1,7 @@
-
 ## 🤰 [Leleka Genesis (web application)](https://fullstack-genesis-project.vercel.app/)
 
 <a href="https://fullstack-genesis-project.vercel.app/">
-  <img src="public/leleka-og-meta.jpg" width="1100" height="500" alt="App Baby"/>
+  <img src="public/app.png" width="1100" alt="App Baby"/>
 </a>
 
 </br>
@@ -74,6 +73,7 @@ The application focuses on clarity, emotional comfort, and practical value, comb
 ```bash
 git clone https://github.com/ZViacheslavV/fullstack-genesis-project-fs
 ```
+
 ### 2. Install dependencies
 
 ```bash
@@ -95,6 +95,3 @@ http://localhost:3000
 npm run build
 npm run start
 ```
-
-
-
